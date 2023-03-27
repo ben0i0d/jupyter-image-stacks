@@ -13,7 +13,7 @@ Julia使用自己的PKG包管理工具，所以使用时注意对PKG换源并且
 这是一个遵循GPL的开源数学工具  
 4. DeepLearning  
 通常只提供Python语言支持，集成TensorFlow,Pytorch,Transformer,Oneflow支持  
-**对于DL与DataScience，提供GPU支持，包括cuda等**  
+**对于DL与DataScience，提供GPU支持，包括CUDA等**  
 5. MATLAB  
 一个工科常用的数学工具，但是需要用户自己具有许可证
 **这个镜像可能会在下一版本中被移除支持**  
