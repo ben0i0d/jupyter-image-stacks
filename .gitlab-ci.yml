@@ -7,6 +7,9 @@ docker-build:
   # Use the official docker image.
   image: docker:latest
   stage: build
+  variables:
+    TEST_IMAGE: gitlab.example.com:5555/sammy/hello_hapi:$CI_COMMIT_REF_NAME
+    RELEASE_IMAGE: gitlab.example.com:5555/sammy/hello_hapi:latest
   services:
     - docker:dind
   before_script:
