@@ -8,8 +8,8 @@ docker-build:
   image: docker:latest
   stage: build
   variables:
-    TEST_IMAGE: gitlab.example.com:5555/sammy/hello_hapi:$CI_COMMIT_REF_NAME
-    RELEASE_IMAGE: gitlab.example.com:5555/sammy/hello_hapi:latest
+    RELEASE_IMAGE:  hello_hapi:latest
+    CI_REGISTRY_IMAGE: eoelab.org:1032/jupyter/
   services:
     - docker:dind
   before_script:
