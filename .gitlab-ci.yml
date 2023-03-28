@@ -1,5 +1,6 @@
 # Build Docker image with CI/CD and push to the GitLab registry.
 image: docker:stable
+tags: [com]
 services:
   - docker:dind
 variables:
