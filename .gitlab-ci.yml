@@ -9,7 +9,7 @@ docker-build:
   stage: build
   variables:
     RELEASE_IMAGE:  hello_hapi:latest
-    CI_REGISTRY_IMAGE: eoelab.org:1032/jupyter/
+    CI_REGISTRY: eoelab.org:1032
   services:
     - docker:dind
   before_script:
