@@ -3,7 +3,7 @@ image: docker:stable
 services:
   - docker:dind
 variables:
-  CI_REGISTRY: "http://eoelab.org:1032"
+  CI_REGISTRY: "eoelab.org:1032"
 before_script:
   - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
 base-build:
@@ -11,5 +11,5 @@ base-build:
   stage: build
   script:
     - cd base
-    - docker build --pull -t "$CI_REGISTRY/base:stable" .
+    - docker build -t "$CI_REGISTRY/base:stable" . --network=host
     - docker push "$CI_REGISTRY_IMAGE/base:stable"
