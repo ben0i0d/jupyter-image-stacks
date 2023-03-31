@@ -10,5 +10,5 @@ upstream-build:
   stage: build
   script:
     - cd upstream
-    - docker build -t $CI_REGISTRY/upstraeam:stable . --network=host
-    - docker push $CI_REGISTRY/upstraeam:stable
+    - docker build -t $CI_REGISTRY/upstream:stable . --network=host
+    - docker push $CI_REGISTRY/upstream:stable
