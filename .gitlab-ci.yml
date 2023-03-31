@@ -1,8 +1,9 @@
 # Build Docker image with CI/CD and push to the GitLab registry.
-image: docker:latest
+image: docker:20.10.16
 services:
-  - docker:dind
+  - docker:20.10.16-dind
 variables:
+  DOCKER_HOST: tcp://docker:2375
   IMAGEHUB: "eoelab.org:1032"
   CI_REGISTRY: "eoelab.org:1032/build-image-stacks/jupyter-image-stacks"
 before_script:
@@ -10,8 +11,6 @@ before_script:
 base-build:
   tags: [build]
   stage: build
-  services:
-    - docker:dind
   script:
     - cd base
     - docker build -t $CI_REGISTRY/base:stable . --network=host
