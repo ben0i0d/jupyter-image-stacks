@@ -3,13 +3,14 @@ image: docker:latest
 services:
   - docker:dind
 variables:
-
+  IMAGEHUB: "eoelab.org:1032"
+  CI_REGISTRY: "eoelab.org:1032/build-image-stacks/jupyter-image-stacks"
 before_script:
-  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD eoelab.org:1032
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $IMAGEHUB
 base-build:
   tags: [build]
   stage: build
   script:
     - cd base
-    - docker build -t eoelab.org:1032/base:stable . --network=host
-    - docker push eoelab.org:1032/base:stable
+    - docker build -t $CI_REGISTRY/base:stable . --network=host
+    - docker push $CI_REGISTRY/base:stable
