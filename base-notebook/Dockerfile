@@ -25,9 +25,31 @@ RUN apt-get update --yes && \
     #   we use `run-one-constantly` to support `RESTARTABLE` option
     run-one && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update --yes && \
+    apt-get install --yes --no-install-recommends \
+    # Common useful utilities
+    git \
+    nano-tiny \
+    tzdata \
+    unzip \
+    vim-tiny \
+    # git-over-ssh
+    openssh-client \
+    # less is needed to run help in R
+    # see: https://github.com/jupyter/docker-stacks/issues/1588
+    less \
+    # nbconvert dependencies
+    # https://nbconvert.readthedocs.io/en/latest/install.html#installing-tex
+    texlive-xetex \
+    texlive-fonts-recommended \
+    texlive-plain-generic \
+    # Enable clipboard on Linux host systems
+    xclip && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN update-alternatives --install /usr/bin/nano nano /bin/nano-tiny 10
 
 USER ${NB_UID}
-
+COPY --chown=${NB_UID}:${NB_GID} Rprofile.site /opt/conda/lib/R/etc/
 # Install Jupyter Notebook, Lab, and Hub
 # Generate a notebook server config
 # Cleanup temporary files
