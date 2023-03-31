@@ -1,61 +1,24 @@
-# Copyright (c) Jupyter Development Team.
-# Distributed under the terms of the Modified BSD License.
 ARG OWNER=jupyter
 ARG BASE_CONTAINER=$OWNER/docker-stacks-foundation
 FROM $BASE_CONTAINER
 
 LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
 
-# Fix: https://github.com/hadolint/hadolint/wiki/DL4006
-# Fix: https://github.com/koalaman/shellcheck/wiki/SC3014
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root
 
-# Install all OS dependencies for notebook server that starts but lacks all
-# features (e.g., download as all possible file formats)
 RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends \
-    fonts-liberation \
-    # - pandoc is used to convert notebooks to html files
-    #   it's not present in aarch64 ubuntu image, so we install it here
-    pandoc \
-    # - run-one - a wrapper script that runs no more
-    #   than one unique  instance  of  some  command with a unique set of arguments,
-    #   we use `run-one-constantly` to support `RESTARTABLE` option
-    run-one && \
+    fonts-liberation pandoc git nano-tiny tzdata unzip vim-tiny openssh-client less texlive-xetex texlive-fonts-recommended texlive-plain-generic xclip run-one && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
-RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends \
-    # Common useful utilities
-    git \
-    nano-tiny \
-    tzdata \
-    unzip \
-    vim-tiny \
-    # git-over-ssh
-    openssh-client \
-    # less is needed to run help in R
-    # see: https://github.com/jupyter/docker-stacks/issues/1588
-    less \
-    # nbconvert dependencies
-    # https://nbconvert.readthedocs.io/en/latest/install.html#installing-tex
-    texlive-xetex \
-    texlive-fonts-recommended \
-    texlive-plain-generic \
-    # Enable clipboard on Linux host systems
-    xclip && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+
 RUN update-alternatives --install /usr/bin/nano nano /bin/nano-tiny 10
 
 USER ${NB_UID}
+
 COPY --chown=${NB_UID}:${NB_GID} Rprofile.site /opt/conda/lib/R/etc/
-# Install Jupyter Notebook, Lab, and Hub
-# Generate a notebook server config
-# Cleanup temporary files
-# Correct permissions
-# Do all this in a single RUN command to avoid duplicating all of the
-# files across image layers when the permissions change
+
 WORKDIR /tmp
 RUN mamba install --yes \
     'notebook' \
