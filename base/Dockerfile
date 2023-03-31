@@ -33,7 +33,8 @@ ENV CONDA_DIR=/opt/conda \
     LANGUAGE=en_US.UTF-8
 ENV PATH="${CONDA_DIR}/bin:${PATH}" \
     HOME="/home/${NB_USER}"
-
+    JUPYTER_PORT=8888
+EXPOSE $JUPYTER_PORT
 # Copy a script that we will use to correct permissions after running certain commands
 COPY fix-permissions /usr/local/bin/fix-permissions
 RUN  chmod a+rx /usr/local/bin/fix-permissions
@@ -84,10 +85,15 @@ RUN set -x && \
     rm micromamba && \
     # Pin major.minor version of python
     mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
+    mamba install --yes 'notebook' 'jupyterhub' 'jupyterlab' && \
+    jupyter notebook --generate-config && \
     mamba clean --all -f -y && \
+    npm cache clean --force && \
+    jupyter lab clean && \
+    rm -rf "/home/${NB_USER}/.cache/yarn" && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
-
+    
 
 # Configure container startup
 ENTRYPOINT ["tini", "-g", "--"]
