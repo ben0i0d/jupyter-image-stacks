@@ -10,6 +10,8 @@ before_script:
 base-build:
   tags: [build]
   stage: build
+  services:
+    - docker:dind
   script:
     - cd base
     - docker build -t $CI_REGISTRY/base:stable . --network=host
