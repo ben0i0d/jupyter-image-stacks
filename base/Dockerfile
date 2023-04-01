@@ -1,6 +1,4 @@
-ARG OWNER=jupyter
-ARG BASE_CONTAINER=$OWNER/docker-stacks-foundation
-FROM $BASE_CONTAINER
+FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/headwater:stable
 
 LABEL maintainer="eoelab <eoelab@eoelab.org>"
 
