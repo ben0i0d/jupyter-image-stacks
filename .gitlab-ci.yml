@@ -8,6 +8,7 @@ before_script:
 headwater-build:
   tags: [build]
   stage: build
+  needs: []
   script:
     - cd headwater
     - docker build -t $CI_REGISTRY/headwater:stable . --network=host
@@ -15,6 +16,7 @@ headwater-build:
 base-build:
   tags: [build]
   stage: build
+  needs: [headwater-build]
   script:
     - cd base
     - docker build -t $CI_REGISTRY/base:stable . --network=host
@@ -22,6 +24,7 @@ base-build:
 scipy-build:
   tags: [build]
   stage: build
+  needs: [base-build]
   script:
     - cd scipy
     - docker build -t $CI_REGISTRY/scipy:stable . --network=host
@@ -29,6 +32,7 @@ scipy-build:
 deeplearning-build:
   tags: [build]
   stage: build
+  needs: [scipy-build]
   script:
     - cd deeplearning
     - docker build -t $CI_REGISTRY/deeplearning:stable . --network=host
@@ -36,6 +40,7 @@ deeplearning-build:
 datascience-build:
   tags: [build]
   stage: build
+  needs: [scipy-build]
   script:
     - cd datascience
     - docker build -t $CI_REGISTRY/datascience:stable . --network=host
