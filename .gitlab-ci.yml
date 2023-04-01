@@ -16,27 +16,27 @@ base-build:
   tags: [build]
   stage: build
   script:
-    - cd headwater
+    - cd base
     - docker build -t $CI_REGISTRY/base:stable . --network=host
     - docker push $CI_REGISTRY/base:stable
 scipy-build:
   tags: [build]
   stage: build
   script:
-    - cd headwater
+    - cd scipy
     - docker build -t $CI_REGISTRY/scipy:stable . --network=host
     - docker push $CI_REGISTRY/scipy:stable
 deeplearning-build:
   tags: [build]
   stage: build
   script:
-    - cd headwater
+    - cd deeplearning
     - docker build -t $CI_REGISTRY/deeplearning:stable . --network=host
     - docker push $CI_REGISTRY/deeplearning:stable
 datascience-build:
   tags: [build]
   stage: build
   script:
-    - cd headwater
+    - cd datascience
     - docker build -t $CI_REGISTRY/datascience:stable . --network=host
     - docker push $CI_REGISTRY/datascience:stable
