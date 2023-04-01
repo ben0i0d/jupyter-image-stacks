@@ -2,15 +2,14 @@ ARG OWNER=jupyter
 ARG BASE_CONTAINER=$OWNER/docker-stacks-foundation
 FROM $BASE_CONTAINER
 
-LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
+LABEL maintainer="eoelab <eoelab@eoelab.org>"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root 
 RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list && \
     sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
-RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends \
+RUN apt-get update --yes && apt-get install --yes --no-install-recommends \
     fonts-liberation pandoc git nano-tiny tzdata unzip vim-tiny openssh-client less texlive-xetex texlive-fonts-recommended texlive-plain-generic xclip run-one && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -44,17 +43,14 @@ COPY start-notebook.sh start-singleuser.sh /usr/local/bin/
 # Currently need to have both jupyter_notebook_config and jupyter_server_config to support classic and lab
 COPY jupyter_server_config.py docker_healthcheck.py /etc/jupyter/
 
-# Fix permissions on /etc/jupyter as root
 USER root
 
-# Legacy for Jupyter Notebook Server, see: [#1205](https://github.com/jupyter/docker-stacks/issues/1205)
 RUN sed -re "s/c.ServerApp/c.NotebookApp/g" \
     /etc/jupyter/jupyter_server_config.py > /etc/jupyter/jupyter_notebook_config.py && \
     fix-permissions /etc/jupyter/
 
-# HEALTHCHECK documentation: https://docs.docker.com/engine/reference/builder/#healthcheck
 # This healtcheck works well for `lab`, `notebook`, `nbclassic`, `server` and `retro` jupyter commands
-# https://github.com/jupyter/docker-stacks/issues/915#issuecomment-1068528799
+
 HEALTHCHECK --interval=5s --timeout=3s --start-period=5s --retries=3 \
     CMD /etc/jupyter/docker_healthcheck.py || exit 1
 
