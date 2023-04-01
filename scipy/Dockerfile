@@ -3,10 +3,22 @@ FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/base:stable
 LABEL maintainer="eoelab <eoelab@eoelab.org"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+# Fix: https://github.com/hadolint/hadolint/wiki/DL4006
+# Fix: https://github.com/koalaman/shellcheck/wiki/SC3014
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root
+
 RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends build-essential cm-super dvipng ffmpeg && apt-get clean && rm -rf /var/lib/apt/lists/*
+    apt-get install --yes --no-install-recommends \
+    # for cython: https://cython.readthedocs.io/en/latest/src/quickstart/install.html
+    build-essential \
+    # for latex labels
+    cm-super \
+    dvipng \
+    # for matplotlib anim
+    ffmpeg && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 USER ${NB_UID}
 
@@ -24,6 +36,7 @@ RUN mamba install --yes \
     'h5py' \
     'ipympl'\
     'ipywidgets' \
+    # Temporary fix for: https://github.com/jupyter/docker-stacks/issues/1851
     'jupyter_server>=2.0.0' \
     'matplotlib-base' \
     'numba' \
