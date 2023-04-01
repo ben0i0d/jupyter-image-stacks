@@ -43,7 +43,7 @@ If you have a better idea, ask the issue in this project.
 节点内为镜像，默认子节点是父节点的派生  
 ```mermaid
 	graph LR
-	A(base)-->B(Python)
+	A(upstream)-->B(base)
 	B-->C(DataScicence)
     B-->D(DeepLearning)
     A-->F(Sagemath)
