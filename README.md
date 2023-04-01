@@ -9,10 +9,15 @@
 节点内为镜像，默认子节点是父节点的派生  
 ```mermaid
 	graph LR
-	A(upstream)-->B(base)
-	B-->C(DataScicence)
+	A(HeadWater)-->B(base)
+	B-->J(scipy)
+	J-->C(DataScicence)
+	C-->E(CPU)
+	C-->F(GPU)
     B-->D(DeepLearning)
-    A-->F(Sagemath)
+	D-->G(CPU)
+	D-->H(GPU)	
+    A-->I(Sagemath)
 ```
 ## 目前支持清单
 1. Python  
@@ -25,9 +30,6 @@ Julia使用自己的PKG包管理工具，所以使用时注意对PKG换源并且
 4. DeepLearning  
 通常只提供Python语言支持，集成TensorFlow,Pytorch,Transformer,Oneflow支持  
 **对于DL与DataScience，提供GPU支持，包括CUDA等**  
-5. MATLAB  
-一个工科常用的数学工具，但是需要用户自己具有许可证  
-**这个镜像可能会在下一版本中被移除支持**  
 ## 如何提交意见或参与
 如果您有更好的思路，可以在本项目中提出issue  
 ## 注意

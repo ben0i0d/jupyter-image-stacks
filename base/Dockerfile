@@ -16,10 +16,7 @@ USER ${NB_UID}
 COPY --chown=${NB_UID}:${NB_GID} Rprofile.site /opt/conda/lib/R/etc/
 
 WORKDIR /tmp
-RUN mamba install --yes \
-    'notebook' \
-    'jupyterhub' \
-    'jupyterlab' && \
+RUN mamba install --yes 'notebook' 'jupyterhub' 'jupyterlab' && \
     jupyter notebook --generate-config && \
     mamba clean --all -f -y && \
     npm cache clean --force && \
