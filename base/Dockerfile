@@ -6,7 +6,7 @@ LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-USER root
+USER root 
 RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list && \
     sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
 RUN apt-get update --yes && \
