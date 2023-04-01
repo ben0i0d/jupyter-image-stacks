@@ -1,6 +1,4 @@
-ARG OWNER=jupyter
-ARG BASE_CONTAINER=$OWNER/minimal-notebook
-FROM $BASE_CONTAINER
+FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/base:stable
 
 LABEL maintainer="eoelab <eoelab@eoelab.org"
 
@@ -15,7 +13,6 @@ RUN apt-get update --yes && \
 
 USER ${NB_UID}
 
-# Install Python 3 packages
 RUN mamba install --yes \
     'altair' \
     'beautifulsoup4' \
@@ -29,6 +26,7 @@ RUN mamba install --yes \
     'h5py' \
     'ipympl'\
     'ipywidgets' \
+    # Temporary fix for: https://github.com/jupyter/docker-stacks/issues/1851
     'jupyter_server>=2.0.0' \
     'matplotlib-base' \
     'numba' \
