@@ -16,6 +16,7 @@ RUN apt-get update --yes && apt-get install --yes --no-install-recommends fonts-
 ENV JULIA_DEPOT_PATH=/opt/julia \
     JULIA_PKGDIR=/opt/julia \
     JULIA_VERSION="${julia_version}"
+    JULIA_PKG_SERVER=https://mirrors.ustc.edu.cn/julia
 
 WORKDIR /tmp
 
