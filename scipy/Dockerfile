@@ -2,7 +2,7 @@ ARG OWNER=jupyter
 ARG BASE_CONTAINER=$OWNER/minimal-notebook
 FROM $BASE_CONTAINER
 
-LABEL maintainer="eoelab <eoelab@eoelab.org
+LABEL maintainer="eoelab <eoelab@eoelab.org"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
