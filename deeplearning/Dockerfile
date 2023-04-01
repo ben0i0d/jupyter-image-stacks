@@ -1,6 +1,4 @@
-ARG OWNER=jupyter
-ARG BASE_CONTAINER=$OWNER/scipy-notebook
-FROM $BASE_CONTAINER
+FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/scipy:stable
 
 LABEL maintainer="eoelab <eoelab@eoelab.org>"
 

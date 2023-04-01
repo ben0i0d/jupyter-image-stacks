@@ -1,6 +1,4 @@
-ARG ROOT_CONTAINER=ubuntu:22.04
-FROM $ROOT_CONTAINER
-
+FROM ubuntu:22.04
 LABEL maintainer="eoelab <eoelab@eoelab.org>"
 ARG NB_USER="jovyan"
 ARG NB_UID="1000"
