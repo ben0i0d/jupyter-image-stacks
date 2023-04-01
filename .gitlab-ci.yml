@@ -12,3 +12,17 @@ upstream-build:
     - cd headwater
     - docker build -t $CI_REGISTRY/headwater:stable . --network=host
     - docker push $CI_REGISTRY/headwater:stable
+base-build:
+  tags: [build]
+  stage: build
+  script:
+    - cd headwater
+    - docker build -t $CI_REGISTRY/base:stable . --network=host
+    - docker push $CI_REGISTRY/base:stable
+scipy-build:
+  tags: [build]
+  stage: build
+  script:
+    - cd headwater
+    - docker build -t $CI_REGISTRY/scipy:stable . --network=host
+    - docker push $CI_REGISTRY/scipy:stable
