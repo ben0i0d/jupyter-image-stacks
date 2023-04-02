@@ -9,7 +9,7 @@ USER root
 ARG julia_version="1.8.5"
 
 # R pre-requisites
-RUN apt-get update --yes && apt-get install --yes --no-install-recommends fonts-dejavu gfortran gcc && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get install --yes fonts-dejavu gfortran gcc && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Julia dependencies
 # install Julia packages in /opt/julia instead of ${HOME}
