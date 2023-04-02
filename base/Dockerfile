@@ -5,9 +5,10 @@ LABEL maintainer="eoelab <eoelab@eoelab.org>"
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root 
-RUN apt-get install --yes \
-    fonts-liberation pandoc git nano-tiny tzdata unzip vim-tiny openssh-client less texlive-xetex texlive-fonts-recommended texlive-plain-generic xclip run-one \
-    build-essential cm-super dvipng ffmpeg && \
+RUN apt-get update --yes && \
+    apt-get install --yes \
+    fonts-liberation pandoc git nano-tiny tzdata unzip vim-tiny openssh-client less texlive-xetex \
+    texlive-fonts-recommended texlive-plain-generic xclip run-one build-essential cm-super dvipng ffmpeg && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN update-alternatives --install /usr/bin/nano nano /bin/nano-tiny 10
