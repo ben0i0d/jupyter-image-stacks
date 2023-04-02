@@ -9,14 +9,10 @@
 节点内为镜像，默认子节点是父节点的派生  
 ```mermaid
 	graph LR
-	A(HeadWater)-->B(base)
+	A(HeadWater)-->B(Base-CPU)
 	B-->C(DataScicence)
-	C-->E(CPU)
-	C-->F(GPU)
-    B-->D(DeepLearning)
-	D-->G(CPU)
-	D-->H(GPU)	
-    A-->I(Sagemath)
+    B-->D(DeepLearning)	
+    A-->E(Sagemath)
 ```
 ## 目前支持清单
 1. Python  
