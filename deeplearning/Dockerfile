@@ -6,6 +6,6 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 
 # pip install 
-RUN pip install tensorflow && \
-    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu && \
-    pip cache purge 
+RUN mamba install tensorflow && \
+    mamba install pytorch torchvision torchaudio cpuonly -c pytorch && \
+    mamba clean --all -f -y 
