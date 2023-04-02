@@ -1,5 +1,4 @@
-FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/base:stable
-
+FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/base:cpu
 LABEL maintainer="eoelab <eoelab@eoelab.org>"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
