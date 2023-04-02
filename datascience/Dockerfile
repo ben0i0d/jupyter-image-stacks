@@ -44,9 +44,9 @@ USER ${NB_UID}
 
 # R packages including IRKernel which gets installed globally.
 # r-e1071: dependency of the caret R package
-RUN conda install --yes 'r-base' 'r-caret' 'r-crayon' 'r-devtools' 'r-e1071' 'r-forecast' 'r-hexbin' 'r-htmltools' 'r-htmlwidgets' 'r-irkernel' \
+RUN mamba install --yes 'r-base' 'r-caret' 'r-crayon' 'r-devtools' 'r-e1071' 'r-forecast' 'r-hexbin' 'r-htmltools' 'r-htmlwidgets' 'r-irkernel' \
     'r-nycflights13' 'r-randomforest' 'r-rcurl' 'r-rmarkdown' 'r-rodbc' 'r-rsqlite' 'r-shiny' 'r-tidymodels' 'r-tidyverse' 'rpy2' 'unixodbc' && \
-    conda clean --all -f -y && \
+    mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
