@@ -4,8 +4,7 @@ LABEL maintainer="eoelab <eoelab@eoelab.org>"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-# pip mirror
-RUN pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple 
+
     
 # pip install 
 RUN pip install tensorflow
