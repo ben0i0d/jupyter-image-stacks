@@ -8,5 +8,6 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # pip install 
 RUN pip install tensorflow && \
     pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu && \
-    pip install  transformer && \
+    pip install transformers && \
+    pip install --find-links https://release.oneflow.info oneflow==0.9.0+cpu && \
     pip cache purge
