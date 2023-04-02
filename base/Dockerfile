@@ -17,7 +17,7 @@ USER ${NB_UID}
 COPY --chown=${NB_UID}:${NB_GID} Rprofile.site /opt/conda/lib/R/etc/
 
 WORKDIR /tmp
-RUN mamba install --yes 'notebook' 'jupyterhub' 'jupyterlab' 'altair' 'beautifulsoup4' 'bokeh' 'bottleneck' 'cloudpickle' 'conda-forge::blas=*=openblas' 'cython' \
+RUN conda install --yes 'notebook' 'jupyterhub' 'jupyterlab' 'altair' 'beautifulsoup4' 'bokeh' 'bottleneck' 'cloudpickle' 'openblas' 'cython' \
     'dask' 'dill' 'h5py' 'ipympl' 'ipywidgets' 'jupyter_server>=2.0.0' 'matplotlib-base' 'numba' 'numexpr' 'openpyxl' 'pandas' 'patsy' 'protobuf' 'pytables' \
     'scikit-image' 'scikit-learn' 'scipy' 'seaborn' 'sqlalchemy' 'statsmodels' 'sympy' 'widgetsnbextension' 'xlrd' && \
     jupyter notebook --generate-config && \
