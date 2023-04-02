@@ -6,6 +6,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 
 # pip install 
-RUN mamba install tensorflow && \
-    mamba install pytorch torchvision torchaudio cpuonly -c pytorch && \
-    mamba clean --all -f -y 
+RUN pip install tensorflow transformer && \
+    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu && \
+    pip install --find-links https://release.oneflow.info oneflow==0.9.0+cpu && \
+    pip cache purge

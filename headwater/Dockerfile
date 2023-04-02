@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM ubuntu:22.04
 LABEL maintainer="eoelab <eoelab@eoelab.org>"
 ARG NB_USER="jovyan"
 ARG NB_UID="1000"
@@ -14,7 +14,7 @@ RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update --yes && \
     apt-get upgrade --yes && \
-    apt-get install --yes bzip2 ca-certificates locales sudo tini wget && \
+    apt-get install --yes --no-install-recommends bzip2 ca-certificates locales sudo tini wget && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
@@ -35,8 +35,7 @@ COPY fix-permissions /usr/local/bin/fix-permissions
 RUN chmod a+rx /usr/local/bin/fix-permissions
 
 RUN sed -i 's/^#force_color_prompt=yes/force_color_prompt=yes/' /etc/skel/.bashrc && \
-   # Add call to conda init script see https://stackoverflow.com/a/58081608/4413446
-   echo 'eval "$(command conda shell.bash hook 2> /dev/null)"' >> /etc/skel/.bashrc
+    echo 'eval "$(command conda shell.bash hook 2> /dev/null)"' >> /etc/skel/.bashrc
 
 RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
     sed -i.bak -e 's/^%admin/#%admin/' /etc/sudoers && \
@@ -59,14 +58,8 @@ RUN mkdir "/home/${NB_USER}/work" && \
 
 COPY --chown="${NB_UID}:${NB_GID}" initial-condarc "${CONDA_DIR}/.condarc"
 WORKDIR /tmp
-RUN set -x && \
-    arch=$(uname -m) && \
-    if [ "${arch}" = "x86_64" ]; then \
-        # Should be simpler, see <https://github.com/mamba-org/mamba/issues/1437>
-        arch="64"; \
-    fi && \
-    wget -qO /tmp/micromamba.tar.bz2 \
-        "https://micromamba.snakepit.net/api/micromamba/linux-${arch}/latest" && \
+RUN wget -qO /tmp/micromamba.tar.bz2 \
+        "https://micromamba.snakepit.net/api/micromamba/linux-64/latest" && \
     tar -xvjf /tmp/micromamba.tar.bz2 --strip-components=1 bin/micromamba && \
     rm /tmp/micromamba.tar.bz2 && \
     PYTHON_SPECIFIER="python=${PYTHON_VERSION}" && \
