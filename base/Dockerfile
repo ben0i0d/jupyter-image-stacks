@@ -21,7 +21,7 @@ RUN conda install --yes 'notebook' 'jupyterhub' 'jupyterlab' 'altair' 'beautiful
     'dask' 'dill' 'h5py' 'ipympl' 'ipywidgets' 'jupyter_server>=2.0.0' 'matplotlib-base' 'numba' 'numexpr' 'openpyxl' 'pandas' 'patsy' 'protobuf' 'pytables' \
     'scikit-image' 'scikit-learn' 'scipy' 'seaborn' 'sqlalchemy' 'statsmodels' 'sympy' 'widgetsnbextension' 'xlrd' && \
     jupyter notebook --generate-config && \
-    mamba clean --all -f -y && \
+    conda clean --all -f -y && \
     npm cache clean --force && \
     jupyter lab clean && \
     rm -rf "/home/${NB_USER}/.cache/yarn" && \

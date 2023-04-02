@@ -5,8 +5,7 @@ LABEL maintainer="eoelab <eoelab@eoelab.org>"
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 
-    
 # pip install 
-RUN pip install tensorflow
-RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
-RUN pip cache purge 
+RUN conda install tensorflow && \
+    conda install pytorch torchvision torchaudio cpuonly -c pytorch && \
+    conda clean --all -f -y 
