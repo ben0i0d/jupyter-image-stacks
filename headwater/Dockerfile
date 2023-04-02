@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM debian:bullseye
 LABEL maintainer="eoelab <eoelab@eoelab.org>"
 ARG NB_USER="jovyan"
 ARG NB_UID="1000"
