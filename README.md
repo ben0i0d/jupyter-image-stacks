@@ -10,8 +10,7 @@
 ```mermaid
 	graph LR
 	A(HeadWater)-->B(base)
-	B-->J(scipy)
-	J-->C(DataScicence)
+	B-->C(DataScicence)
 	C-->E(CPU)
 	C-->F(GPU)
     B-->D(DeepLearning)

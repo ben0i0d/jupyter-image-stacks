@@ -6,7 +6,8 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root 
 RUN apt-get update --yes && apt-get install --yes --no-install-recommends \
-    fonts-liberation pandoc git nano-tiny tzdata unzip vim-tiny openssh-client less texlive-xetex texlive-fonts-recommended texlive-plain-generic xclip run-one && \
+    fonts-liberation pandoc git nano-tiny tzdata unzip vim-tiny openssh-client less texlive-xetex texlive-fonts-recommended texlive-plain-generic xclip run-one
+    build-essential cm-super dvipng ffmpeg && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN update-alternatives --install /usr/bin/nano nano /bin/nano-tiny 10
@@ -16,7 +17,9 @@ USER ${NB_UID}
 COPY --chown=${NB_UID}:${NB_GID} Rprofile.site /opt/conda/lib/R/etc/
 
 WORKDIR /tmp
-RUN mamba install --yes 'notebook' 'jupyterhub' 'jupyterlab' && \
+RUN mamba install --yes 'notebook' 'jupyterhub' 'jupyterlab' 'altair' 'beautifulsoup4' 'bokeh' 'bottleneck' 'cloudpickle' 'conda-forge::blas=*=openblas' 'cython' \
+    'dask' 'dill' 'h5py' 'ipympl' 'ipywidgets' 'jupyter_server>=2.0.0' 'matplotlib-base' 'numba' 'numexpr' 'openpyxl' 'pandas' 'patsy' 'protobuf' 'pytables' \
+    'scikit-image' 'scikit-learn' 'scipy' 'seaborn' 'sqlalchemy' 'statsmodels' 'sympy' 'widgetsnbextension' 'xlrd' && \
     jupyter notebook --generate-config && \
     mamba clean --all -f -y && \
     npm cache clean --force && \
@@ -24,6 +27,20 @@ RUN mamba install --yes 'notebook' 'jupyterhub' 'jupyterlab' && \
     rm -rf "/home/${NB_USER}/.cache/yarn" && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
+
+WORKDIR /tmp
+RUN git clone https://github.com/PAIR-code/facets.git && \
+    jupyter nbextension install facets/facets-dist/ --sys-prefix && \
+    rm -rf /tmp/facets && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
+
+# Import matplotlib the first time to build the font cache.
+ENV XDG_CACHE_HOME="/home/${NB_USER}/.cache/"
+
+RUN MPLBACKEND=Agg python -c "import matplotlib.pyplot" && \
+    fix-permissions "/home/${NB_USER}"
+
 
 ENV JUPYTER_PORT=8888
 EXPOSE $JUPYTER_PORT

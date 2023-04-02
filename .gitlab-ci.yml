@@ -21,18 +21,10 @@ base-build:
     - cd base
     - docker build -t $CI_REGISTRY/base:stable . --network=host
     - docker push $CI_REGISTRY/base:stable
-scipy-build:
-  tags: [build]
-  stage: build
-  needs: [base-build]
-  script:
-    - cd scipy
-    - docker build -t $CI_REGISTRY/scipy:stable . --network=host
-    - docker push $CI_REGISTRY/scipy:stable
 deeplearning-build:
   tags: [build]
   stage: build
-  needs: [scipy-build]
+  needs: [base-build]
   script:
     - cd deeplearning
     - docker build -t $CI_REGISTRY/deeplearning:stable . --network=host
@@ -40,7 +32,7 @@ deeplearning-build:
 datascience-build:
   tags: [build]
   stage: build
-  needs: [scipy-build]
+  needs: [base-build]
   script:
     - cd datascience
     - docker build -t $CI_REGISTRY/datascience:stable . --network=host
