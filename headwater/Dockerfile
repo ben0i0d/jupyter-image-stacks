@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM debian:bullseye
 LABEL maintainer="eoelab <eoelab@eoelab.org>"
 ARG NB_USER="jovyan"
 ARG NB_UID="1000"
@@ -7,8 +7,10 @@ ARG NB_GID="100"
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root
-RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list && \
-    sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
+#RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list && \
+#    sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
+RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
+    sed -i 's|security.debian.org/debian-security|mirrors.ustc.edu.cn/debian-security|g' /etc/apt/sources.list
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update --yes && \
     apt-get upgrade --yes && \
@@ -33,7 +35,8 @@ COPY fix-permissions /usr/local/bin/fix-permissions
 RUN chmod a+rx /usr/local/bin/fix-permissions
 
 RUN sed -i 's/^#force_color_prompt=yes/force_color_prompt=yes/' /etc/skel/.bashrc && \
-    echo 'eval "$(command conda shell.bash hook 2> /dev/null)"' >> /etc/skel/.bashrc
+   # Add call to conda init script see https://stackoverflow.com/a/58081608/4413446
+   echo 'eval "$(command conda shell.bash hook 2> /dev/null)"' >> /etc/skel/.bashrc
 
 RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
     sed -i.bak -e 's/^%admin/#%admin/' /etc/sudoers && \
@@ -56,8 +59,14 @@ RUN mkdir "/home/${NB_USER}/work" && \
 
 COPY --chown="${NB_UID}:${NB_GID}" initial-condarc "${CONDA_DIR}/.condarc"
 WORKDIR /tmp
-RUN wget -qO /tmp/micromamba.tar.bz2 \
-        "https://micromamba.snakepit.net/api/micromamba/linux-64/latest" && \
+RUN set -x && \
+    arch=$(uname -m) && \
+    if [ "${arch}" = "x86_64" ]; then \
+        # Should be simpler, see <https://github.com/mamba-org/mamba/issues/1437>
+        arch="64"; \
+    fi && \
+    wget -qO /tmp/micromamba.tar.bz2 \
+        "https://micromamba.snakepit.net/api/micromamba/linux-${arch}/latest" && \
     tar -xvjf /tmp/micromamba.tar.bz2 --strip-components=1 bin/micromamba && \
     rm /tmp/micromamba.tar.bz2 && \
     PYTHON_SPECIFIER="python=${PYTHON_VERSION}" && \
@@ -76,7 +85,6 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
-
 RUN conda config --set show_channel_urls yes && \
     conda config --add channels https://mirrors.bfsu.edu.cn/anaconda/pkgs/free/ && \
     conda config --add channels https://mirrors.bfsu.edu.cn/anaconda/pkgs/main/ && \
