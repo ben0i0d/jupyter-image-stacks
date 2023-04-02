@@ -37,7 +37,6 @@ RUN set -x && julia_arch=$(uname -m) && julia_short_arch="${julia_arch}" && \
 # Show Julia where conda libraries are \
 RUN mkdir /etc/julia && \
     echo "push!(Libdl.DL_LOAD_PATH, \"${CONDA_DIR}/lib\")" >> /etc/julia/juliarc.jl && \
-    # Create JULIA_PKGDIR \
     mkdir "${JULIA_PKGDIR}" && \
     chown "${NB_USER}" "${JULIA_PKGDIR}" && \
     fix-permissions "${JULIA_PKGDIR}"
@@ -46,9 +45,9 @@ USER ${NB_UID}
 
 # R packages including IRKernel which gets installed globally.
 # r-e1071: dependency of the caret R package
-RUN mamba install --yes 'r-base' 'r-caret' 'r-crayon' 'r-devtools' 'r-e1071' 'r-forecast' 'r-hexbin' 'r-htmltools' 'r-htmlwidgets' 'r-irkernel' \
+RUN conda install --yes 'r-base' 'r-caret' 'r-crayon' 'r-devtools' 'r-e1071' 'r-forecast' 'r-hexbin' 'r-htmltools' 'r-htmlwidgets' 'r-irkernel' \
     'r-nycflights13' 'r-randomforest' 'r-rcurl' 'r-rmarkdown' 'r-rodbc' 'r-rsqlite' 'r-shiny' 'r-tidymodels' 'r-tidyverse' 'rpy2' 'unixodbc' && \
-    mamba clean --all -f -y && \
+    conda clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
