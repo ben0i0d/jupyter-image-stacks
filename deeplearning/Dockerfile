@@ -6,6 +6,6 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 
 # pip install 
-RUN conda install tensorflow && \
-    conda install pytorch torchvision torchaudio cpuonly -c pytorch && \
-    conda clean --all -f -y 
+RUN mamba install tensorflow && \
+    mamba install pytorch torchvision torchaudio cpuonly -c pytorch && \
+    mamba clean --all -f -y 
