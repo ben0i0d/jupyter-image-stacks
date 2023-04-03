@@ -26,7 +26,7 @@ sagemath-build:
   stage: build
   needs: [headwater-build]
   script:
-    - cd sagemath/cpu
+    - cd sagemath
     - docker build -t $CI_REGISTRY/sagemath:stable . --network=host
     - docker push $CI_REGISTRY/sagemath:stable
 deeplearning-build:
