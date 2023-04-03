@@ -16,9 +16,8 @@ RUN apt-get update --yes && \
 USER ${NB_UID}
 
 WORKDIR /tmp
-RUN conda install --quiet --yes -n base -c conda-forge widgetsnbextension && \
-    conda create --quiet --yes -n sage -c conda-forge sage=$SAGE_VERSION python=$SAGE_PYTHON_VERSION && \
-    conda install --yes 'notebook' 'jupyterhub' 'jupyterlab' && \
+RUN conda create --quiet --yes -n sage -c conda-forge sage=$SAGE_VERSION python=$SAGE_PYTHON_VERSION && \
+    conda install --yes 'notebook' 'jupyterhub' 'jupyterlab' 'widgetsnbextension' && \
     jupyter notebook --generate-config && \
     conda clean --all -f -y && \
     npm cache clean --force && \
