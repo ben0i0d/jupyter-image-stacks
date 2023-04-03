@@ -16,8 +16,7 @@ RUN apt-get update --yes && \
 USER ${NB_UID}
 
 WORKDIR /tmp
-RUN conda create --quiet --yes -n sage -c conda-forge sage=$SAGE_VERSION python=$SAGE_PYTHON_VERSION && \
-    conda install --yes 'notebook' 'jupyterhub' 'jupyterlab' 'widgetsnbextension' && \
+RUN conda install --yes 'notebook' 'jupyterhub' 'jupyterlab' 'widgetsnbextension' sage=$SAGE_VERSION python=$SAGE_PYTHON_VERSION && \
     jupyter notebook --generate-config && \
     conda clean --all -f -y && \
     npm cache clean --force && \
@@ -32,7 +31,7 @@ RUN conda create --quiet --yes -n sage -c conda-forge sage=$SAGE_VERSION python=
 RUN echo ' \
         from sage.repl.ipython_kernel.install import SageKernelSpec; \
         SageKernelSpec.update(prefix=os.environ["CONDA_DIR"]); \
-    ' | conda run -n sage sage && \
+    ' | conda run sage && \
     echo ' \
         cat $SAGE_ROOT/etc/conda/activate.d/sage-activate.sh | \
             grep -Po '"'"'(?<=^export )[A-Z_]+(?=)'"'"' | \
@@ -40,7 +39,7 @@ RUN echo ' \
             jq --argfile kernel $SAGE_LOCAL/share/jupyter/kernels/sagemath/kernel.json \
             '"'"'. | map(. as $k | env | .[$k] as $v | {($k):$v}) | add as $vars | $kernel | .env= $vars'"'"' > \
             $CONDA_DIR/share/jupyter/kernels/sagemath/kernel.json \
-    ' | conda run -n sage sh && \
+    ' | conda run sh && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
@@ -56,7 +55,7 @@ RUN echo ' \
                 mv -f kernel.json.modified kernel.json && \
                 ln  -s $SAGE_LOCAL/share/jupyter/kernels/% $CONDA_DIR/share/jupyter/kernels/%_sage \
             '"'"' \
-    ' | conda run -n sage sh && \
+    ' | conda run sh && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
