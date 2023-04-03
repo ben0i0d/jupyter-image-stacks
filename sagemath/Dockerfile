@@ -1,5 +1,4 @@
 ARG SAGE_VERSION=9.0
-ARG SAGE_PYTHON_VERSION=3.7
 FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/headwater:stable
 
 LABEL maintainer="eoelab <eoelab@eoelab.org>"
@@ -16,7 +15,7 @@ RUN apt-get update --yes && \
 USER ${NB_UID}
 
 WORKDIR /tmp
-RUN conda install --yes 'notebook' 'jupyterhub' 'jupyterlab' 'widgetsnbextension' sage=$SAGE_VERSION python=$SAGE_PYTHON_VERSION && \
+RUN conda install --yes 'notebook' 'jupyterhub' 'jupyterlab' 'widgetsnbextension' sage=$SAGE_VERSION && \
     jupyter notebook --generate-config && \
     conda clean --all -f -y && \
     npm cache clean --force && \
