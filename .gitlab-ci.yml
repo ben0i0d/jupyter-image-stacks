@@ -21,14 +21,6 @@ base-build:
     - cd base/cpu
     - docker build -t $CI_REGISTRY/base:cpu . --network=host
     - docker push $CI_REGISTRY/base:cpu
-sagemath-build:
-  tags: [build]
-  stage: build
-  needs: [headwater-build]
-  script:
-    - cd sagemath
-    - docker build -t $CI_REGISTRY/sagemath:stable . --network=host
-    - docker push $CI_REGISTRY/sagemath:stable
 deeplearning-build:
   tags: [build]
   stage: build
