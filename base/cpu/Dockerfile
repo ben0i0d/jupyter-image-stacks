@@ -1,4 +1,4 @@
-FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/headwater:stable
+FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:headwater
 
 LABEL maintainer="eoelab <eoelab@eoelab.org>"
 
