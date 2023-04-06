@@ -10,29 +10,29 @@ headwater-build:
   needs: []
   script:
     - cd headwater
-    - docker build -t $CI_REGISTRY/headwater:stable . --network=host
-    - docker push $CI_REGISTRY/headwater:stable
+    - docker build -t $CI_REGISTRY/jupyter:headwater . --network=host
+    - docker push $CI_REGISTRY/jupyter:headwater
 base-build:
   tags: [build]
   stage: build
   needs: [headwater-build]
   script:
     - cd base/cpu
-    - docker build -t $CI_REGISTRY/base:cpu . --network=host
-    - docker push $CI_REGISTRY/base:cpu
+    - docker build -t $CI_REGISTRY/jupyter:base . --network=host
+    - docker push $CI_REGISTRY/jupyter:base
 deeplearning-build:
   tags: [build]
   stage: build
   needs: [base-build]
   script:
     - cd deeplearning/cpu
-    - docker build -t $CI_REGISTRY/deeplearning:cpu . --network=host
-    - docker push $CI_REGISTRY/deeplearning:cpu
+    - docker build -t $CI_REGISTRY/jupyter:dl-c . --network=host
+    - docker push $CI_REGISTRY/jupyter:dl-c
 datascience-build:
   tags: [build]
   stage: build
   needs: [base-build]
   script:
     - cd datascience/cpu
-    - docker build -t $CI_REGISTRY/datascience:cpu . --network=host
-    - docker push $CI_REGISTRY/datascience:cpu
+    - docker build -t $CI_REGISTRY/jupyter:data-c . --network=host
+    - docker push $CI_REGISTRY/jupyter:data-c
