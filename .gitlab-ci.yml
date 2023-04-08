@@ -4,14 +4,14 @@ variables:
   CI_REGISTRY: "eoelab.org:1032/build-image-stacks/jupyter-image-stacks"
 before_script:
   - docker login -u $CI_USER -p $CI_PASSWORD $LOCAL_REGISTRY
-headwater-build:
+upstream-c-build:
   tags: [build]
   stage: build
   needs: []
   script:
-    - cd headwater
-    - docker build -t $CI_REGISTRY/jupyter:headwater . --network=host
-    - docker push $CI_REGISTRY/jupyter:headwater
+    - cd upstream/upstream-cpu
+    - docker build -t $CI_REGISTRY/jupyter:up-c . --network=host
+    - docker push $CI_REGISTRY/jupyter:up-c
 base-build:
   tags: [build]
   stage: build
