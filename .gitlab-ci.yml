@@ -15,7 +15,7 @@ upstream-c-build:
 base-build:
   tags: [build]
   stage: build
-  needs: [headwater-build]
+  needs: [upstream-c-build]
   script:
     - cd base/cpu
     - docker build -t $CI_REGISTRY/jupyter:base . --network=host
