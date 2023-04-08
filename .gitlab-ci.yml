@@ -17,7 +17,7 @@ base-build:
   stage: build
   needs: [upstream-c-build]
   script:
-    - cd base/cpu
+    - cd base
     - docker build -t $CI_REGISTRY/jupyter:base . --network=host
     - docker push $CI_REGISTRY/jupyter:base
 deeplearning-build:
