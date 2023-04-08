@@ -1,4 +1,4 @@
-FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:base
+FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:bscipy
 LABEL maintainer="eoelab <eoelab@eoelab.org>"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]

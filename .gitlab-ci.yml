@@ -20,10 +20,18 @@ base-build:
     - cd base
     - docker build -t $CI_REGISTRY/jupyter:base . --network=host
     - docker push $CI_REGISTRY/jupyter:base
-deeplearning-build:
+scipy-build:
   tags: [build]
   stage: build
   needs: [base-build]
+  script:
+    - cd scipy
+    - docker build -t $CI_REGISTRY/jupyter:scipy . --network=host
+    - docker push $CI_REGISTRY/jupyter:scipy
+deeplearning-build:
+  tags: [build]
+  stage: build
+  needs: [scipy-build]
   script:
     - cd deeplearning/cpu
     - docker build -t $CI_REGISTRY/jupyter:dl-c . --network=host
@@ -31,7 +39,7 @@ deeplearning-build:
 datascience-build:
   tags: [build]
   stage: build
-  needs: [base-build]
+  needs: [scipy-build]
   script:
     - cd datascience/cpu
     - docker build -t $CI_REGISTRY/jupyter:data-c . --network=host

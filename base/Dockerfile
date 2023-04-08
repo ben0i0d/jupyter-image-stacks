@@ -4,23 +4,33 @@ LABEL maintainer="eoelab <eoelab@eoelab.org>"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-USER root 
+# Fix: https://github.com/hadolint/hadolint/wiki/DL4006
+# Fix: https://github.com/koalaman/shellcheck/wiki/SC3014
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+USER root
+
+# Install all OS dependencies for notebook server that starts but lacks all
+# features (e.g., download as all possible file formats)
 RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends \
-    fonts-liberation pandoc git nano-tiny tzdata unzip vim-tiny openssh-client less texlive-xetex \
-    texlive-fonts-recommended texlive-plain-generic xclip run-one build-essential cm-super dvipng ffmpeg && \
+    git nano-tiny tzdata unzip vim-tiny openssh-client less texlive-xetex \
+    texlive-fonts-recommended texlive-plain-generic xclip fonts-liberation pandoc run-one && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
-
 RUN update-alternatives --install /usr/bin/nano nano /bin/nano-tiny 10
-
 USER ${NB_UID}
-
 COPY --chown=${NB_UID}:${NB_GID} Rprofile.site /opt/conda/lib/R/etc/
-
+# Install Jupyter Notebook, Lab, and Hub
+# Generate a notebook server config
+# Cleanup temporary files
+# Correct permissions
+# Do all this in a single RUN command to avoid duplicating all of the
+# files across image layers when the permissions change
 WORKDIR /tmp
-RUN conda install --yes 'notebook' 'jupyterhub' 'jupyterlab' 'altair' 'beautifulsoup4' 'bokeh' 'bottleneck' 'cloudpickle' 'openblas' 'cython' \
-    'dask' 'dill' 'h5py' 'ipympl' 'ipywidgets' 'jupyter_server>=2.0.0' 'matplotlib-base' 'numba' 'numexpr' 'openpyxl' 'pandas' 'patsy' 'protobuf' 'pytables' \
-    'scikit-image' 'scikit-learn' 'scipy' 'seaborn' 'sqlalchemy' 'statsmodels' 'sympy' 'widgetsnbextension' 'xlrd' && \
+RUN conda install --yes \
+    'notebook' \
+    'jupyterhub' \
+    'jupyterlab' && \
     jupyter notebook --generate-config && \
     conda clean --all -f -y && \
     npm cache clean --force && \
@@ -28,15 +38,6 @@ RUN conda install --yes 'notebook' 'jupyterhub' 'jupyterlab' 'altair' 'beautiful
     rm -rf "/home/${NB_USER}/.cache/yarn" && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
-
-WORKDIR /tmp
-
-# Import matplotlib the first time to build the font cache.
-ENV XDG_CACHE_HOME="/home/${NB_USER}/.cache/"
-
-RUN MPLBACKEND=Agg python -c "import matplotlib.pyplot" && \
-    fix-permissions "/home/${NB_USER}"
-
 
 ENV JUPYTER_PORT=8888
 EXPOSE $JUPYTER_PORT
@@ -49,13 +50,15 @@ COPY start-notebook.sh start-singleuser.sh /usr/local/bin/
 # Currently need to have both jupyter_notebook_config and jupyter_server_config to support classic and lab
 COPY jupyter_server_config.py docker_healthcheck.py /etc/jupyter/
 
+# Fix permissions on /etc/jupyter as root
 USER root
 
+# Legacy for Jupyter Notebook Server, see: [#1205](https://github.com/jupyter/docker-stacks/issues/1205)
 RUN sed -re "s/c.ServerApp/c.NotebookApp/g" \
     /etc/jupyter/jupyter_server_config.py > /etc/jupyter/jupyter_notebook_config.py && \
     fix-permissions /etc/jupyter/
 
-# This healtcheck works well for `lab`, `notebook`, `nbclassic`, `server` and `retro` jupyter commands
+# HEALTHCHECK documentation: https://docs.docker.com/engine/reference/builder/#healthcheck
 
 HEALTHCHECK --interval=5s --timeout=3s --start-period=5s --retries=3 \
     CMD /etc/jupyter/docker_healthcheck.py || exit 1
@@ -64,3 +67,4 @@ HEALTHCHECK --interval=5s --timeout=3s --start-period=5s --retries=3 \
 USER ${NB_UID}
 
 WORKDIR "${HOME}"
+
