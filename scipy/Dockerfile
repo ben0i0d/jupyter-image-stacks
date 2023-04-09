@@ -2,8 +2,6 @@ FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:base
 
 LABEL maintainer="eoelab <eoelab@eoelab.org>"
 
-# Fix: https://github.com/hadolint/hadolint/wiki/DL4006
-# Fix: https://github.com/koalaman/shellcheck/wiki/SC3014
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root
@@ -15,37 +13,10 @@ RUN apt-get update --yes && \
 USER ${NB_UID}
 
 # Install Python 3 packages
-RUN conda install --yes \
-    'altair' \
-    'beautifulsoup4' \
-    'bokeh' \
-    'bottleneck' \
-    'cloudpickle' \
-    'conda-forge::blas=*=openblas' \
-    'cython' \
-    'dask' \
-    'dill' \
-    'h5py' \
-    'ipympl'\
-    'ipywidgets' \
-    'jupyter_server>=2.0.0' \
-    'matplotlib-base' \
-    'numba' \
-    'numexpr' \
-    'openpyxl' \
-    'pandas' \
-    'patsy' \
-    'protobuf' \
-    'pytables' \
-    'scikit-image' \
-    'scikit-learn' \
-    'scipy' \
-    'seaborn' \
-    'sqlalchemy' \
-    'statsmodels' \
-    'sympy' \
-    'widgetsnbextension'\
-    'xlrd' && \
+RUN conda install --yes 'altair' 'beautifulsoup4' 'bokeh' 'bottleneck' 'cloudpickle' 'conda-forge::blas=*=openblas' \
+    'cython' 'dask' 'dill' 'h5py' 'ipympl' 'ipywidgets' 'jupyter_server>=2.0.0' 'matplotlib-base' 'numba' \
+    'numexpr' 'openpyxl' 'pandas' 'patsy' 'protobuf' 'pytables' 'scikit-image' 'scikit-learn' \
+    'scipy' 'seaborn' 'sqlalchemy' 'statsmodels' 'sympy' 'widgetsnbextension' 'xlrd' && \
     conda clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
