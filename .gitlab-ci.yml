@@ -28,6 +28,14 @@ base-build:
     - cd base
     - docker build -t $CI_REGISTRY/jupyter:base . --network=host
     - docker push $CI_REGISTRY/jupyter:base
+sage-build:
+  tags: [build]
+  stage: build
+  needs: [base-build]
+  script:
+    - cd scipy
+    - docker build -t $CI_REGISTRY/jupyter:sage . --network=host
+    - docker push $CI_REGISTRY/jupyter:sage
 scipy-build:
   tags: [build]
   stage: build
