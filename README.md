@@ -4,16 +4,18 @@
 用于支撑eoelab基础计算设施jupyterhub的镜像制作项目  
 使用docker作为运行时平台，镜像可以像jupyternotebook一样使用，容器端口为8888  
 更多的构建细节可以查看jupyter团队项目https://github.com/jupyter/docker-stacks  
-本项目计划将容器内上游切换为Debian，不过这在客户端透明
 ## 镜像依赖关系
 节点内为镜像，默认子节点是父节点的派生  
 ```mermaid
-	graph LR
-	A(HeadWater)-->B(Base-CPU)
-	B-->C(DataScicence)
-    B-->D(DeepLearning)	
-    A-->E(Sagemath)
-```
+graph LR
+A(upstream-cpu)-->B(base)
+B-->C(scipy)
+C-->D(deeplearning-CPU)	
+C-->E(datascience-CPU)
+B-->F(Sagemath)
+G(upstream-gpu)-->H(datascience-gpu)
+G(upstream-gpu)-->I(deeplearning-gpu)
+```  
 ## 目前支持清单
 1. Python  
 这包括Python支持，conda，pip
