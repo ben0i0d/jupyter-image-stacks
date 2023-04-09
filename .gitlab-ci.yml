@@ -33,7 +33,7 @@ sage-build:
   stage: build
   needs: [base-build]
   script:
-    - cd scipy
+    - cd sage
     - docker build -t $CI_REGISTRY/jupyter:sage . --network=host
     - docker push $CI_REGISTRY/jupyter:sage
 scipy-build:
