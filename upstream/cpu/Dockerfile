@@ -62,13 +62,12 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
     rm /tmp/micromamba.tar.bz2 && \
     PYTHON_SPECIFIER="python=${PYTHON_VERSION}" && \
     if [[ "${PYTHON_VERSION}" == "default" ]]; then PYTHON_SPECIFIER="python"; fi && \
-    # Install the packages
+    ./micromamba install mamba -c conda-forge && \
     ./micromamba install \
         --root-prefix="${CONDA_DIR}" \
         --prefix="${CONDA_DIR}" \
         --yes \
         "${PYTHON_SPECIFIER}" \
-        'mamba -c conda-forge' \
         'jupyter_core' && \
     rm micromamba && \
     # Pin major.minor version of python
