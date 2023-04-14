@@ -3,9 +3,7 @@ LABEL maintainer="eoelab <eoelab@eoelab.org>"
 ARG NB_USER="jovyan"
 ARG NB_UID="1000"
 ARG NB_GID="100"
-
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
 USER root
 RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list && \
     sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
@@ -58,26 +56,11 @@ RUN mkdir "/home/${NB_USER}/work" && \
     fix-permissions "/home/${NB_USER}"
 
 # Download and install Micromamba, and initialize Conda prefix.
-#   <https://github.com/mamba-org/mamba#micromamba>
-#   Similar projects using Micromamba:
-#     - Micromamba-Docker: <https://github.com/mamba-org/micromamba-docker>
-#     - repo2docker: <https://github.com/jupyterhub/repo2docker>
-# Install Python, Mamba, Jupyter Notebook, Lab, and Hub
-# Generate a notebook server config
-# Cleanup temporary files and remove Micromamba
-# Correct permissions
-# Do all this in a single RUN command to avoid duplicating all of the
-# files across image layers when the permissions change
+
 COPY --chown="${NB_UID}:${NB_GID}" initial-condarc "${CONDA_DIR}/.condarc"
 WORKDIR /tmp
-RUN set -x && \
-    arch=$(uname -m) && \
-    if [ "${arch}" = "x86_64" ]; then \
-        # Should be simpler, see <https://github.com/mamba-org/mamba/issues/1437>
-        arch="64"; \
-    fi && \
-    wget -qO /tmp/micromamba.tar.bz2 \
-        "https://micromamba.snakepit.net/api/micromamba/linux-${arch}/latest" && \
+RUN wget -qO /tmp/micromamba.tar.bz2 \
+        "https://micromamba.snakepit.net/api/micromamba/linux-64/latest" && \
     tar -xvjf /tmp/micromamba.tar.bz2 --strip-components=1 bin/micromamba && \
     rm /tmp/micromamba.tar.bz2 && \
     PYTHON_SPECIFIER="python=${PYTHON_VERSION}" && \
@@ -117,14 +100,12 @@ COPY jupyter_server_config.py /etc/jupyter/
 # Fix permissions on /etc/jupyter as root
 USER root
 
-# Legacy for Jupyter Notebook Server, see: [#1205](https://github.com/jupyter/docker-stacks/issues/1205)
+# Legacy for Jupyter Notebook Server
 RUN sed -re "s/c.ServerApp/c.NotebookApp/g" \
     /etc/jupyter/jupyter_server_config.py > /etc/jupyter/jupyter_notebook_config.py && \
     fix-permissions /etc/jupyter/
 
-# HEALTHCHECK documentation: https://docs.docker.com/engine/reference/builder/#healthcheck
 # This healtcheck works well for `lab`, `notebook`, `nbclassic`, `server` and `retro` jupyter commands
-# https://github.com/jupyter/docker-stacks/issues/915#issuecomment-1068528799
 HEALTHCHECK  --interval=15s --timeout=3s --start-period=5s --retries=3 \
     CMD wget -O- --no-verbose --tries=1 --no-check-certificate \
     http${GEN_CERT:+s}://localhost:8888${JUPYTERHUB_SERVICE_PREFIX:-/}api || exit 1
