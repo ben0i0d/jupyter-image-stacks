@@ -69,14 +69,13 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
         --yes \
         "python=3.10" \
         'notebook' \
-        'mamba' \
         'jupyterhub' \
         'jupyterlab' && \
     rm micromamba && \
     # Pin major.minor version of python
-    mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
+    conda list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
     jupyter notebook --generate-config && \
-    mamba clean --all -f -y && \
+    conda clean --all -f -y && \
     npm cache clean --force && \
     jupyter lab clean && \
     rm -rf "/home/${NB_USER}/.cache/yarn" && \
