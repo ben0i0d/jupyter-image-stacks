@@ -62,6 +62,7 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
         --root-prefix="${CONDA_DIR}" \
         --prefix="${CONDA_DIR}" \
         --yes \
+        'conda' \
         "python=3.10" \
         'jupyter_core' && \
     rm micromamba && \

@@ -69,6 +69,7 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
         --yes \
         "python=3.10" \
         'notebook' \
+        'conda' \
         'jupyterhub' \
         'jupyterlab' && \
     rm micromamba && \
