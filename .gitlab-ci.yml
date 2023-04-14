@@ -1,10 +1,9 @@
 # Build Docker image with CI/CD and push to the GitLab registry.
-
 variables:
   CI_REGISTRY: "eoelab.org:1032/build-image-stacks/jupyter-image-stacks"
 before_script:
   - docker login -u $CI_USER -p $CI_PASSWORD $LOCAL_REGISTRY
-up-cpu-build:
+up-c-build:
   tags: [build]
   stage: build
   needs: []
@@ -12,31 +11,23 @@ up-cpu-build:
     - cd upstream/cpu
     - docker build -t $CI_REGISTRY/jupyter:up-c . --network=host
     - docker push $CI_REGISTRY/jupyter:up-c
-up-gpu-build:
-  tags: [build]
-  stage: build
-  needs: []
-  script:
-    - cd upstream/gpu
-    - docker build -t $CI_REGISTRY/jupyter:up-g . --network=host
-    - docker push $CI_REGISTRY/jupyter:up-g
-base-build:
+base-c-build:
   tags: [build]
   stage: build
   needs: [up-cpu-build]
   script:
-    - cd base
-    - docker build -t $CI_REGISTRY/jupyter:base . --network=host
-    - docker push $CI_REGISTRY/jupyter:base
-scipy-build:
+    - cd base/cpu
+    - docker build -t $CI_REGISTRY/jupyter:base-c . --network=host
+    - docker push $CI_REGISTRY/jupyter:base-c
+scipy-c-build:
   tags: [build]
   stage: build
   needs: [base-build]
   script:
-    - cd scipy
-    - docker build -t $CI_REGISTRY/jupyter:scipy . --network=host
-    - docker push $CI_REGISTRY/jupyter:scipy
-deeplearning-build:
+    - cd scipy/cpu
+    - docker build -t $CI_REGISTRY/jupyter:scipy-c . --network=host
+    - docker push $CI_REGISTRY/jupyter:scipy-c
+dl-c-build:
   tags: [build]
   stage: build
   needs: [scipy-build]
@@ -44,7 +35,7 @@ deeplearning-build:
     - cd deeplearning/cpu
     - docker build -t $CI_REGISTRY/jupyter:dl-c . --network=host
     - docker push $CI_REGISTRY/jupyter:dl-c
-datascience-build:
+data-c-build:
   tags: [build]
   stage: build
   needs: [scipy-build]
@@ -52,3 +43,43 @@ datascience-build:
     - cd datascience/cpu
     - docker build -t $CI_REGISTRY/jupyter:data-c . --network=host
     - docker push $CI_REGISTRY/jupyter:data-c
+up-g-build:
+  tags: [build]
+  stage: build
+  needs: []
+  script:
+    - cd upstream/gpu
+    - docker build -t $CI_REGISTRY/jupyter:up-g . --network=host
+    - docker push $CI_REGISTRY/jupyter:up-g
+base-g-build:
+  tags: [build]
+  stage: build
+  needs: [up-cpu-build]
+  script:
+    - cd base/gpu
+    - docker build -t $CI_REGISTRY/jupyter:base-g . --network=host
+    - docker push $CI_REGISTRY/jupyter:base-g
+scipy-g-build:
+  tags: [build]
+  stage: build
+  needs: [base-build]
+  script:
+    - cd scipy/gpu
+    - docker build -t $CI_REGISTRY/jupyter:scipy-g . --network=host
+    - docker push $CI_REGISTRY/jupyter:scipy-g
+dl-g-build:
+  tags: [build]
+  stage: build
+  needs: [scipy-build]
+  script:
+    - cd deeplearning/gpu
+    - docker build -t $CI_REGISTRY/jupyter:dl-g . --network=host
+    - docker push $CI_REGISTRY/jupyter:dl-g
+data-g-build:
+  tags: [build]
+  stage: build
+  needs: [scipy-build]
+  script:
+    - cd datascience/gpu
+    - docker build -t $CI_REGISTRY/jupyter:data-g . --network=host
+    - docker push $CI_REGISTRY/jupyter:data-g

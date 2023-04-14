@@ -76,14 +76,7 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
-RUN conda config --set show_channel_urls yes && \
-    conda config --add channels https://mirrors.bfsu.edu.cn/anaconda/pkgs/free/ && \
-    conda config --add channels https://mirrors.bfsu.edu.cn/anaconda/pkgs/main/ && \
-    conda config --add channels https://mirrors.bfsu.edu.cn/anaconda/cloud/conda-forge/ && \
-    conda config --add channels https://mirrors.bfsu.edu.cn/anaconda/cloud/msys2/ && \
-    conda config --add channels https://mirrors.bfsu.edu.cn/anaconda/cloud/pytorch/ && \
-    conda config --add channels https://mirrors.bfsu.edu.cn/anaconda/cloud/bioconda/ && \
-    pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple 
+RUN pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple 
 
 # Configure container startup
 ENTRYPOINT ["tini", "-g", "--"]

@@ -1,0 +1,58 @@
+############################################################################
+########################## Dependency: gpulibs #############################
+############################################################################
+
+LABEL maintainer="Christoph Schranz <christoph.schranz@salzburgresearch.at>, Mathematical Michael <consistentbayes@gmail.com>"
+
+# Install Tensorflow, check compatibility here:
+# https://www.tensorflow.org/install/source#gpu
+# installation via conda leads to errors in version 4.8.2
+USER ${NB_UID}
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir tensorflow==2.10.1 keras==2.10 && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
+
+# Install PyTorch with dependencies
+RUN conda install --quiet --yes \
+    pyyaml mkl mkl-include setuptools cmake cffi typing && \
+    conda clean --all -f -y && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
+
+# Check compatibility here:
+# https://pytorch.org/get-started/locally/
+# Installation via conda leads to errors installing cudatoolkit=11.1
+# RUN pip install --no-cache-dir torch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1  && \
+#     torchviz==0.0.2 --extra-index-url https://download.pytorch.org/whl/cu116
+RUN set -ex \
+ && buildDeps=' \
+    torch==1.13.1 \
+    torchvision==0.14.1 \
+    torchaudio==0.13.1 \
+    torchviz==0.0.2 \
+' \
+ && pip install --no-cache-dir $buildDeps --extra-index-url https://download.pytorch.org/whl/cu116 \
+ && fix-permissions "${CONDA_DIR}" \
+ && fix-permissions "/home/${NB_USER}"
+
+USER root
+ENV CUDA_PATH=/opt/conda/
+
+# Install nvtop to monitor the gpu tasks
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends cmake libncurses5-dev libncursesw5-dev git && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# reinstall nvcc with cuda-nvcc to install ptax
+USER $NB_UID
+RUN conda install -c nvidia cuda-nvcc -y && \
+    conda clean --all -f -y && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
+
+USER root
+RUN ln -s /opt/conda/bin/ptxas /usr/bin/ptxas
+
+USER $NB_UID
+
