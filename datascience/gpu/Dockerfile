@@ -5,19 +5,17 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root
 
-ARG julia_version="1.8.5"
-
 # R pre-requisites
 RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends \
-    fonts-dejavu gfortran gcc && \
+    apt-get install --yes --no-install-recommends fonts-dejavu gfortran gcc && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Julia dependencies
 # install Julia packages in /opt/julia instead of ${HOME}
 ENV JULIA_DEPOT_PATH=/opt/julia \
     JULIA_PKGDIR=/opt/julia \
-    JULIA_VERSION="${julia_version}"
+    JULIA_VERSION=1.8.5 \
+    JULIA_PKG_SERVER=https://mirrors.ustc.edu.cn/julia
 
 WORKDIR /tmp
 

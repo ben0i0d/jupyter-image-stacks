@@ -10,7 +10,6 @@
 使用docker作为运行时平台，镜像可以像jupyternotebook一样使用，容器端口为8888  
 更多的构建细节可以查看jupyter团队项目https://github.com/jupyter/docker-stacks  
 ## 镜像依赖关系
-**每个镜像都具有CPU与GPU双版本**  
 节点内为镜像，默认子节点是父节点的派生  
 ```mermaid
 graph LR
@@ -21,15 +20,17 @@ C-->E(datascience)
 B-->F(Sagemath)
 ```  
 ## 目前支持清单
-1. Python  
-这包括Python支持，conda，pip
-2. DataScience  
-这包括Python与科学计算常用包支持，Julia支持，R与常用包支持  
-Julia使用自己的PKG包管理工具，所以使用时注意对PKG换源并且安装包  
-3. Sagemath  
-这是一个遵循GPL的开源数学工具  
-4. DeepLearning  
+1. Python（both CPU And GPU）  
+这包括Python支持，conda，pip  
+2. Scipy（both CPU And GPU）  
+Python的科学计算环境  
+3. DataScience（both CPU And GPU）    
+这包括Python与科学计算常用包支持，Julia支持，R与常用包支持    
+Julia使用自己的PKG包管理工具，所以使用时注意对PKG换源并且安装包    
+4. DeepLearning（both CPU And GPU）  
 通常只提供Python语言支持，集成TensorFlow,Pytorch,Transformer,Oneflow支持  
+5. Sagemath（Only CPU）  
+这是一个遵循GPL的开源数学工具  
 ## 如何提交意见或参与
 如果您有更好的思路，可以在本项目中提出issue  
 ## 注意

@@ -4,8 +4,6 @@ LABEL maintainer="eoelab <eoelab@eoelab.org>"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
 USER root
 
 # Install all OS dependencies for notebook server that starts but lacks all
@@ -33,8 +31,8 @@ RUN conda install --yes \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
-ENV JUPYTER_PORT=8888
-EXPOSE $JUPYTER_PORT
+
+EXPOSE 8888
 
 # Configure container startup
 CMD ["start-notebook.sh"]
