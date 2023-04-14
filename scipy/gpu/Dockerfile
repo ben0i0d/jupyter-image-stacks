@@ -1,15 +1,6 @@
-############################################################################
-################# Dependency: jupyter/scipy-notebook #######################
-############################################################################
+FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:base-g
 
-# Copyright (c) Jupyter Development Team.
-# Distributed under the terms of the Modified BSD License.
-ARG OWNER=jupyter
-
-LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
-
-# Fix: https://github.com/hadolint/hadolint/wiki/DL4006
-# Fix: https://github.com/koalaman/shellcheck/wiki/SC3014
+LABEL maintainer="eoelab <eoelab@eoelab.org>"
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root

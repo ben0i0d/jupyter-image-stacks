@@ -1,12 +1,6 @@
-############################################################################
-########################## Dependency: gpulibs #############################
-############################################################################
+FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy-g
 
-LABEL maintainer="Christoph Schranz <christoph.schranz@salzburgresearch.at>, Mathematical Michael <consistentbayes@gmail.com>"
-
-# Install Tensorflow, check compatibility here:
-# https://www.tensorflow.org/install/source#gpu
-# installation via conda leads to errors in version 4.8.2
+LABEL maintainer="eoelab <eoelab@eoelab.org>"
 USER ${NB_UID}
 RUN pip install --upgrade pip && \
     pip install --no-cache-dir tensorflow==2.10.1 keras==2.10 && \

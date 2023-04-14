@@ -82,7 +82,7 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
     rm -rf "/home/${NB_USER}/.cache/yarn" && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
-
+RUN pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple 
 EXPOSE 8888
 
 # Configure container startup

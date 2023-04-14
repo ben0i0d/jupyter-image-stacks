@@ -1,10 +1,7 @@
+FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-g
+LABEL maintainer="eoelab <eoelab@eoelab.org>"
 
-ARG OWNER=jupyter
 
-LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
-
-# Fix: https://github.com/hadolint/hadolint/wiki/DL4006
-# Fix: https://github.com/koalaman/shellcheck/wiki/SC3014
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root
