@@ -10,16 +10,15 @@
 使用docker作为运行时平台，镜像可以像jupyternotebook一样使用，容器端口为8888  
 更多的构建细节可以查看jupyter团队项目https://github.com/jupyter/docker-stacks  
 ## 镜像依赖关系
+**每个镜像都具有CPU与GPU双版本**  
 节点内为镜像，默认子节点是父节点的派生  
 ```mermaid
 graph LR
-A(upstream-cpu)-->B(base)
+A(upstream)-->B(base)
 B-->C(scipy)
-C-->D(deeplearning-CPU)	
-C-->E(datascience-CPU)
+C-->D(deeplearning)	
+C-->E(datascience)
 B-->F(Sagemath)
-G(upstream-gpu)-->H(datascience-gpu)
-G(upstream-gpu)-->I(deeplearning-gpu)
 ```  
 ## 目前支持清单
 1. Python  
@@ -31,7 +30,6 @@ Julia使用自己的PKG包管理工具，所以使用时注意对PKG换源并且
 这是一个遵循GPL的开源数学工具  
 4. DeepLearning  
 通常只提供Python语言支持，集成TensorFlow,Pytorch,Transformer,Oneflow支持  
-**对于DL与DataScience，提供GPU支持，包括CUDA等**  
 ## 如何提交意见或参与
 如果您有更好的思路，可以在本项目中提出issue  
 ## 注意
