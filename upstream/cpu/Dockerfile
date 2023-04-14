@@ -68,7 +68,7 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
         --prefix="${CONDA_DIR}" \
         --yes \
         "${PYTHON_SPECIFIER}" \
-        'mamba' \
+        'mamba -c conda-forge' \
         'jupyter_core' && \
     rm micromamba && \
     # Pin major.minor version of python
