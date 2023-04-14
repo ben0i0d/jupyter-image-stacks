@@ -58,7 +58,7 @@ RUN mkdir "/home/${NB_USER}/work" && \
 # Download and install Micromamba, and initialize Conda prefix.
 
 COPY --chown="${NB_UID}:${NB_GID}" initial-condarc "${CONDA_DIR}/.condarc"
-COPY --chown="${NB_UID}:${NB_GID}" initial-condarc "/etc/.condarc"
+COPY --chown="${NB_UID}:${NB_GID}" initial-condarc "/etc/conda/.condarc"
 WORKDIR /tmp
 RUN wget -qO /tmp/micromamba.tar.bz2 \
         "https://micromamba.snakepit.net/api/micromamba/linux-64/latest" && \
