@@ -19,12 +19,12 @@ COPY --chown=${NB_UID}:${NB_GID} Rprofile.site /opt/conda/lib/R/etc/
 # Install Jupyter Notebook, Lab, and Hub
 
 WORKDIR /tmp
-RUN conda install --yes \
+RUN mamba install --yes \
     'notebook' \
     'jupyterhub' \
     'jupyterlab' && \
     jupyter notebook --generate-config && \
-    conda clean --all -f -y && \
+    mamba clean --all -f -y && \
     npm cache clean --force && \
     jupyter lab clean && \
     rm -rf "/home/${NB_USER}/.cache/yarn" && \

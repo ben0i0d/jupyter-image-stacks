@@ -13,11 +13,11 @@ RUN apt-get update --yes && \
 USER ${NB_UID}
 
 # Install Python 3 packages
-RUN conda install --yes 'altair' 'beautifulsoup4' 'bokeh' 'bottleneck' 'cloudpickle' 'conda-forge::blas=*=openblas' \
+RUN mamba install --yes 'altair' 'beautifulsoup4' 'bokeh' 'bottleneck' 'cloudpickle' 'conda-forge::blas=*=openblas' \
     'cython' 'dask' 'dill' 'h5py' 'ipympl' 'ipywidgets' 'jupyter_server>=2.0.0' 'matplotlib-base' 'numba' \
     'numexpr' 'openpyxl' 'pandas' 'patsy' 'protobuf' 'pytables' 'scikit-image' 'scikit-learn' \
     'scipy' 'seaborn' 'sqlalchemy' 'statsmodels' 'sympy' 'widgetsnbextension' 'xlrd' && \
-    conda clean --all -f -y && \
+    mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
     
