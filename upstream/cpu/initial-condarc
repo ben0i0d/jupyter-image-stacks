@@ -1,6 +1,7 @@
 # Conda configuration see https://conda.io/projects/conda/en/latest/configuration.html
 channels:
-  - defaults
+  - conda-forge
+  # - defaults
 show_channel_urls: true
 default_channels:
   - https://mirrors.bfsu.edu.cn/anaconda/pkgs/main
@@ -14,4 +15,3 @@ custom_channels:
   pytorch: https://mirrors.bfsu.edu.cn/anaconda/cloud
   pytorch-lts: https://mirrors.bfsu.edu.cn/anaconda/cloud
   simpleitk: https://mirrors.bfsu.edu.cn/anaconda/cloud
-

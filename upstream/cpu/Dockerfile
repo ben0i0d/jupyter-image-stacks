@@ -62,13 +62,13 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
         --root-prefix="${CONDA_DIR}" \
         --prefix="${CONDA_DIR}" \
         --yes \
-        'conda' \
+        'mamba' \
         "python=3.10" \
         'jupyter_core' && \
     rm micromamba && \
     # Pin major.minor version of python
-    conda list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
-    conda clean --all -f -y && \
+    mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
+    mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 RUN pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple 

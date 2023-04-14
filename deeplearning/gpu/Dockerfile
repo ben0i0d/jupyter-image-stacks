@@ -3,11 +3,11 @@ FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy-g
 LABEL maintainer="eoelab <eoelab@eoelab.org>"
 USER ${NB_UID}
 # install tf 
-RUN conda install tensorflow 
+RUN mamba install tensorflow 
 # install Torch
-RUN pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia
+RUN mamba install pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia
 # install transformer
-RUN conda install transformers
+RUN mamba install transformers
 #conda clean
 RUN conda clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
