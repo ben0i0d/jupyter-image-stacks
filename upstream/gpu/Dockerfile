@@ -58,21 +58,18 @@ RUN mkdir "/home/${NB_USER}/work" && \
 # Download and install Micromamba, and initialize Conda prefix.
 
 COPY --chown="${NB_UID}:${NB_GID}" initial-condarc "${CONDA_DIR}/.condarc"
-COPY --chown="${NB_UID}:${NB_GID}" initial-condarc "/etc/conda/.condarc"
 WORKDIR /tmp
 RUN wget -qO /tmp/micromamba.tar.bz2 \
         "https://micromamba.snakepit.net/api/micromamba/linux-64/latest" && \
     tar -xvjf /tmp/micromamba.tar.bz2 --strip-components=1 bin/micromamba && \
     rm /tmp/micromamba.tar.bz2 && \
-    PYTHON_SPECIFIER="python=${PYTHON_VERSION}" && \
-    if [[ "${PYTHON_VERSION}" == "default" ]]; then PYTHON_SPECIFIER="python"; fi && \
-    ./micromamba install mamba -c conda-forge && \
     ./micromamba install \
         --root-prefix="${CONDA_DIR}" \
         --prefix="${CONDA_DIR}" \
         --yes \
-        "${PYTHON_SPECIFIER}" \
+        "python=3.10" \
         'notebook' \
+        'mamba' \
         'jupyterhub' \
         'jupyterlab' && \
     rm micromamba && \
