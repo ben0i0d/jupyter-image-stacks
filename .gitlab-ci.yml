@@ -14,7 +14,7 @@ up-c-build:
 base-c-build:
   tags: [build]
   stage: build
-  needs: [up-cpu-build]
+  needs: [up-c-build]
   script:
     - cd base/cpu
     - docker build -t $CI_REGISTRY/jupyter:base-c . --network=host
@@ -22,7 +22,7 @@ base-c-build:
 scipy-c-build:
   tags: [build]
   stage: build
-  needs: [base-build]
+  needs: [base-c-build]
   script:
     - cd scipy/cpu
     - docker build -t $CI_REGISTRY/jupyter:scipy-c . --network=host
@@ -30,7 +30,7 @@ scipy-c-build:
 dl-c-build:
   tags: [build]
   stage: build
-  needs: [scipy-build]
+  needs: [scipy-c-build]
   script:
     - cd deeplearning/cpu
     - docker build -t $CI_REGISTRY/jupyter:dl-c . --network=host
@@ -38,7 +38,7 @@ dl-c-build:
 data-c-build:
   tags: [build]
   stage: build
-  needs: [scipy-build]
+  needs: [scipy-c-build]
   script:
     - cd datascience/cpu
     - docker build -t $CI_REGISTRY/jupyter:data-c . --network=host
@@ -54,7 +54,7 @@ up-g-build:
 base-g-build:
   tags: [build]
   stage: build
-  needs: [up-cpu-build]
+  needs: [up-g-build]
   script:
     - cd base/gpu
     - docker build -t $CI_REGISTRY/jupyter:base-g . --network=host
@@ -62,7 +62,7 @@ base-g-build:
 scipy-g-build:
   tags: [build]
   stage: build
-  needs: [base-build]
+  needs: [base-g-build]
   script:
     - cd scipy/gpu
     - docker build -t $CI_REGISTRY/jupyter:scipy-g . --network=host
@@ -70,7 +70,7 @@ scipy-g-build:
 dl-g-build:
   tags: [build]
   stage: build
-  needs: [scipy-build]
+  needs: [scipy-g-build]
   script:
     - cd deeplearning/gpu
     - docker build -t $CI_REGISTRY/jupyter:dl-g . --network=host
@@ -78,7 +78,7 @@ dl-g-build:
 data-g-build:
   tags: [build]
   stage: build
-  needs: [scipy-build]
+  needs: [scipy-g-build]
   script:
     - cd datascience/gpu
     - docker build -t $CI_REGISTRY/jupyter:data-g . --network=host
