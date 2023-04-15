@@ -13,8 +13,7 @@ USER root
 ENV DEBIAN_FRONTEND noninteractive \
     LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
-    LANGUAGE=en_US.UTF-8 \
-    PATH="${CONDA_DIR}/bin:${PATH}" 
+    LANGUAGE=en_US.UTF-8 
 
 RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list && \
     sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
@@ -38,8 +37,7 @@ ENV CONDA_DIR=/opt/conda \
     NB_USER="${NB_USER}" \
     NB_UID=${NB_UID} \
     NB_GID=${NB_GID} \
-    HOME="/home/${NB_USER}" 
-    
+    PATH="${CONDA_DIR}/bin:${PATH}" 
 # Create NB_USER with name jovyan user with UID=1000 and in the 'users' group
 # and make sure these dirs are writable by the `users` group.
 RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
@@ -49,7 +47,7 @@ RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
     mkdir -p "${CONDA_DIR}" && \
     chown "${NB_USER}:${NB_GID}" "${CONDA_DIR}" && \
     chmod g+w /etc/passwd && \
-    fix-permissions "${HOME}" && \
+    fix-permissions "/home/${NB_USER}" && \
     fix-permissions "${CONDA_DIR}"
 
 USER ${NB_UID}
