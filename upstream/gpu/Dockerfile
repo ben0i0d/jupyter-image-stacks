@@ -3,6 +3,7 @@ LABEL maintainer="eoelab <eoelab@eoelab.org>"
 ARG NB_USER="jovyan"
 ARG NB_UID="1000"
 ARG NB_GID="100"
+EXPOSE 8888
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 USER root
 RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list && \
@@ -63,15 +64,7 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
         "https://micromamba.snakepit.net/api/micromamba/linux-64/latest" && \
     tar -xvjf /tmp/micromamba.tar.bz2 --strip-components=1 bin/micromamba && \
     rm /tmp/micromamba.tar.bz2 && \
-    ./micromamba install \
-        --root-prefix="${CONDA_DIR}" \
-        --prefix="${CONDA_DIR}" \
-        --yes \
-        "python=3.10" \
-        'notebook' \
-        'mamba' \
-        'jupyterhub' \
-        'jupyterlab' && \
+    ./micromamba install --root-prefix="${CONDA_DIR}" --prefix="${CONDA_DIR}" --yes "python=3.8" 'notebook' 'mamba' 'jupyterhub' 'jupyterlab' && \
     rm micromamba && \
     # Pin major.minor version of python
     mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
@@ -83,7 +76,7 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 RUN pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple 
-EXPOSE 8888
+
 
 # Configure container startup
 ENTRYPOINT ["tini", "-g", "--"]
