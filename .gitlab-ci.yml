@@ -9,5 +9,11 @@ up-c-build:
   script:
     - cd upstream/cpu
     - docker build -t $CI_REGISTRY/jupyter:up-c . --network=host
-
+up-g-build:
+  tags: [build]
+  stage: build
+  needs: []
+  script:
+    - cd upstream/gpu
+    - docker build -t $CI_REGISTRY/jupyter:up-g . --network=host
 
