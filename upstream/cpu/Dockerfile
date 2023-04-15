@@ -25,8 +25,8 @@ ENV CONDA_DIR=/opt/conda \
     NB_GID=${NB_GID} \
     LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
-    LANGUAGE=en_US.UTF-8
-ENV PATH="${CONDA_DIR}/bin:${PATH}" \
+    LANGUAGE=en_US.UTF-8 \
+    PATH="${CONDA_DIR}/bin:${PATH}" \
     HOME="/home/${NB_USER}"
 
 # Copy a script that we will use to correct permissions after running certain commands
@@ -59,50 +59,31 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
         "https://micromamba.snakepit.net/api/micromamba/linux-64/latest" && \
     tar -xvjf /tmp/micromamba.tar.bz2 --strip-components=1 bin/micromamba && \
     rm /tmp/micromamba.tar.bz2 && \
-    ./micromamba install --root-prefix="${CONDA_DIR}" --prefix="${CONDA_DIR}" --yes 'mamba' "python=3.6" 'jupyter_core' && \
+    ./micromamba install --root-prefix="${CONDA_DIR}" --prefix="${CONDA_DIR}" --yes 'mamba' "python=3.7" 'jupyter_core' && \
     rm micromamba && \
     mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
+    mamba install --yes 'notebook' 'jupyterhub' 'jupyterlab' && \
+    jupyter notebook --generate-config && \
+    npm cache clean --force && \
+    jupyter lab clean && \
+    rm -rf "/home/${NB_USER}/.cache/yarn" && \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 RUN pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple 
 
 COPY --chown=${NB_UID}:${NB_GID} Rprofile.site /opt/conda/lib/R/etc/
-# Install Jupyter Notebook, Lab, and Hub
-
-WORKDIR /tmp
-RUN mamba install --yes \
-    'notebook' \
-    'jupyterhub' \
-    'jupyterlab' && \
-    jupyter notebook --generate-config && \
-    mamba clean --all -f -y && \
-    npm cache clean --force && \
-    jupyter lab clean && \
-    rm -rf "/home/${NB_USER}/.cache/yarn" && \
-    fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}"
-
-# Configure container startup
-CMD ["start-notebook.sh"]
-
-# Copy local files as late as possible to avoid cache busting
 COPY start-notebook.sh start-singleuser.sh /usr/local/bin/
-# Currently need to have both jupyter_notebook_config and jupyter_server_config to support classic and lab
 COPY jupyter_server_config.py docker_healthcheck.py /etc/jupyter/
 
 # Fix permissions on /etc/jupyter as root
 USER root
-
 # Legacy for Jupyter Notebook Server, see: [#1205](https://github.com/jupyter/docker-stacks/issues/1205)
 RUN sed -re "s/c.ServerApp/c.NotebookApp/g" \
     /etc/jupyter/jupyter_server_config.py > /etc/jupyter/jupyter_notebook_config.py && \
     fix-permissions /etc/jupyter/
-
 # HEALTHCHECK documentation: https://docs.docker.com/engine/reference/builder/#healthcheck
-
-HEALTHCHECK --interval=5s --timeout=3s --start-period=5s --retries=3 \
-    CMD /etc/jupyter/docker_healthcheck.py || exit 1
+HEALTHCHECK --interval=5s --timeout=3s --start-period=5s --retries=3 CMD /etc/jupyter/docker_healthcheck.py || exit 1
 # Configure container startup
 ENTRYPOINT ["tini", "-g", "--"]
 CMD ["start.sh"]

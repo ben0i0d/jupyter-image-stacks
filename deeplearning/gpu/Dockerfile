@@ -15,5 +15,8 @@ RUN conda clean --all -f -y && \
 #oneflow install
 RUN pip install --find-links https://release.oneflow.info oneflow==0.9.0+cu117 && \
     pip cache purge
+# Switch back to jovyan to avoid accidental container runs as root
+USER ${NB_UID}
 
+WORKDIR "${HOME}"
 

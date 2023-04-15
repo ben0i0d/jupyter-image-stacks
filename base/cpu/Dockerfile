@@ -13,5 +13,8 @@ RUN apt-get update --yes && \
     texlive-fonts-recommended texlive-plain-generic xclip fonts-liberation pandoc run-one && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     update-alternatives --install /usr/bin/nano nano /bin/nano-tiny 10
+# Switch back to jovyan to avoid accidental container runs as root
+USER ${NB_UID}
 
+WORKDIR "${HOME}"
 
