@@ -9,9 +9,9 @@ EXPOSE 8888
 
 USER root
 
-
 # Configure environment
-ENV CONDA_DIR=/opt/conda \
+ENV DEBIAN_FRONTEND noninteractive \
+    CONDA_DIR=/opt/conda \
     SHELL=/bin/bash \
     NB_USER="${NB_USER}" \
     NB_UID=${NB_UID} \
@@ -21,7 +21,7 @@ ENV CONDA_DIR=/opt/conda \
     LANGUAGE=en_US.UTF-8 \
     PATH="${CONDA_DIR}/bin:${PATH}" \
     HOME="/home/${NB_USER}" \
-    DEBIAN_FRONTEND noninteractive
+
 
 RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list && \
     sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list    
