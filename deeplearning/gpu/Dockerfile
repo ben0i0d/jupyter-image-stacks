@@ -4,10 +4,8 @@ LABEL maintainer="eoelab <eoelab@eoelab.org>"
 
 
 # install tf transformers
-RUN mamba install --yes tensorflow transformers && \
-    mamba clean --all -f -y 
-#install torch oneflow 
-RUN pip install torch torchvision torchaudio && \
+RUN pip install --yes tensorflow transformers && \
+    pip install torch torchvision torchaudio && \
     pip install oneflow && \
     pip cache purge
 
