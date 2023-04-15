@@ -1,8 +1,6 @@
 # Build Docker image with CI/CD and push to the GitLab registry.
 variables:
   CI_REGISTRY: "eoelab.org:1032/build-image-stacks/jupyter-image-stacks"
-before_script:
-  - docker login -u $CI_USER -p $CI_PASSWORD $LOCAL_REGISTRY
 test-build:
   tags: [build]
   stage: test
