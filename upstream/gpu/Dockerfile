@@ -1,14 +1,19 @@
 FROM nvidia/cuda:11.6.2-cudnn8-runtime-ubuntu20.04
+
 LABEL maintainer="eoelab <eoelab@eoelab.org>"
+
 ARG NB_USER="jovyan"
 ARG NB_UID="1000"
 ARG NB_GID="100"
+
 EXPOSE 8888
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root
+
 ENV DEBIAN_FRONTEND noninteractive 
+
 RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list && \
     sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
 RUN apt-get update --yes && \
@@ -28,6 +33,7 @@ ENV CONDA_DIR=/opt/conda \
     LANGUAGE=en_US.UTF-8
 ENV PATH="${CONDA_DIR}/bin:${PATH}" \
     HOME="/home/${NB_USER}"
+
 # Copy a script that we will use to correct permissions after running certain commands
 COPY fix-permissions /usr/local/bin/fix-permissions
 RUN chmod a+rx /usr/local/bin/fix-permissions
@@ -50,18 +56,15 @@ RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
 USER ${NB_UID}
 
 # Setup work directory for backward-compatibility
-RUN mkdir "/home/${NB_USER}/work" && \
-    fix-permissions "/home/${NB_USER}"
-
+RUN mkdir "/home/${NB_USER}/work" && fix-permissions "/home/${NB_USER}"
 # Download and install Micromamba, and initialize Conda prefix.
-
 COPY --chown="${NB_UID}:${NB_GID}" initial-condarc "${CONDA_DIR}/.condarc"
 WORKDIR /tmp
 RUN wget -qO /tmp/micromamba.tar.bz2 \
         "https://micromamba.snakepit.net/api/micromamba/linux-64/latest" && \
     tar -xvjf /tmp/micromamba.tar.bz2 --strip-components=1 bin/micromamba && \
     rm /tmp/micromamba.tar.bz2 && \
-    ./micromamba install --root-prefix="${CONDA_DIR}" --prefix="${CONDA_DIR}" --yes "python=3.7" 'notebook' 'mamba' 'jupyterhub' 'jupyterlab' && \
+    ./micromamba install --root-prefix="${CONDA_DIR}" --prefix="${CONDA_DIR}" --yes "python=3.10" 'notebook' 'mamba' 'jupyterhub' 'jupyterlab' && \
     rm micromamba && \
     mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
     jupyter notebook --generate-config && \
@@ -70,17 +73,15 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
     jupyter lab clean && \
     rm -rf "/home/${NB_USER}/.cache/yarn" && \
     fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}"
-RUN pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple 
+    fix-permissions "/home/${NB_USER}" && \
+    pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple 
 
 # Copy local files as late as possible to avoid cache busting
 COPY start.sh start-notebook.sh start-singleuser.sh /usr/local/bin/
 # Currently need to have both jupyter_notebook_config and jupyter_server_config to support classic and lab
 COPY jupyter_server_config.py /etc/jupyter/
-
 # Fix permissions on /etc/jupyter as root
 USER root
-
 # Legacy for Jupyter Notebook Server
 RUN sed -re "s/c.ServerApp/c.NotebookApp/g" \
     /etc/jupyter/jupyter_server_config.py > /etc/jupyter/jupyter_notebook_config.py && \
