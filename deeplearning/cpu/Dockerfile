@@ -4,12 +4,17 @@ LABEL maintainer="eoelab <eoelab@eoelab.org>"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-# pip install 
-RUN pip install tensorflow && \
-    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu && \
-    pip install transformers && \
-    pip install --find-links https://release.oneflow.info oneflow==0.9.0+cpu && \
+# install tf 
+RUN mamba install tensorflow transformers
+# install Torch
+RUN mamba install pytorch torchvision torchaudio cpuonly -c pytorch
+#oneflow install
+RUN pip install --find-links https://release.oneflow.info oneflow==0.9.0+cu117 && \
     pip cache purge
+#conda clean
+RUN mamba clean --all -f -y && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
 # Switch back to jovyan to avoid accidental container runs as root
 USER ${NB_UID}
 
