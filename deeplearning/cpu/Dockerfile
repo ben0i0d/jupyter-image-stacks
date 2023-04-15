@@ -5,7 +5,7 @@ LABEL maintainer="eoelab <eoelab@eoelab.org>"
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # install tf 
-RUN mamba install tensorflow transformers && \
+RUN mamba install --yes tensorflow transformers && \
     mamba clean --all -f -y 
 # install torch oneflow
 RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu && \
