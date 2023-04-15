@@ -9,7 +9,7 @@ RUN mamba install tensorflow transformers
 # install Torch
 RUN mamba install pytorch torchvision torchaudio cpuonly -c pytorch
 #oneflow install
-RUN pip install --find-links https://release.oneflow.info oneflow==0.9.0+cu117 && \
+RUN pip install --find-links https://release.oneflow.info oneflow==0.9.0+cpu && \
     pip cache purge
 #conda clean
 RUN mamba clean --all -f -y && \
