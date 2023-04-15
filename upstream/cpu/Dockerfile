@@ -1,11 +1,14 @@
 FROM ubuntu:22.04
+
 LABEL maintainer="eoelab <eoelab@eoelab.org>"
+
 ARG NB_USER="jovyan"
 ARG NB_UID="1000"
 ARG NB_GID="100"
 
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 EXPOSE 8888
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root
 ENV DEBIAN_FRONTEND noninteractive 
@@ -56,7 +59,7 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
         "https://micromamba.snakepit.net/api/micromamba/linux-64/latest" && \
     tar -xvjf /tmp/micromamba.tar.bz2 --strip-components=1 bin/micromamba && \
     rm /tmp/micromamba.tar.bz2 && \
-    ./micromamba install --root-prefix="${CONDA_DIR}" --prefix="${CONDA_DIR}" --yes 'mamba' "python=3.7" 'jupyter_core' && \
+    ./micromamba install --root-prefix="${CONDA_DIR}" --prefix="${CONDA_DIR}" --yes 'mamba' "python=3.10" 'jupyter_core' && \
     rm micromamba && \
     mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
     mamba install --yes 'notebook' 'jupyterhub' 'jupyterlab' && \
@@ -66,8 +69,8 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
     rm -rf "/home/${NB_USER}/.cache/yarn" && \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}"
-RUN pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple 
+    fix-permissions "/home/${NB_USER}" && \
+    pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple 
 
 COPY --chown=${NB_UID}:${NB_GID} Rprofile.site /opt/conda/lib/R/etc/
 COPY start-notebook.sh start-singleuser.sh /usr/local/bin/
