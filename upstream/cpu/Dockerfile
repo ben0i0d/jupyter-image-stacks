@@ -63,8 +63,8 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
     tar -xvjf /tmp/micromamba.tar.bz2 --strip-components=1 bin/micromamba && \
     rm /tmp/micromamba.tar.bz2 && \
     ./micromamba install --root-prefix="${CONDA_DIR}" --prefix="${CONDA_DIR}" --yes 'mamba' "python=3.7" 'jupyter_core' && \
-    rm micromamba && \
-    mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
+    rm micromamba 
+RUN mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
     mamba install --yes 'notebook' 'jupyterhub' 'jupyterlab' && \
     jupyter notebook --generate-config && \
     npm cache clean --force && \
