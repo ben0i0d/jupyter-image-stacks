@@ -42,17 +42,11 @@ RUN mkdir /etc/julia && \
 USER ${NB_UID}
 
 # `rpy2` and `r-tidymodels` are not easy to install under aarch64
-RUN set -x && \
-    arch=$(uname -m) && \
-    if [ "${arch}" == "x86_64" ]; then \
-        mamba install --quiet --yes \
-            'rpy2' \
-            'r-tidymodels' && \
-            mamba clean --all -f -y && \
-            fix-permissions "${CONDA_DIR}" && \
-            fix-permissions "/home/${NB_USER}"; \
-    fi;
-
+RUN mamba install --quiet --yes 'rpy2' 'r-tidymodels' && \
+    mamba clean --all -f -y && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"; 
+    
 # Add Julia packages.
 # Install IJulia as jovyan and then move the kernelspec out
 # to the system share location. Avoids problems with runtime UID change not

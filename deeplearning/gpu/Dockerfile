@@ -1,7 +1,7 @@
 FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy-g
 
 LABEL maintainer="eoelab <eoelab@eoelab.org>"
-USER ${NB_UID}
+
 # install tf 
 RUN mamba install tensorflow 
 # install Torch
