@@ -9,7 +9,7 @@ RUN mamba install pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c
 # install transformer
 RUN mamba install transformers
 #conda clean
-RUN conda clean --all -f -y && \
+RUN mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 #oneflow install
