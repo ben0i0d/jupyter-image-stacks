@@ -3,12 +3,11 @@ FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy-g
 LABEL maintainer="eoelab <eoelab@eoelab.org>"
 
 
-# install tf 
+# install tf transformers
 RUN mamba install tensorflow transformers
-# install Torch
-RUN mamba install pytorch torchvision torchaudio cpuonly -c pytorch
-#oneflow install
-RUN pip install oneflow && \
+#install torch oneflow 
+RUN pip install torch torchvision torchaudio && \
+    pip install oneflow && \
     pip install torch torchvision torchaudio && \
     pip cache purge
 #conda clean
