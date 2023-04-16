@@ -6,8 +6,8 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # install tf 
 RUN pip install --yes tensorflow transformers && \
-    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu && \
-    pip install --find-links https://release.oneflow.info oneflow==0.9.0+cpu && \
+    pip install --yes torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu && \
+    pip install --yes --find-links https://release.oneflow.info oneflow==0.9.0+cpu && \
     pip cache purge
 # Switch back to jovyan to avoid accidental container runs as root
 USER ${NB_UID}
