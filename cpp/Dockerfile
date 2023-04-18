@@ -8,11 +8,11 @@ USER root
 RUN apt-get update --yes && \
     apt-get upgrade --yes && \
     apt-get install --yes --no-install-recommends build-essential && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* 
-
-RUN pip install --no-cache-dir jupyter-c-kernel && \
-    install_c_kernel 
-
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    pip install --no-cache-dir jupyter-c-kernel && \
+    install_c_kernel && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
 USER ${NB_UID}
 
 # Install C & Cpp kernel
