@@ -20,13 +20,13 @@ B-->F(r)
 ```  
 ## 目前支持清单
 1. Python  
-对Python语言的基础支持
+对Python语言的基础支持  
 2. Scipy  
 Python的科学计算环境  
-3. julia  
-对科学计算语言julia的支持   
-4. r  
-对科学计算语言r的支持    
+3. Julia  
+对科学计算语言julia的支持    
+4. R  
+对科学计算语言R的支持    
 5. DeepLearning（With GPU）  
 只提供Python语言支持，集成TensorFlow,Pytorch,Transformer,Oneflow支持  
 6. Sagemath  
@@ -34,7 +34,6 @@ Python的科学计算环境
 ## 如何提交意见或参与
 如果您有更好的思路，可以在本项目中提出issue  
 ## 注意
-1. 项目内main分支Dockerfile是经过测试而发布的
+1. 项目内main分支Dockerfile是经过测试而发布的，并且做了本地化工作，包括为apt，Julia，conda，pip默认配置中国境内镜像源  
 2. 如果您有新的测试需求，在拥有权限的情况下请自行构建一个新的分支，注意修改新分支内的CI配置文件，并且在提交合并请求时还原CI配置
 3. 本项目默认落地场景是我们自建的K8S，K8S底层是RKE
-
