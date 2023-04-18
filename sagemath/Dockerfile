@@ -8,16 +8,26 @@ LABEL maintainer="eoelab <eoelab@eoelab.org>"
 USER root
 
 RUN apt-get update && \
-    apt-get install -y git && \
-    apt-get install -y libpng16-16 libjpeg62-turbo-dev libfreetype6-dev zlib1g-dev libxml2-dev libxslt1-dev libssl-dev \ 
-    libffi-dev libcairo2-dev libgtk-3-dev libglu1-mesa-dev xvfb && \
+    apt-get install -y --no-install-recommends \
+    dvipng \
+    ffmpeg \
+    imagemagick \
+    texlive \
+    tk tk-dev \
+    jq && \
     rm -rf /var/lib/apt/lists/*
 
-USER $NB_UID
+USER ${NB_UID}
 
-RUN mamba install -c conda-forge sagemath
+# Add conda-forge channel and install sagemath
+RUN conda config --add channels conda-forge && \
+    conda install -y sagemath && \
+    conda clean --all -f -y && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
 
-RUN sage -i jupyterlab && \
-    jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-matplotlib && \
-    jupyter lab build
+# Install the sagemath kernel
+RUN sage -i jupyter_kernel && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
 
