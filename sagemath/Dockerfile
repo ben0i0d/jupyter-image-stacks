@@ -1,9 +1,8 @@
-ARG SAGE_VERSION=9.0
-ARG SAGE_PYTHON_VERSION=3.7
-
 FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:base-c
 
 LABEL maintainer="eoelab <eoelab@eoelab.org>"
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root
 
@@ -20,9 +19,9 @@ RUN apt-get update && \
 USER ${NB_UID}
 
 # Add conda-forge channel and install sagemath
-RUN conda config --add channels conda-forge && \
-    conda install -y sagemath && \
-    conda clean --all -f -y && \
+RUN mamba config --add channels conda-forge && \
+    mamba install -y sagemath && \
+    mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
