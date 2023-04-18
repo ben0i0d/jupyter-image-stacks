@@ -18,7 +18,7 @@ B-->C(Scipy)-->D(Deeplearning)
 B-->E(Julia)
 B-->F(R)
 B-->G(Sagemath)
-B-->H(C and CPP)
+B-->H(CPP)
 ```  
 ## 目前支持清单
 1. Python  
@@ -29,8 +29,8 @@ Python的科学计算环境
 对科学计算语言julia的支持    
 4. R  
 对科学计算语言R的支持    
-5. C&&CPP  
-对C，CPP（11,14，17）的支持，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）
+5. CPP  
+对CPP（11,14，17）的支持，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）
 6. DeepLearning（With GPU）  
 只提供Python语言支持，集成TensorFlow,Pytorch,Transformer,Oneflow支持  
 7. Sagemath  
