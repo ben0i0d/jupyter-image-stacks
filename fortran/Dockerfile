@@ -11,7 +11,7 @@ RUN apt-get update --yes && \
 
 USER ${NB_UID}
 # R packages including IRKernel which gets installed globally.
-RUN mamba install --yes ifort_kernel && \
+RUN mamba install --yes -c intel ifort_kernel && \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
