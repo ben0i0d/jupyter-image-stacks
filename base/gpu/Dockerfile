@@ -8,7 +8,7 @@ USER root
 
 # Install all OS dependencies for fully functional notebook server
 RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends git nano-tiny tzdata unzip vim-tiny inkscape openssh-client \
+    apt-get install --yes --no-install-recommends git nano-tiny tzdata zip unzip vim-tiny inkscape openssh-client \
     less texlive-xetex texlive-fonts-recommended texlive-plain-generic && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
