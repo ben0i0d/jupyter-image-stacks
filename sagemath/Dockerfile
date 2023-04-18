@@ -16,7 +16,6 @@ USER $NB_UID
 # Install Sage conda environsage
 RUN conda install --quiet --yes -c conda-forge widgetsnbextension sage && \
     conda clean --all -f -y && \
-# npm cache clean --force && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
