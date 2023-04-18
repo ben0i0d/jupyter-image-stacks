@@ -25,7 +25,15 @@ scipy-c-build:
   script:
     - cd scipy/cpu
     - docker build -t $CI_REGISTRY/jupyter:scipy-c . --network=host
-    - docker push $CI_REGISTRY/jupyter:scipy-c
+    - docker cpph $CI_REGISTRY/jupyter:scipy-c
+cpp-c-build:
+  tags: [build]
+  stage: build
+  needs: [base-c-build]
+  script:
+    - cd cpp
+    - docker build -t $CI_REGISTRY/jupyter:cpp-c . --network=host
+    - docker push $CI_REGISTRY/jupyter:cpp-c
 julia-c-build:
   tags: [build]
   stage: build
