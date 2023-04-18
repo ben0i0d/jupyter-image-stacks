@@ -47,7 +47,7 @@ sage-c-build:
   stage: build
   needs: [base-c-build]
   script:
-    - cd julia
+    - cd sagemath
     - docker build -t $CI_REGISTRY/jupyter:sage-c . --network=host
     - docker push $CI_REGISTRY/jupyter:sage-c
 dl-c-build:
