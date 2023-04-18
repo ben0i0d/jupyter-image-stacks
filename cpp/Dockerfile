@@ -10,9 +10,8 @@ RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends build-essential && \
     apt-get clean && rm -rf /var/lib/apt/lists/* 
 
-RUN pip install jupyter-c-kernel && \
-    install_c_kernel && \
-    pip cache purge 
+RUN pip install --no-cache-dir jupyter-c-kernel && \
+    install_c_kernel 
 
 USER ${NB_UID}
 
