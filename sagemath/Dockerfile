@@ -7,20 +7,13 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 USER root
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    dvipng \
-    ffmpeg \
-    imagemagick \
-    texlive \
-    tk tk-dev \
-    jq && \
+    apt-get install -y --no-install-recommends dvipng ffmpeg imagemagick texlive tk tk-dev jq && \
     rm -rf /var/lib/apt/lists/*
 
 USER ${NB_UID}
 
 # Add conda-forge channel and install sagemath
-RUN mamba config --add channels conda-forge && \
-    mamba install -y sagemath && \
+RUN mamba install -y -c conda-forge sagemath && \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
