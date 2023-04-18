@@ -26,6 +26,14 @@ scipy-c-build:
     - cd scipy/cpu
     - docker build -t $CI_REGISTRY/jupyter:scipy-c . --network=host
     - docker push $CI_REGISTRY/jupyter:scipy-c
+julia-c-build:
+  tags: [build]
+  stage: build
+  needs: [base-c-build]
+  script:
+    - cd julia
+    - docker build -t $CI_REGISTRY/jupyter:julia-c . --network=host
+    - docker push $CI_REGISTRY/jupyter:julia-c
 dl-c-build:
   tags: [build]
   stage: build
@@ -34,14 +42,6 @@ dl-c-build:
     - cd deeplearning/cpu
     - docker build -t $CI_REGISTRY/jupyter:dl-c . --network=host
     - docker push $CI_REGISTRY/jupyter:dl-c
-data-c-build:
-  tags: [build]
-  stage: build
-  needs: [scipy-c-build]
-  script:
-    - cd datascience/cpu
-    - docker build -t $CI_REGISTRY/jupyter:data-c . --network=host
-    - docker push $CI_REGISTRY/jupyter:data-c
 up-g-build:
   tags: [build]
   stage: build

@@ -1,4 +1,4 @@
-FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy
+FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:base-c
 LABEL maintainer="eoelab <eoelab@eoelab.org>"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -11,7 +11,9 @@ ENV JULIA_DEPOT_PATH=/opt/julia \
     JULIA_PKGDIR=/opt/julia \
     JULIA_VERSION=1.8.5 \
     JULIA_PKG_SERVER=https://mirrors.ustc.edu.cn/julia
+
 WORKDIR /tmp
+
 # hadolint ignore=SC2046
 RUN julia_installer="julia-${JULIA_VERSION}-linux-x86_64.tar.gz" && julia_major_minor=$(echo "${JULIA_VERSION}" | cut -d. -f 1,2) && \
     mkdir "/opt/julia-${JULIA_VERSION}" && \
@@ -25,7 +27,7 @@ RUN julia_installer="julia-${JULIA_VERSION}-linux-x86_64.tar.gz" && julia_major_
     chown "${NB_USER}" "${JULIA_PKGDIR}" && \
     fix-permissions "${JULIA_PKGDIR}"
 
-USER ${NB_UID}  
+USER ${NB_UID}
 # Add Julia packages.
 # Install IJulia as jovyan and then move the kernelspec out
 # to the system share location. Avoids problems with runtime UID change not
@@ -33,7 +35,6 @@ USER ${NB_UID}
 RUN julia -e 'import Pkg; Pkg.update()' && \
     julia -e 'import Pkg; Pkg.add("HDF5")' && \
     julia -e 'using Pkg; pkg"add IJulia"; pkg"precompile"' && \
-    # move kernelspec out of home \
     mv "${HOME}/.local/share/jupyter/kernels/julia"* "${CONDA_DIR}/share/jupyter/kernels/" && \
     chmod -R go+rx "${CONDA_DIR}/share/jupyter" && \
     rm -rf "${HOME}/.local" && \
