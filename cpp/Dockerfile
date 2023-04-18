@@ -10,13 +10,14 @@ RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends build-essential && \
     apt-get clean && rm -rf /var/lib/apt/lists/* 
 
+RUN pip install jupyter-c-kernel && \
+    install_c_kernel && \
+    pip cache purge 
+
 USER ${NB_UID}
 
 # Install C & Cpp kernel
 RUN mamba install --quiet --yes -c conda-forge xeus-cling && \
-    pip install jupyter-c-kernel && \
-    install_c_kernel && \
-    pip cache purge && \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
