@@ -9,8 +9,3 @@ RUN pip install tensorflow transformers && \
     pip install oneflow && \
     pip cache purge
 
-# Switch back to jovyan to avoid accidental container runs as root
-USER ${NB_UID}
-
-WORKDIR "${HOME}"
-

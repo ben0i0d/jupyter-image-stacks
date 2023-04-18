@@ -17,4 +17,3 @@ RUN update-alternatives --install /usr/bin/nano nano /bin/nano-tiny 10
 # Switch back to jovyan to avoid accidental container runs as root
 USER ${NB_UID}
 
-WORKDIR "${HOME}"
