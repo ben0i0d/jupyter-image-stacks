@@ -10,7 +10,6 @@ up-c-build:
   script:
     - cd upstream/cpu
     - docker build -t $CI_REGISTRY/jupyter:up-c . --network=host
-    - docker push $CI_REGISTRY/jupyter:up-c
 base-c-build:
   tags: [build]
   stage: build
@@ -50,7 +49,6 @@ up-g-build:
   script:
     - cd upstream/gpu
     - docker build -t $CI_REGISTRY/jupyter:up-g . --network=host
-    - docker push $CI_REGISTRY/jupyter:up-g
 base-g-build:
   tags: [build]
   stage: build
@@ -58,7 +56,6 @@ base-g-build:
   script:
     - cd base/gpu
     - docker build -t $CI_REGISTRY/jupyter:base-g . --network=host
-    - docker push $CI_REGISTRY/jupyter:base-g
 scipy-g-build:
   tags: [build]
   stage: build
@@ -66,7 +63,6 @@ scipy-g-build:
   script:
     - cd scipy/gpu
     - docker build -t $CI_REGISTRY/jupyter:scipy-g . --network=host
-    - docker push $CI_REGISTRY/jupyter:scipy-g
 dl-g-build:
   tags: [build]
   stage: build
