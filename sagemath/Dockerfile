@@ -13,7 +13,7 @@ RUN apt-get update && \
 USER ${NB_UID}
 
 # Add conda-forge channel and install sagemath
-RUN mamba install -y -c conda-forge sagemath && \
+RUN mamba install -y -c conda-forge sage && \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
