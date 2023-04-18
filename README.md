@@ -14,22 +14,22 @@
 ```mermaid
 graph LR
 A(upstream)-->B(base)
-B-->C(scipy)
-C-->D(deeplearning)	
-C-->E(datascience)
-B-->F(Sagemath)
+B-->C(scipy)-->D(deeplearning)	
+B-->E(julia)
+B-->F(r)
 ```  
 ## 目前支持清单
 1. Python  
-这包括Python支持，conda，pip  
-2. Scipy
+对Python语言的基础支持
+2. Scipy  
 Python的科学计算环境  
-3. DataScience（With GPU）    
-这包括Python与科学计算常用包支持，Julia支持，R与常用包支持    
-Julia使用自己的PKG包管理工具，所以使用时注意对PKG换源并且安装包    
-4. DeepLearning（With GPU）  
-通常只提供Python语言支持，集成TensorFlow,Pytorch,Transformer,Oneflow支持  
-5. Sagemath  
+3. julia  
+对科学计算语言julia的支持   
+4. r  
+对科学计算语言r的支持    
+5. DeepLearning（With GPU）  
+只提供Python语言支持，集成TensorFlow,Pytorch,Transformer,Oneflow支持  
+6. Sagemath  
 这是一个遵循GPL的开源数学工具  
 ## 如何提交意见或参与
 如果您有更好的思路，可以在本项目中提出issue  
