@@ -33,13 +33,13 @@ julia-c-build:
   script:
     - cd julia
     - docker build -t $CI_REGISTRY/jupyter:julia-c . --network=host
-    - dockerrpush $CI_REGISTRY/jupyter:julia-c
+    - docker push $CI_REGISTRY/jupyter:julia-c
 r-c-build:
   tags: [build]
   stage: build
   needs: [base-c-build]
   script:
-    - cd julia
+    - cd r
     - docker build -t $CI_REGISTRY/jupyter:r-c . --network=host
     - docker push $CI_REGISTRY/jupyter:r-c
 dl-c-build:
