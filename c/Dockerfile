@@ -1,12 +1,9 @@
-FROM jupyter/minimal-notebook
-MAINTAINER Xaver Klemenschits <klemenschits@iue.tuwien.ac.at>
+FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:base-c
+LABEL maintainer="eoelab <eoelab@eoelab.org>"
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root
-
-# Install vim and ssh
-RUN apt-get update
-RUN apt-get install -y vim openssh-client
-
 WORKDIR /tmp
 
 COPY ./ jupyter_c_kernel/

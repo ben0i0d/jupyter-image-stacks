@@ -31,6 +31,14 @@ cpp-c-build:
   stage: build
   needs: [base-c-build]
   script:
+    - cd c
+    - docker build -t $CI_REGISTRY/jupyter:c-c . --network=host
+    - docker push $CI_REGISTRY/jupyter:c-c
+cpp-c-build:
+  tags: [build]
+  stage: build
+  needs: [base-c-build]
+  script:
     - cd cpp
     - docker build -t $CI_REGISTRY/jupyter:cpp-c . --network=host
     - docker push $CI_REGISTRY/jupyter:cpp-c
