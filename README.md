@@ -20,7 +20,6 @@ B-->F(R)
 B-->G(Sagemath)
 B-->H(CPP)
 B-->I(Fortran)
-B-->J(C)
 ```  
 ## 参数说明，包括源和版本等
 Python 3.8  
@@ -44,10 +43,7 @@ Python的科学计算环境
 对科学计算语言R的支持    
 5. Fortran  
 对科学计算语言Fortran的支持  
-6. C  
-对C的支持（支持 C89/ANSI C，支持所有较新的版本），并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）  
-kernel可以参考https://github.com/XaverKlemenschits/jupyter-c-kernel  
-7. CPP  
+6. CPP  
 对CPP（11,14,17）的支持，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）  
 您需要额外注意的是，在Notebook中，您的语法结构需要做一定改动，具体可以参考https://github.com/jupyter-xeus/xeus-cling  
 例如helloworld程序代码为：  
@@ -56,9 +52,9 @@ kernel可以参考https://github.com/XaverKlemenschits/jupyter-c-kernel
 
     std::cout << "Hello, world!" << "\n";
     ```
-8. DeepLearning（With GPU）  
+7. DeepLearning（With GPU）  
 只提供Python语言支持，集成TensorFlow,Pytorch,Transformer,Oneflow支持  
-9. Sagemath  
+8. Sagemath  
 这是一个遵循GPL的开源数学工具  
 ## 注意
 1. 项目内main分支Dockerfile是经过测试而发布的，并且做了本地化工作，包括为apt，Julia，conda，pip默认配置中国境内镜像源  
