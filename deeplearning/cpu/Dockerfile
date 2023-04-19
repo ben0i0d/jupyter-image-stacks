@@ -4,7 +4,7 @@ LABEL maintainer="eoelab <eoelab@eoelab.org>"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-# install tf 
+# install tf torch oneflow transformers
 RUN pip install tensorflow transformers && \
     pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu && \
     pip install --find-links https://release.oneflow.info oneflow==0.9.0+cpu && \
