@@ -11,10 +11,9 @@ RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends build-essential && \
     apt-get clean && rm -rf /var/lib/apt/lists/* 
 
-COPY ./ jupyter_c_kernel/
 
-RUN pip install --no-cache-dir -e jupyter_c_kernel/ > piplog.txt && \
-    cd jupyter_c_kernel && install_c_kernel --user > installlog.txt && \
+RUN pip install jupyter-c-kernel && \
+    install_c_kernel && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
