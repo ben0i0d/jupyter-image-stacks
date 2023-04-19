@@ -33,7 +33,14 @@ Python的科学计算环境
 5. Fortran  
 对科学计算语言Fortran的支持  
 6. CPP  
-对CPP（11,14，17）的支持，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）
+对CPP（11,14，17）的支持，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）  
+您需要额外注意的是，在Notebook中，您的语法结构需要做一定改动，具体可以参考https://github.com/jupyter-xeus/xeus-cling  
+例如helloworld程序代码为：  
+```
+#include <iostream>
+
+std::cout << "Hello, world!" << "\n";
+```
 7. DeepLearning（With GPU）  
 只提供Python语言支持，集成TensorFlow,Pytorch,Transformer,Oneflow支持  
 8. Sagemath  
