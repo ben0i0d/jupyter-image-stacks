@@ -14,8 +14,9 @@ RUN apt-get update --yes && \
 COPY ./ jupyter_c_kernel/
 
 RUN pip install --no-cache-dir -e jupyter_c_kernel/ > piplog.txt && \
-    cd jupyter_c_kernel && install_c_kernel --user > installlog.txt
-
+    cd jupyter_c_kernel && install_c_kernel --user > installlog.txt && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
 
 WORKDIR /home/$NB_USER/
 USER $NB_USER
