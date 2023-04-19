@@ -12,7 +12,7 @@ RUN apt-get update --yes && \
 
 USER ${NB_UID}
 
-# Install C & Cpp kernel
+# Install Cpp kernel
 RUN mamba install --quiet --yes -c conda-forge xeus-cling && \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
