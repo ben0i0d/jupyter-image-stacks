@@ -6,11 +6,16 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 USER root
 WORKDIR /tmp
 
+RUN apt-get update --yes && \
+    apt-get upgrade --yes && \
+    apt-get install --yes --no-install-recommends build-essential && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* 
+
 COPY ./ jupyter_c_kernel/
 
-RUN pip install --no-cache-dir -e jupyter_c_kernel/ > piplog.txt
-RUN cd jupyter_c_kernel && install_c_kernel --user > installlog.txt
+RUN pip install --no-cache-dir -e jupyter_c_kernel/ > piplog.txt && \
+    cd jupyter_c_kernel && install_c_kernel --user > installlog.txt
+
 
 WORKDIR /home/$NB_USER/
-
 USER $NB_USER
