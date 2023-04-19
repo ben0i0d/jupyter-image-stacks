@@ -17,3 +17,10 @@ RUN update-alternatives --install /usr/bin/nano nano /bin/nano-tiny 10
 # Switch back to jovyan to avoid accidental container runs as root
 USER ${NB_UID}
 
+RUN jupyter labextension install @jupyterlab/debugger && \
+    jupyter labextension install @jupyterlab/toc && \
+    jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-matplotlib && \
+    jupyter labextension install jupyterlab-drawio && \
+    jupyter labextension install @jupyter-widgets/jupyterlab-manager plotlywidget@4.9.0 && \
+    jupyter labextension install jupyterlab-spreadsheet && \
+    jupyter labextension install @lckr/jupyterlab_variableinspector
