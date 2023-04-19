@@ -34,14 +34,6 @@ cpp-c-build:
     - cd cpp
     - docker build -t $CI_REGISTRY/jupyter:cpp-c . --network=host
     - docker push $CI_REGISTRY/jupyter:cpp-c
-fortran-c-build:
-  tags: [build]
-  stage: build
-  needs: [base-c-build]
-  script:
-    - cd fortran
-    - docker build -t $CI_REGISTRY/jupyter:fortran-c . --network=host
-    - docker push $CI_REGISTRY/jupyter:fortran-c
 julia-c-build:
   tags: [build]
   stage: build
