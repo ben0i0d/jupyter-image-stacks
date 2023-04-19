@@ -26,7 +26,7 @@ scipy-c-build:
     - cd scipy/cpu
     - docker build -t $CI_REGISTRY/jupyter:scipy-c . --network=host
     - docker push $CI_REGISTRY/jupyter:scipy-c
-cpp-c-build:
+c-c-build:
   tags: [build]
   stage: build
   needs: [base-c-build]
