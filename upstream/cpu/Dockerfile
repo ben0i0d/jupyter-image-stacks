@@ -73,6 +73,14 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
     fix-permissions "/home/${NB_USER}" && \
     pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple && \
     npm config set registry https://mirrors.ustc.edu.cn/node/
+#install extension
+RUN jupyter labextension install @jupyterlab/debugger && \
+    jupyter labextension install @jupyterlab/toc && \
+    jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-matplotlib && \
+    jupyter labextension install jupyterlab-drawio && \
+    jupyter labextension install @jupyter-widgets/jupyterlab-manager plotlywidget && \
+    jupyter labextension install jupyterlab-spreadsheet && \
+    jupyter labextension install @lckr/jupyterlab_variableinspector
 
 COPY --chown=${NB_UID}:${NB_GID} Rprofile.site /opt/conda/lib/R/etc/
 COPY start-notebook.sh start-singleuser.sh /usr/local/bin/
