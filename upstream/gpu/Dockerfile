@@ -68,6 +68,7 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
     rm micromamba && \
     mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
     jupyter notebook --generate-config && \
+    jupyter serverextension enable --py jupyterlab --sys-prefix && \
     mamba clean --all -f -y && \
     npm cache clean --force && \
     jupyter lab clean && \
