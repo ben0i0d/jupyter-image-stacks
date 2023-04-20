@@ -1,4 +1,4 @@
-FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:base-c
+FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-c
 
 LABEL maintainer="eoelab <eoelab@eoelab.org>"
 

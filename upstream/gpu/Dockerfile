@@ -18,7 +18,7 @@ RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.l
     sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
     apt-get update --yes && \
     apt-get upgrade --yes && \
-    apt-get install --yes --no-install-recommends bzip2 ca-certificates locales sudo tini wget && \
+    apt-get install --yes --no-install-recommends bzip2 ca-certificates locales sudo tini wget curl git vim zip unzip xclip && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
@@ -66,23 +66,23 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
     mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
     jupyter serverextension enable --py jupyterlab --sys-prefix && \
     jupyter notebook --generate-config && \
-    mamba clean --all -f -y && \
-    npm cache clean --force && \
-    jupyter lab clean && \
-    rm -rf "/home/${NB_USER}/.cache/yarn" && \
-    fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}" && \
     pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple && \
     npm config set registry https://registry.npmmirror.com/
 #install extension
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
     jupyter labextension install @jupyterlab/debugger && \
     jupyter labextension install @jupyterlab/toc && \
-    jupyter labextension install jupyter-matplotlib && \
-    jupyter labextension install jupyterlab-drawio && \
-    jupyter labextension install plotlywidget && \
-    jupyter labextension install jupyterlab-spreadsheet && \
-    jupyter labextension install @lckr/jupyterlab_variableinspector
+    mamba install -c conda-forge jupyterlab-lsp && \
+    pip install jupyterlab_latex && \
+    pip install jupyterlab-github
+#clean cache
+RUN pip cache purge && \
+    npm cache clean --force && \
+    jupyter lab clean && \
+    rm -rf "/home/${NB_USER}/.cache/yarn" && \
+    mamba clean --all -f -y && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}" 
 # Copy local files as late as possible to avoid cache busting
 COPY start.sh start-notebook.sh start-singleuser.sh /usr/local/bin/
 # Currently need to have both jupyter_notebook_config and jupyter_server_config to support classic and lab

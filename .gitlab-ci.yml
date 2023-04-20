@@ -10,18 +10,18 @@ up-c-build:
   script:
     - cd upstream/cpu
     - docker build -t $CI_REGISTRY/jupyter:up-c . --network=host
-base-c-build:
+python-c-build:
   tags: [build]
   stage: build
   needs: [up-c-build]
   script:
-    - cd base/cpu
-    - docker build -t $CI_REGISTRY/jupyter:base-c . --network=host
-    - docker push $CI_REGISTRY/jupyter:base-c
+    - cd python/cpu
+    - docker build -t $CI_REGISTRY/jupyter:python-c . --network=host
+    - docker push $CI_REGISTRY/jupyter:python-c
 scipy-c-build:
   tags: [build]
   stage: build
-  needs: [base-c-build]
+  needs: [python-c-build]
   script:
     - cd scipy/cpu
     - docker build -t $CI_REGISTRY/jupyter:scipy-c . --network=host
@@ -29,7 +29,7 @@ scipy-c-build:
 cpp-c-build:
   tags: [build]
   stage: build
-  needs: [base-c-build]
+  needs: [up-c-build]
   script:
     - cd cpp
     - docker build -t $CI_REGISTRY/jupyter:cpp-c . --network=host
@@ -37,7 +37,7 @@ cpp-c-build:
 julia-c-build:
   tags: [build]
   stage: build
-  needs: [base-c-build]
+  needs: [up-c-build]
   script:
     - cd julia
     - docker build -t $CI_REGISTRY/jupyter:julia-c . --network=host
@@ -45,7 +45,7 @@ julia-c-build:
 r-c-build:
   tags: [build]
   stage: build
-  needs: [base-c-build]
+  needs: [up-c-build]
   script:
     - cd r
     - docker build -t $CI_REGISTRY/jupyter:r-c . --network=host
@@ -53,7 +53,7 @@ r-c-build:
 sage-c-build:
   tags: [build]
   stage: build
-  needs: [base-c-build]
+  needs: [up-c-build]
   script:
     - cd sagemath
     - docker build -t $CI_REGISTRY/jupyter:sage-c . --network=host
@@ -73,20 +73,20 @@ up-g-build:
   script:
     - cd upstream/gpu
     - docker build -t $CI_REGISTRY/jupyter:up-g . --network=host
-base-g-build:
+python-g-build:
   tags: [build]
   stage: build
   needs: [up-g-build]
   script:
-    - cd base/gpu
-    - docker build -t $CI_REGISTRY/jupyter:base-g . --network=host
+    - cd python/gpu
+    - docker build -t $CI_REGISTRY/jupyter:python-g . --network=host
 scipy-g-build:
   tags: [build]
   stage: build
-  needs: [base-g-build]
+  needs: [python-g-build]
   script:
     - cd scipy/gpu
-    - docker build -t $CI_REGISTRY/jupyter:scipy-g . --network=host
+    - docker build -t $CI_REGISTRY/jupyter:python-g . --network=host
 dl-g-build:
   tags: [build]
   stage: build

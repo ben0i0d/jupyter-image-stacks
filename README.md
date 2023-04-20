@@ -13,12 +13,12 @@
 节点内为镜像，默认子节点是父节点的派生  
 ```mermaid
 graph LR
-A(Upstream)-->B(Base)
+A(Upstream)-->B(Python)
+A-->E(Julia)
+A-->F(R)
+A-->G(Sagemath)
+A-->H(CPP)
 B-->C(Scipy)-->D(Deeplearning)	
-B-->E(Julia)
-B-->F(R)
-B-->G(Sagemath)
-B-->H(CPP)
 ```  
 ## 参数说明，包括源和版本等
 Python 3.8  

@@ -8,8 +8,7 @@ USER root
 
 # Install all OS dependencies for fully functional notebook server
 RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends git nano-tiny tzdata zip unzip vim-tiny inkscape openssh-client \
-    less texlive-xetex texlive-fonts-recommended texlive-plain-generic && \
+    apt-get install --yes --no-install-recommends tzdata openssh-client less fonts-liberation pandoc run-one && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Create alternative for nano -> nano-tiny

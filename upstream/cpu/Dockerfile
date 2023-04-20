@@ -16,7 +16,7 @@ RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.l
     sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \   
     apt-get update --yes && \
     apt-get upgrade --yes && \
-    apt-get install --yes --no-install-recommends bzip2 ca-certificates locales sudo tini wget && \
+    apt-get install --yes --no-install-recommends bzip2 ca-certificates locales sudo tini wget curl git vim zip unzip xclip && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
@@ -55,6 +55,8 @@ RUN mkdir "/home/${NB_USER}/work" && fix-permissions "/home/${NB_USER}"
 COPY --chown="${NB_UID}:${NB_GID}" initial-condarc "${CONDA_DIR}/.condarc"
 
 WORKDIR /tmp
+#install jupyter python mamba
+#change sources
 RUN wget -qO /tmp/micromamba.tar.bz2 \
         "https://micromamba.snakepit.net/api/micromamba/linux-64/latest" && \
     tar -xvjf /tmp/micromamba.tar.bz2 --strip-components=1 bin/micromamba && \
@@ -65,23 +67,25 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
     mamba install --yes 'notebook' 'jupyterhub' 'jupyterlab' && \
     jupyter serverextension enable --py jupyterlab --sys-prefix && \
     jupyter notebook --generate-config && \
+    pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple && \
+    npm config set registry https://registry.npmmirror.com/
+
+#install extension
+RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
+    jupyter labextension install @jupyterlab/debugger && \
+    jupyter labextension install @jupyterlab/toc && \
+    mamba install -c conda-forge jupyterlab-lsp && \
+    pip install jupyterlab_latex && \
+    pip install jupyterlab-github
+
+#clean cache
+RUN pip cache purge && \
     npm cache clean --force && \
     jupyter lab clean && \
     rm -rf "/home/${NB_USER}/.cache/yarn" && \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}" && \
-    pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple && \
-    npm config set registry https://registry.npmmirror.com/
-#install extension
-RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
-    jupyter labextension install @jupyterlab/debugger && \
-    jupyter labextension install @jupyterlab/toc && \
-    jupyter labextension install jupyter-matplotlib && \
-    jupyter labextension install jupyterlab-drawio && \
-    jupyter labextension install plotlywidget && \
-    jupyter labextension install jupyterlab-spreadsheet && \
-    jupyter labextension install @lckr/jupyterlab_variableinspector
+    fix-permissions "/home/${NB_USER}" 
 
 COPY --chown=${NB_UID}:${NB_GID} Rprofile.site /opt/conda/lib/R/etc/
 COPY start-notebook.sh start-singleuser.sh /usr/local/bin/
