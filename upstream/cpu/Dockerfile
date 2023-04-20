@@ -74,11 +74,12 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
     pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple && \
     npm config set registry https://registry.npmmirror.com/
 #install extension
-RUN jupyter labextension install @jupyterlab/debugger && \
+RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
+    jupyter labextension install @jupyterlab/debugger && \
     jupyter labextension install @jupyterlab/toc && \
-    jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-matplotlib && \
+    jupyter labextension install jupyter-matplotlib && \
     jupyter labextension install jupyterlab-drawio && \
-    jupyter labextension install @jupyter-widgets/jupyterlab-manager plotlywidget && \
+    jupyter labextension install plotlywidget && \
     jupyter labextension install jupyterlab-spreadsheet && \
     jupyter labextension install @lckr/jupyterlab_variableinspector
 
