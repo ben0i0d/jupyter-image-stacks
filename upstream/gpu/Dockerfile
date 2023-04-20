@@ -69,10 +69,10 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
     pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple && \
     npm config set registry https://registry.npmmirror.com/
 #install extension
-RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
-    jupyter labextension install @jupyterlab/debugger && \
-    jupyter labextension install @jupyterlab/toc && \
+RUN pip install jupyterlab_widgets && \
+    jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
     mamba install -c conda-forge jupyterlab-lsp && \
+    mamba install -c conda-forge jupyterlab-git && \
     pip install jupyterlab_latex && \
     pip install jupyterlab-github
 #clean cache

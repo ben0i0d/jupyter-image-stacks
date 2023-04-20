@@ -11,8 +11,10 @@ RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends tzdata openssh-client less fonts-liberation pandoc run-one && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Create alternative for nano -> nano-tiny
-RUN update-alternatives --install /usr/bin/nano nano /bin/nano-tiny 10
 # Switch back to jovyan to avoid accidental container runs as root
 USER ${NB_UID}
-
+# python-lsp
+RUN mamba install -c conda-forge python-lsp-server && \
+    mamba clean --all -f -y && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}" 
