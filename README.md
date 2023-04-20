@@ -6,11 +6,11 @@
 3. 我们的docker镜像仓库是 https://hub.docker.com/r/ben0i0d/jupyter   
 4. 对于issue/PR，我们推荐在源仓库上提，这对于我们工作更方便，但是如果您在github上提，我们也会跟进处理  
 ## 我是谁
-用于支撑eoelab基础计算设施jupyterhub的镜像制作项目  
+用于支撑我们基础计算设施与在线IDE-jupyterhub的镜像构建项目  
 使用docker作为运行时平台，镜像可以像jupyternotebook一样使用，容器端口为8888  
 更多的构建细节可以查看jupyter团队项目https://github.com/jupyter/docker-stacks  
+对于很多有很高自定义化的镜像，请查看对应kernel，或者在项目内提issue  
 ## 镜像依赖关系
-节点内为镜像，默认子节点是父节点的派生  
 ```mermaid
 graph LR
 A(Upstream)-->B(Python)
