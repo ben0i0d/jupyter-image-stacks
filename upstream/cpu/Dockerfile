@@ -72,7 +72,7 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}" && \
     pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple && \
-    npm config set registry https://mirrors.ustc.edu.cn/node/
+    npm config set registry https://registry.npmmirror.com/
 #install extension
 RUN jupyter labextension install @jupyterlab/debugger && \
     jupyter labextension install @jupyterlab/toc && \

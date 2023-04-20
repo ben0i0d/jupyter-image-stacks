@@ -31,7 +31,7 @@ cudnn 8
 conda bfsu：https://mirrors.bfsu.edu.cn/help/anaconda/  
 pip bfsu：https://mirrors.bfsu.edu.cn/help/pypi/  
 apt ustc：https://mirrors.ustc.edu.cn/help/ubuntu.html  
-npm ustc: https://mirrors.ustc.edu.cn/help/node.html
+npm npmmirror(AliYun): https://registry.npmmirror.com/
 ## 目前支持清单
 1. Python  
 对Python语言的基础支持  
