@@ -13,8 +13,8 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 USER root
 ENV DEBIAN_FRONTEND noninteractive 
 RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list && \
-    sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list    
-RUN apt-get update --yes && \
+    sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \   
+    apt-get update --yes && \
     apt-get upgrade --yes && \
     apt-get install --yes --no-install-recommends bzip2 ca-certificates locales sudo tini wget && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
@@ -34,10 +34,10 @@ ENV PATH="${CONDA_DIR}/bin:${PATH}" \
     HOME="/home/${NB_USER}"
 # Copy a script that we will use to correct permissions after running certain commands
 COPY fix-permissions /usr/local/bin/fix-permissions
-RUN chmod a+rx /usr/local/bin/fix-permissions
-RUN sed -i 's/^#force_color_prompt=yes/force_color_prompt=yes/' /etc/skel/.bashrc && \
-    echo 'eval "$(command conda shell.bash hook 2> /dev/null)"' >> /etc/skel/.bashrc
-RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
+RUN chmod a+rx /usr/local/bin/fix-permissions && \
+    sed -i 's/^#force_color_prompt=yes/force_color_prompt=yes/' /etc/skel/.bashrc && \
+    echo 'eval "$(command conda shell.bash hook 2> /dev/null)"' >> /etc/skel/.bashrc && \
+    echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
     sed -i.bak -e 's/^%admin/#%admin/' /etc/sudoers && \
     sed -i.bak -e 's/^%sudo/#%sudo/' /etc/sudoers && \
     useradd -l -m -s /bin/bash -N -u "${NB_UID}" "${NB_USER}" && \
@@ -63,15 +63,16 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
     rm micromamba && \
     mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
     mamba install --yes 'notebook' 'jupyterhub' 'jupyterlab' && \
-    jupyter notebook --generate-config && \
     jupyter serverextension enable --py jupyterlab --sys-prefix && \
+    jupyter notebook --generate-config && \
     npm cache clean --force && \
     jupyter lab clean && \
     rm -rf "/home/${NB_USER}/.cache/yarn" && \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}" && \
-    pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple 
+    pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple && \
+    npm config set registry https://mirrors.ustc.edu.cn/node/
 
 COPY --chown=${NB_UID}:${NB_GID} Rprofile.site /opt/conda/lib/R/etc/
 COPY start-notebook.sh start-singleuser.sh /usr/local/bin/

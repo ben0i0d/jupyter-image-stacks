@@ -31,6 +31,7 @@ cudnn 8
 conda bfsu：https://mirrors.bfsu.edu.cn/help/anaconda/  
 pip bfsu：https://mirrors.bfsu.edu.cn/help/pypi/  
 apt ustc：https://mirrors.ustc.edu.cn/help/ubuntu.html  
+npm ustc: https://mirrors.ustc.edu.cn/help/node.html
 ## 目前支持清单
 1. Python  
 对Python语言的基础支持  
@@ -54,7 +55,7 @@ Python的科学计算环境
 7. Sagemath  
 这是一个遵循GPL的开源数学工具  
 ## 注意
-1. 项目内main分支Dockerfile是经过测试而发布的，并且做了本地化工作，包括为apt，Julia，conda，pip默认配置中国境内镜像源  
+1. 项目内main分支Dockerfile是经过测试而发布的，并且做了本地化工作，包括为apt，Julia，conda，pip,npm默认配置中国境内镜像源  
 2. 如果您有新的测试需求，在拥有权限的情况下请自行构建一个新的分支，注意修改新分支内的CI配置文件，并且在提交合并请求时还原CI配置
 3. 本项目默认落地场景是我们的K8S集群（RKE）
 4. 如果您有更好的思路，可以在本项目中提出issue，PR  

@@ -15,8 +15,8 @@ USER root
 ENV DEBIAN_FRONTEND noninteractive 
 
 RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list && \
-    sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
-RUN apt-get update --yes && \
+    sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
+    apt-get update --yes && \
     apt-get upgrade --yes && \
     apt-get install --yes --no-install-recommends bzip2 ca-certificates locales sudo tini wget && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
@@ -34,16 +34,13 @@ ENV CONDA_DIR=/opt/conda \
 ENV PATH="${CONDA_DIR}/bin:${PATH}" \
     HOME="/home/${NB_USER}"
 
-# Copy a script that we will use to correct permissions after running certain commands
-COPY fix-permissions /usr/local/bin/fix-permissions
-RUN chmod a+rx /usr/local/bin/fix-permissions
-
+# Copy a script that we will use to correct permissions after running certain commands 
 # Enable prompt color in the skeleton .bashrc before creating the default NB_USER hadolint ignore=SC2016
-RUN sed -i 's/^#force_color_prompt=yes/force_color_prompt=yes/' /etc/skel/.bashrc && \
-    echo 'eval "$(command conda shell.bash hook 2> /dev/null)"' >> /etc/skel/.bashrc
-# Create NB_USER with name jovyan user with UID=1000 and in the 'users' group
-# and make sure these dirs are writable by the `users` group.
-RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
+COPY fix-permissions /usr/local/bin/fix-permissions
+RUN chmod a+rx /usr/local/bin/fix-permissions && \
+    sed -i 's/^#force_color_prompt=yes/force_color_prompt=yes/' /etc/skel/.bashrc && \
+    echo 'eval "$(command conda shell.bash hook 2> /dev/null)"' >> /etc/skel/.bashrc && \
+    echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
     sed -i.bak -e 's/^%admin/#%admin/' /etc/sudoers && \
     sed -i.bak -e 's/^%sudo/#%sudo/' /etc/sudoers && \
     useradd -l -m -s /bin/bash -N -u "${NB_UID}" "${NB_USER}" && \
@@ -67,16 +64,16 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
     ./micromamba install --root-prefix="${CONDA_DIR}" --prefix="${CONDA_DIR}" --yes "python=3.8" 'notebook' 'mamba' 'jupyterhub' 'jupyterlab' && \
     rm micromamba && \
     mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
-    jupyter notebook --generate-config && \
     jupyter serverextension enable --py jupyterlab --sys-prefix && \
+    jupyter notebook --generate-config && \
     mamba clean --all -f -y && \
     npm cache clean --force && \
     jupyter lab clean && \
     rm -rf "/home/${NB_USER}/.cache/yarn" && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}" && \
-    pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple 
-
+    pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple && \
+    npm config set registry https://mirrors.ustc.edu.cn/node/
 # Copy local files as late as possible to avoid cache busting
 COPY start.sh start-notebook.sh start-singleuser.sh /usr/local/bin/
 # Currently need to have both jupyter_notebook_config and jupyter_server_config to support classic and lab
