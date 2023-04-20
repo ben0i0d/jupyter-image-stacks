@@ -70,9 +70,9 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
     pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple && \
     npm config set registry https://registry.npmmirror.com/
 
-#install extension
+#install extension && Chinese
 RUN pip install jupyterlab_widgets && \
-    jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
+    pip install jupyterlab-language-pack-zh-CN && \
     mamba install -c conda-forge jupyterlab-lsp && \
     mamba install -c conda-forge jupyterlab-git && \
     pip install jupyterlab_latex && \
