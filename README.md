@@ -6,7 +6,7 @@
 4. 对于issue/PR，我们推荐在源仓库上提，这对于我们工作更方便，但是如果您在github上提，我们也会跟进处理  
 ## 项目梗概
 ### 用途
-用于支撑我们基础计算设施与在线IDE-jupyterhub的镜像构建项目  
+用于支撑我们基础计算设施与在线IDE-jupyterhub的镜像构建项目
 ### 如何使用
 #### Docker
 镜像可以像jupyternotebook一样使用，容器端口为8888  
@@ -25,6 +25,12 @@
           nvidia.com/gpu: '1'
         image: ben0i0d/jupyter:dl-g
 ```
+### 如何参与以及部分贡献指导
+1. 项目内main分支Dockerfile是经过测试而发布的
+2. 如果您有新的测试需求，在拥有权限的情况下请自行构建一个新的分支，注意修改新分支内的CI配置文件，并且在提交合并请求时还原CI配置
+3. 本项目默认落地场景是我们的K8S集群（RKE）
+4. 如果您有更好的思路，可以在本项目中提出issue，PR  
+5. 对于本地化工作，包括apt，Julia，conda，pip,npm配置中国境内镜像源，汉化等，不建议移除
 ### 参数说明，包括源和版本等
 Python 3.8  
 Julia 1.8.5  
@@ -65,8 +71,10 @@ A-->G(Sagemath)
 A-->H(CPP)
 B-->C(Scipy)-->D(Deeplearning)	
 ```  
-## 注意
-1. 项目内main分支Dockerfile是经过测试而发布的，并且做了本地化工作，包括为apt，Julia，conda，pip,npm默认配置中国境内镜像源  
-2. 如果您有新的测试需求，在拥有权限的情况下请自行构建一个新的分支，注意修改新分支内的CI配置文件，并且在提交合并请求时还原CI配置
-3. 本项目默认落地场景是我们的K8S集群（RKE）
-4. 如果您有更好的思路，可以在本项目中提出issue，PR  
+## 必要的授权说明
+对于派生自jupyter团队的代码，我们添加了如下的版权声明，我们保留并且支持jupyter开发团队版权
+```
+# Copyright (c) Jupyter Development Team.
+# Distributed under the terms of the Modified BSD License.
+```
+对于派生自其他kernel的代码，我们还在进一步查阅项目细节
