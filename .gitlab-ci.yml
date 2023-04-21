@@ -86,7 +86,7 @@ scipy-g-build:
   needs: [python-g-build]
   script:
     - cd scipy/gpu
-    - docker build -t $CI_REGISTRY/jupyter:python-g . --network=host
+    - docker build -t $CI_REGISTRY/jupyter:scipy-g . --network=host
 dl-g-build:
   tags: [build]
   stage: build
