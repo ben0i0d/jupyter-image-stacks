@@ -71,8 +71,8 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
 #install extension && Chinese
 RUN pip install jupyterlab_widgets && \
     pip install jupyterlab-language-pack-zh-CN && \
-    mamba install -c conda-forge jupyterlab-lsp && \
-    mamba install -c conda-forge jupyterlab-git && \
+    pip install jupyterlab-lsp && \
+    pip install jupyterlab-git && \
     pip install jupyterlab_latex && \
     pip install jupyterlab-github
 #clean cache

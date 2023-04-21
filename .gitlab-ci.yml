@@ -34,14 +34,6 @@ cpp-c-build:
     - cd cpp
     - docker build -t $CI_REGISTRY/jupyter:cpp-c . --network=host
     - docker push $CI_REGISTRY/jupyter:cpp-c
-go-c-build:
-  tags: [build]
-  stage: build
-  needs: [up-c-build]
-  script:
-    - cd go
-    - docker build -t $CI_REGISTRY/jupyter:go-c . --network=host
-    - docker push $CI_REGISTRY/jupyter:go-c
 julia-c-build:
   tags: [build]
   stage: build
