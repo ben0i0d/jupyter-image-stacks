@@ -11,3 +11,4 @@ RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends tzdata openssh-client less fonts-liberation pandoc run-one && \
     apt-get clean && rm -rf /var/lib/apt/lists/* 
 
+USER root
