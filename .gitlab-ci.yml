@@ -26,14 +26,6 @@ scipy-c-build:
     - cd scipy/cpu
     - docker build -t $CI_REGISTRY/jupyter:scipy-c . --network=host
     - docker push $CI_REGISTRY/jupyter:scipy-c
-llinux-c-build:
-  tags: [build]
-  stage: build
-  needs: [up-c-build]
-  script:
-    - cd llinux
-    - docker build -t $CI_REGISTRY/jupyter:llinux-c . --network=host
-    - docker push $CI_REGISTRY/jupyter:llinux-c
 cpp-c-build:
   tags: [build]
   stage: build
