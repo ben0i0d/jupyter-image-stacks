@@ -67,16 +67,14 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
     jupyter serverextension enable --py jupyterlab --sys-prefix && \
     jupyter notebook --generate-config && \
     pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple && \
-    npm config set registry https://registry.npmmirror.com/
-#install extension && Chinese
-RUN pip install jupyterlab_widgets && \
+    npm config set registry https://registry.npmmirror.com/ && \
+    pip install jupyterlab_widgets && \
     pip install jupyterlab-language-pack-zh-CN && \
     pip install jupyterlab-lsp && \
     pip install jupyterlab-git && \
     pip install jupyterlab_latex && \
-    pip install jupyterlab-github
-#clean cache
-RUN pip cache purge && \
+    pip install jupyterlab-github && \
+    pip cache purge && \
     npm cache clean --force && \
     jupyter lab clean && \
     rm -rf "/home/${NB_USER}/.cache/yarn" && \
