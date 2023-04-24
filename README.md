@@ -48,19 +48,19 @@ npm npmmirror(AliYun): https://registry.npmmirror.com/
 但是我们与上游的差别较大，包括源，软件包，本地化与扩展等，因此如果您从本项目派生遇到问题，请不要到jupyter团队提问，这会加大他们的工作量  
 对于很多自定义化的镜像，请查看对应kernel，或者在项目内提issue  
 ### 当前构建镜像清单
-1. Python：对Python语言的基础支持  
-2. Scipy：Python的科学计算环境  
-3. Julia：对科学计算语言julia的支持    
-4. R：对科学计算语言R的支持    
-5. CPP：对CPP（11,14,17）的支持，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）  
+* Python：对Python语言的基础支持  
+* Scipy：Python的科学计算环境  
+* Julia：对科学计算语言julia的支持    
+* R：对科学计算语言R的支持    
+* CPP：对CPP（11,14,17）的支持，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）  
 您需要额外注意的是，在Notebook中，您的语法结构需要做一定改动，具体可以参考https://github.com/jupyter-xeus/xeus-cling  
 例如,Helloworld程序代码为：  
 ```
     #include <iostream>
     std::cout << "Hello, world!" << "\n";
 ```
-6. DeepLearning（With GPU）：只提供Python语言支持，集成TensorFlow,Pytorch,Transformer,Oneflow支持  
-7. Sagemath：一个遵循GPL的开源数学工具  
+* DeepLearning（With GPU）：只提供Python语言支持，集成TensorFlow,Pytorch,Transformer,Oneflow支持  
+* Sagemath：一个遵循GPL的开源数学工具  
 ## 镜像依赖关系
 ```mermaid
 graph LR
