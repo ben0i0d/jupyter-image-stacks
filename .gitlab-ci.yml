@@ -58,6 +58,14 @@ sage-c-build:
     - cd sagemath
     - docker build -t $CI_REGISTRY/jupyter:sage-c . --network=host
     - docker push $CI_REGISTRY/jupyter:sage-c
+pyspark-c-build:
+  tags: [build]
+  stage: build
+  needs: [scipy-c-build]
+  script:
+    - cd pyspark
+    - docker build -t $CI_REGISTRY/jupyter:pyspark-c . --network=host
+    - docker push $CI_REGISTRY/jupyter:pyspark-c
 dl-c-build:
   tags: [build]
   stage: build

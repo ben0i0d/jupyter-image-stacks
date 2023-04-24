@@ -59,17 +59,20 @@ npm npmmirror(AliYun): https://registry.npmmirror.com/
     #include <iostream>
     std::cout << "Hello, world!" << "\n";
 ```
+* Pyspark: 提供Python对Apache Spark的支持  
 * DeepLearning（With GPU）：只提供Python语言支持，集成TensorFlow,Pytorch,Transformer,Oneflow支持  
 * Sagemath：一个遵循GPL的开源数学工具  
 ## 镜像依赖关系
 ```mermaid
 graph LR
 A(Upstream)-->B(Python)
-A-->E(Julia)
-A-->F(R)
-A-->G(Sagemath)
-A-->H(CPP)
-B-->C(Scipy)-->D(Deeplearning)	
+A-->F(Julia)
+A-->G(R)
+A-->H(Sagemath)
+A-->I(CPP)
+B-->C(Scipy)	
+C(Scipy)-->D(Deeplearning)  
+C(Scipy)-->E(Pyspark)  
 ```  
 ## 必要的授权说明
 对于派生自jupyter团队的代码，我们添加了如下的版权声明，我们保留并且支持jupyter开发团队版权
