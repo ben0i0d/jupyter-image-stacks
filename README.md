@@ -42,12 +42,14 @@ cudnn 8
 conda bfsu：https://mirrors.bfsu.edu.cn/help/anaconda/  
 pip bfsu：https://mirrors.bfsu.edu.cn/help/pypi/  
 apt ustc：https://mirrors.ustc.edu.cn/help/ubuntu.html  
-npm npmmirror(AliYun): https://registry.npmmirror.com/
+npm npmmirror(AliYun): https://registry.npmmirror.com/  
+apache tuna: https://mirrors.tuna.tsinghua.edu.cn/apache/
 ### 项目上游
 本项目直接上游是jupyter团队项目https://github.com/jupyter/docker-stacks  
 但是我们与上游的差别较大，包括源，软件包，本地化与扩展等，因此如果您从本项目派生遇到问题，请不要到jupyter团队提问，这会加大他们的工作量  
 对于很多自定义化的镜像，请查看对应kernel，或者在项目内提issue  
 ### 当前构建镜像清单
+* Llinux：在无特权的情况下学习Linux系统   
 * Python：对Python语言的基础支持  
 * Scipy：Python的科学计算环境  
 * Julia：对科学计算语言julia的支持    
@@ -65,12 +67,12 @@ npm npmmirror(AliYun): https://registry.npmmirror.com/
 ## 镜像依赖关系
 ```mermaid
 graph LR
-A(Upstream)-->B(Python)
+A(Upstream)-->B(Python)-->C(Scipy)
 A-->F(Julia)
 A-->G(R)
 A-->H(Sagemath)
 A-->I(CPP)
-B-->C(Scipy)	
+A-->J(llinux)
 C(Scipy)-->D(Deeplearning)  
 C(Scipy)-->E(Pyspark)  
 ```  
