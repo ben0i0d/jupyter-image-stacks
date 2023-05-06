@@ -26,6 +26,14 @@ scipy-c-build:
     - cd scipy/cpu
     - docker build -t $CI_REGISTRY/jupyter:scipy-c . --network=host
     - docker push $CI_REGISTRY/jupyter:scipy-c
+haskell-c-build:
+  tags: [build]
+  stage: build
+  needs: [up-c-build]
+  script:
+    - cd haskell
+    - docker build -t $CI_REGISTRY/jupyter:haskell-c . --network=host
+    - docker push $CI_REGISTRY/jupyter:haskell-c
 llinux-c-build:
   tags: [build]
   stage: build

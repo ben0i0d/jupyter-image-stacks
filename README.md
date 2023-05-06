@@ -61,6 +61,7 @@ apache tuna: https://mirrors.tuna.tsinghua.edu.cn/apache/
     #include <iostream>
     std::cout << "Hello, world!" << "\n";
 ```
+* Haskell: 提供对Haskell的支持  
 * Pyspark: 提供Python对Apache Spark的支持  
 * DeepLearning（With GPU）：只提供Python语言支持，集成TensorFlow,Pytorch,Transformer,Oneflow支持  
 * Sagemath：一个遵循GPL的开源数学工具  
@@ -73,6 +74,7 @@ A-->G(R)
 A-->H(Sagemath)
 A-->I(CPP)
 A-->J(llinux)
+A-->K(Haskell)
 C(Scipy)-->D(Deeplearning)  
 C(Scipy)-->E(Pyspark)  
 ```  
