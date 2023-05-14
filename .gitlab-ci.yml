@@ -14,6 +14,8 @@ up-c-build:
       --context ./
       --dockerfile "Dockerfile"
       --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-c"
 python-c-build:
@@ -25,6 +27,8 @@ python-c-build:
       --context ./
       --dockerfile "Dockerfile"
       --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:python-c"
 scipy-c-build:
@@ -36,6 +40,8 @@ scipy-c-build:
       --context ./
       --dockerfile "Dockerfile"
       --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy-c"
 haskell-c-build:
@@ -47,6 +53,8 @@ haskell-c-build:
       --context ./
       --dockerfile "Dockerfile"
       --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:haskell-c"
 llinux-c-build:
@@ -58,6 +66,8 @@ llinux-c-build:
       --context ./
       --dockerfile "Dockerfile"
       --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:llinux-c"
 cpp-c-build:
@@ -69,6 +79,8 @@ cpp-c-build:
       --context ./
       --dockerfile "Dockerfile"
       --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:cpp-c"
 julia-c-build:
@@ -80,6 +92,8 @@ julia-c-build:
       --context ./
       --dockerfile "Dockerfile"
       --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:julia-c"
 r-c-build:
@@ -91,6 +105,8 @@ r-c-build:
       --context ./
       --dockerfile "Dockerfile"
       --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:r-c"
 sage-c-build:
@@ -102,6 +118,8 @@ sage-c-build:
       --context ./
       --dockerfile "Dockerfile"
       --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:sage-c"
 pyspark-c-build:
@@ -113,6 +131,8 @@ pyspark-c-build:
       --context ./
       --dockerfile "Dockerfile"
       --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:pyspark-c"
 dl-c-build:
@@ -124,6 +144,8 @@ dl-c-build:
       --context ./
       --dockerfile "Dockerfile"
       --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:dl-c"
 up-g-build:
@@ -135,6 +157,8 @@ up-g-build:
       --context ./
       --dockerfile "Dockerfile"
       --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-g"
 python-g-build:
@@ -146,6 +170,8 @@ python-g-build:
       --context ./
       --dockerfile "Dockerfile"
       --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:python-g"
 scipy-g-build:
@@ -157,6 +183,8 @@ scipy-g-build:
       --context ./
       --dockerfile "Dockerfile"
       --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy-g"
 dl-g-build:
@@ -168,5 +196,7 @@ dl-g-build:
       --context ./
       --dockerfile "Dockerfile"
       --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:dl-g"
