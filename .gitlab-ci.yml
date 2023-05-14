@@ -5,9 +5,9 @@ services:
 variables:
   CI_REGISTRY: "eoelab.org:1032/build-image-stacks/jupyter-image-stacks"
 before_script:
-  - mkdir /etc/docker/certs.d
-  - mkdir /etc/docker/certs.d/eoelab.org:1032
-  - cp /home/gitlab-runner/.gitlab-runner/certs/eoelab.org.crt /etc/docker/certs.d/eoelab.org:1032/eoelab.org.crt
+#  - mkdir /etc/docker/certs.d
+#  - mkdir /etc/docker/certs.d/eoelab.org:1032
+#  - cp /home/gitlab-runner/.gitlab-runner/certs/eoelab.org.crt /etc/docker/certs.d/eoelab.org:1032/eoelab.org.crt
   - docker login -u $CI_USER -p $CI_PASSWORD $LOCAL_REGISTRY
 up-c-build:
   tags: [build]
