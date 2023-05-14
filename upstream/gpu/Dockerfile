@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.6.2-cudnn8-runtime-ubuntu20.04
+FROM eoelab.org:1032/build-image-stacks/mirror-image-stacks/cuda:11.6.2-cudnn8-runtime-ubuntu20.04
 
 LABEL maintainer="eoelab <eoelab@eoelab.org>"
 

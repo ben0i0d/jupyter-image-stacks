@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM eoelab.org:1032/build-image-stacks/mirror-image-stacks/ubuntu:22.04
 
 LABEL maintainer="eoelab <eoelab@eoelab.org>"
 
