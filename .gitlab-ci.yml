@@ -8,8 +8,8 @@ before_script:
   - mkdir /etc/docker
   - mkdir /etc/docker/certs.d
   - mkdir /etc/docker/certs.d/eoelab.org:1032
-  - cd /etc/docker/certs.d/eoelab.org:1032
   - wget http://eoelab.org:1024/index.php/s/XHeP7K3ZAHPHymM/download/eoelab.org.crt
+  - mv eoelab.org.crt /etc/docker/certs.d/eoelab.org:1032/eoelab.org.crt
   - docker login -u $CI_USER -p $CI_PASSWORD $LOCAL_REGISTRY
 up-c-build:
   tags: [build]
