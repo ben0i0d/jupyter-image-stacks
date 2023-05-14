@@ -14,8 +14,10 @@ RUN apt-get update && \
 USER $NB_UID
 
 # Install Sage conda environsage
-RUN mamba install --quiet --yes -c conda-forge widgetsnbextension sage && \
-    mamba clean --all -f -y 
+RUN conda install --quiet --yes -c conda-forge widgetsnbextension sage && \
+    conda clean --all -f -y && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
 
 # Install sagemath kernel and extensions using conda run:
 #   Create jupyter directories if they are missing
@@ -31,7 +33,9 @@ RUN echo ' \
             jq --argfile kernel $SAGE_LOCAL/share/jupyter/kernels/sagemath/kernel.json \
             '"'"'. | map(. as $k | env | .[$k] as $v | {($k):$v}) | add as $vars | $kernel | .env= $vars'"'"' > \
             $CONDA_DIR/share/jupyter/kernels/sagemath/kernel.json \
-    ' | mamba run sh 
+    ' | conda run sh && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
 
 # Install sage's python kernel
 RUN echo ' \
@@ -45,5 +49,7 @@ RUN echo ' \
                 mv -f kernel.json.modified kernel.json && \
                 ln  -s $SAGE_LOCAL/share/jupyter/kernels/% $CONDA_DIR/share/jupyter/kernels/%_sage \
             '"'"' \
-    ' | mamba run sh 
+    ' | conda run sh && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
 
