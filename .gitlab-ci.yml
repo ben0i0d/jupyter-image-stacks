@@ -17,7 +17,8 @@ up-c-build:
   needs: []
   script:
     - cd upstream/cpu
-    - docker build -t $CI_REGISTRY/jupyter:up-c . --network=host
+#    - docker build -t $CI_REGISTRY/jupyter:up-c . --network=host
+    - /kaniko/executor --dockerfile Dockerfile 
     - docker push $CI_REGISTRY/jupyter:up-c
 python-c-build:
   tags: [build]
