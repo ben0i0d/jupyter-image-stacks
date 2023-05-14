@@ -1,7 +1,7 @@
 # Build Docker image with CI/CD and push to the GitLab registry.
-image: docker:latest
-services:
-  - docker:dind
+image: 
+  name: gcr.io/kaniko-project/executor:debug
+  entrypoint: [""]
 variables:
   CI_REGISTRY: "eoelab.org:1032/build-image-stacks/jupyter-image-stacks"
 before_script:
