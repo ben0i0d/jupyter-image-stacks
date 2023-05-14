@@ -1,7 +1,13 @@
 # Build Docker image with CI/CD and push to the GitLab registry.
+image: docker:latest
+services:
+  - docker:dind
 variables:
   CI_REGISTRY: "eoelab.org:1032/build-image-stacks/jupyter-image-stacks"
 before_script:
+  - mkdir /etc/docker/certs.d
+  - mkdir /etc/docker/certs.d/eoelab.org:1032
+  - cp /home/gitlab-runner/.gitlab-runner/certs/eoelab.org.crt /etc/docker/certs.d/eoelab.org:1032/eoelab.org.crt
   - docker login -u $CI_USER -p $CI_PASSWORD $LOCAL_REGISTRY
 up-c-build:
   tags: [build]
@@ -10,6 +16,7 @@ up-c-build:
   script:
     - cd upstream/cpu
     - docker build -t $CI_REGISTRY/jupyter:up-c . --network=host
+    - docker push $CI_REGISTRY/jupyter:up-c
 python-c-build:
   tags: [build]
   stage: build
@@ -97,6 +104,7 @@ up-g-build:
   script:
     - cd upstream/gpu
     - docker build -t $CI_REGISTRY/jupyter:up-g . --network=host
+    - docker push $CI_REGISTRY/jupyter:up-g
 python-g-build:
   tags: [build]
   stage: build
@@ -104,6 +112,7 @@ python-g-build:
   script:
     - cd python/gpu
     - docker build -t $CI_REGISTRY/jupyter:python-g . --network=host
+    - docker push $CI_REGISTRY/jupyter:python-g
 scipy-g-build:
   tags: [build]
   stage: build
@@ -111,6 +120,7 @@ scipy-g-build:
   script:
     - cd scipy/gpu
     - docker build -t $CI_REGISTRY/jupyter:scipy-g . --network=host
+    - docker push $CI_REGISTRY/jupyter:scipy-g
 dl-g-build:
   tags: [build]
   stage: build
