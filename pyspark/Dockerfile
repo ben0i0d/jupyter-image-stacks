@@ -58,9 +58,7 @@ USER ${NB_UID}
 # Install pyarrow
 RUN mamba install --yes \
     'pyarrow' && \
-    mamba clean --all -f -y && \
-    fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}"
+    mamba clean --all -f -y 
 
 WORKDIR "${HOME}"
 EXPOSE 4040
