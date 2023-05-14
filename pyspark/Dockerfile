@@ -16,9 +16,7 @@ ENV APACHE_SPARK_VERSION="${spark_version}" \
     HADOOP_VERSION="${hadoop_version}"
 
 RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends \
-    "openjdk-17-jre-headless" \
-    ca-certificates-java && \
+    apt-get install --yes --no-install-recommends openjdk-17-jre-headless ca-certificates-java && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Spark installation
@@ -56,11 +54,8 @@ RUN fix-permissions "/etc/ipython/"
 USER ${NB_UID}
 
 # Install pyarrow
-RUN mamba install --yes \
-    'pyarrow' && \
+RUN mamba install --yes 'pyarrow' && \
     mamba clean --all -f -y && \
-    fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}"
 
 WORKDIR "${HOME}"
 EXPOSE 4040
