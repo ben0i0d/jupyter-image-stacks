@@ -4,11 +4,12 @@ image:
   entrypoint: [""]
 variables:
   CI_REGISTRY: "eoelab.org:1032/build-image-stacks/jupyter-image-stacks"
-#before_script:
+before_script:
 #  - mkdir /etc/docker
 #  - mkdir /etc/docker/certs.d
 #  - mkdir /etc/docker/certs.d/eoelab.org:1032
-#  - wget http://eoelab.org:1024/index.php/s/XHeP7K3ZAHPHymM/download/eoelab.org.crt
+  - wget http://eoelab.org:1024/index.php/s/XHeP7K3ZAHPHymM/download/eoelab.org.crt
+  - mv eoelab.org.crt /kaniko/ssl/certs/additional-ca-cert-bundle.crt
 #  - mv eoelab.org.crt /etc/docker/certs.d/eoelab.org:1032/eoelab.org.crt
 #  - docker login -u $CI_USER -p $CI_PASSWORD $LOCAL_REGISTRY
 up-c-build:
