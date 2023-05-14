@@ -11,6 +11,7 @@ up-c-build:
   script:
     - cd upstream/cpu
     - /kaniko/executor
+      --context ./
       --dockerfile "Dockerfile"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-c"
 python-c-build:
@@ -19,6 +20,7 @@ python-c-build:
   script:
     - cd python/cpu
     - /kaniko/executor
+      --context ./
       --dockerfile "Dockerfile"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:python-c"
 scipy-c-build:
@@ -27,6 +29,7 @@ scipy-c-build:
   script:
     - cd scipy/cpu
     - /kaniko/executor
+      --context ./
       --dockerfile "Dockerfile"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy-c"
 haskell-c-build:
@@ -35,6 +38,7 @@ haskell-c-build:
   script:
     - cd haskell
     - /kaniko/executor
+      --context ./
       --dockerfile "Dockerfile"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:haskell-c"
 llinux-c-build:
@@ -43,6 +47,7 @@ llinux-c-build:
   script:
     - cd llinux
     - /kaniko/executor
+      --context ./
       --dockerfile "Dockerfile"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:llinux-c"
 cpp-c-build:
@@ -51,6 +56,7 @@ cpp-c-build:
   script:
     - cd cpp
     - /kaniko/executor
+      --context ./
       --dockerfile "Dockerfile"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:cpp-c"
 julia-c-build:
@@ -59,6 +65,7 @@ julia-c-build:
   script:
     - cd julia
     - /kaniko/executor
+      --context ./
       --dockerfile "Dockerfile"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:julia-c"
 r-c-build:
@@ -67,6 +74,7 @@ r-c-build:
   script:
     - cd r
     - /kaniko/executor
+      --context ./
       --dockerfile "Dockerfile"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:r-c"
 sage-c-build:
@@ -75,6 +83,7 @@ sage-c-build:
   script:
     - cd sagemath
     - /kaniko/executor
+      --context ./
       --dockerfile "Dockerfile"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:sage-c"
 pyspark-c-build:
@@ -83,6 +92,7 @@ pyspark-c-build:
   script:
     - cd pyspark
     - /kaniko/executor
+      --context ./
       --dockerfile "Dockerfile"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:pyspark-c"
 dl-c-build:
@@ -91,6 +101,7 @@ dl-c-build:
   script:
     - cd deeplearning/cpu
     - /kaniko/executor
+      --context ./
       --dockerfile "Dockerfile"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:dl-c"
 up-g-build:
@@ -99,6 +110,7 @@ up-g-build:
   script:
     - cd upstream/gpu
     - /kaniko/executor
+      --context ./
       --dockerfile "Dockerfile"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-g"
 python-g-build:
@@ -107,6 +119,7 @@ python-g-build:
   script:
     - cd python/gpu
     - /kaniko/executor
+      --context ./
       --dockerfile "Dockerfile"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:python-g"
 scipy-g-build:
@@ -115,6 +128,7 @@ scipy-g-build:
   script:
     - cd scipy/gpu
     - /kaniko/executor
+      --context ./
       --dockerfile "Dockerfile"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy-g"
 dl-g-build:
@@ -123,5 +137,6 @@ dl-g-build:
   script:
     - cd deeplearning/gpu
     - /kaniko/executor
+      --context ./
       --dockerfile "Dockerfile"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:dl-g"
