@@ -6,126 +6,122 @@ before_script:
   - wget http://eoelab.org:1024/index.php/s/XHeP7K3ZAHPHymM/download/eoelab.org.crt
   - mv eoelab.org.crt /kaniko/ssl/certs/additional-ca-cert-bundle.crt
 up-c-build:
-  tags: [build]
   stage: build
   needs: []
   script:
     - cd upstream/cpu
     - /kaniko/executor
-      --context ./
       --dockerfile "Dockerfile"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-c"
 python-c-build:
-  tags: [build]
   stage: build
   needs: [up-c-build]
   script:
     - cd python/cpu
     - /kaniko/executor
-      --context ./
       --dockerfile "Dockerfile"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:python-c"
 scipy-c-build:
-  tags: [build]
   stage: build
   needs: [python-c-build]
   script:
     - cd scipy/cpu
-    - docker build -t $CI_REGISTRY/jupyter:scipy-c . --network=host
-    - docker push $CI_REGISTRY/jupyter:scipy-c
+    - /kaniko/executor
+      --dockerfile "Dockerfile"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy-c"
 haskell-c-build:
-  tags: [build]
   stage: build
   needs: [up-c-build]
   script:
     - cd haskell
-    - docker build -t $CI_REGISTRY/jupyter:haskell-c . --network=host
-    - docker push $CI_REGISTRY/jupyter:haskell-c
+    - /kaniko/executor
+      --dockerfile "Dockerfile"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:haskell-c"
 llinux-c-build:
-  tags: [build]
   stage: build
   needs: [up-c-build]
   script:
     - cd llinux
-    - docker build -t $CI_REGISTRY/jupyter:llinux-c . --network=host
-    - docker push $CI_REGISTRY/jupyter:llinux-c
+    - /kaniko/executor
+      --dockerfile "Dockerfile"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:llinux-c"
 cpp-c-build:
-  tags: [build]
   stage: build
   needs: [up-c-build]
   script:
     - cd cpp
-    - docker build -t $CI_REGISTRY/jupyter:cpp-c . --network=host
-    - docker push $CI_REGISTRY/jupyter:cpp-c
+    - /kaniko/executor
+      --dockerfile "Dockerfile"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:cpp-c"
 julia-c-build:
-  tags: [build]
   stage: build
   needs: [up-c-build]
   script:
     - cd julia
-    - docker build -t $CI_REGISTRY/jupyter:julia-c . --network=host
-    - docker push $CI_REGISTRY/jupyter:julia-c
+    - /kaniko/executor
+      --dockerfile "Dockerfile"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:julia-c"
 r-c-build:
-  tags: [build]
   stage: build
   needs: [up-c-build]
   script:
     - cd r
-    - docker build -t $CI_REGISTRY/jupyter:r-c . --network=host
-    - docker push $CI_REGISTRY/jupyter:r-c
+    - /kaniko/executor
+      --dockerfile "Dockerfile"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:r-c"
 sage-c-build:
-  tags: [build]
   stage: build
   needs: [up-c-build]
   script:
     - cd sagemath
-    - docker build -t $CI_REGISTRY/jupyter:sage-c . --network=host
-    - docker push $CI_REGISTRY/jupyter:sage-c
+    - /kaniko/executor
+      --dockerfile "Dockerfile"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:sage-c"
 pyspark-c-build:
-  tags: [build]
   stage: build
   needs: [scipy-c-build]
   script:
     - cd pyspark
-    - docker build -t $CI_REGISTRY/jupyter:pyspark-c . --network=host
-    - docker push $CI_REGISTRY/jupyter:pyspark-c
+    - /kaniko/executor
+      --dockerfile "Dockerfile"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:pyspark-c"
 dl-c-build:
-  tags: [build]
   stage: build
   needs: [scipy-c-build]
   script:
     - cd deeplearning/cpu
-    - docker build -t $CI_REGISTRY/jupyter:dl-c . --network=host
-    - docker push $CI_REGISTRY/jupyter:dl-c
+    - /kaniko/executor
+      --dockerfile "Dockerfile"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:dl-c"
 up-g-build:
-  tags: [build]
   stage: build
   needs: []
   script:
     - cd upstream/gpu
-    - docker build -t $CI_REGISTRY/jupyter:up-g . --network=host
-    - docker push $CI_REGISTRY/jupyter:up-g
+    - /kaniko/executor
+      --dockerfile "Dockerfile"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-g"
 python-g-build:
-  tags: [build]
   stage: build
   needs: [up-g-build]
   script:
     - cd python/gpu
-    - docker build -t $CI_REGISTRY/jupyter:python-g . --network=host
-    - docker push $CI_REGISTRY/jupyter:python-g
+    - /kaniko/executor
+      --dockerfile "Dockerfile"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:python-g"
 scipy-g-build:
-  tags: [build]
   stage: build
   needs: [python-g-build]
   script:
     - cd scipy/gpu
-    - docker build -t $CI_REGISTRY/jupyter:scipy-g . --network=host
-    - docker push $CI_REGISTRY/jupyter:scipy-g
+    - /kaniko/executor
+      --dockerfile "Dockerfile"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy-g"
 dl-g-build:
-  tags: [build]
   stage: build
   needs: [scipy-g-build]
   script:
     - cd deeplearning/gpu
-    - docker build -t $CI_REGISTRY/jupyter:dl-g . --network=host
-    - docker push $CI_REGISTRY/jupyter:dl-g
+    - /kaniko/executor
+      --dockerfile "Dockerfile"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:dl-g"
