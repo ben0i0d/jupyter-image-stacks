@@ -15,4 +15,6 @@ RUN apt-get update --yes && \
 USER ${NB_UID}
 # python-lsp
 RUN mamba install -c conda-forge python-lsp-server && \
-    mamba clean --all -f -y 
+    mamba clean --all -f -y && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}" 
