@@ -44,6 +44,7 @@ pip bfsu：https://mirrors.bfsu.edu.cn/help/pypi/
 apt ustc：https://mirrors.ustc.edu.cn/help/ubuntu.html  
 npm npmmirror(AliYun): https://registry.npmmirror.com/  
 apache tuna: https://mirrors.tuna.tsinghua.edu.cn/apache/
+julia-pkg ustc: https://mirrors.ustc.edu.cn/julia/
 ### 项目上游
 本项目直接上游是jupyter团队项目https://github.com/jupyter/docker-stacks  
 但是我们与上游的差别较大，包括源，软件包，本地化与扩展等，因此如果您从本项目派生遇到问题，请不要到jupyter团队提问，这会加大他们的工作量  
@@ -61,7 +62,6 @@ apache tuna: https://mirrors.tuna.tsinghua.edu.cn/apache/
     #include <iostream>
     std::cout << "Hello, world!" << "\n";
 ```
-* Haskell: 提供对Haskell的支持  
 * Pyspark: 提供Python对Apache Spark的支持  
 * DeepLearning（With GPU）：只提供Python语言支持，集成TensorFlow,Pytorch,Transformer,Oneflow支持  
 * Sagemath：一个遵循GPL的开源数学工具  
