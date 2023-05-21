@@ -63,6 +63,7 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
     rm /tmp/micromamba.tar.bz2 && \
     ./micromamba install --root-prefix="${CONDA_DIR}" --prefix="${CONDA_DIR}" --yes "python=3.8" 'notebook' 'mamba' 'jupyterhub' 'jupyterlab' && \
     rm micromamba && \
+    mamba update --yes && \
     mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
     jupyter serverextension enable --py jupyterlab --sys-prefix && \
     jupyter notebook --generate-config && \
