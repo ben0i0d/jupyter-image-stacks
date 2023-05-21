@@ -9,7 +9,7 @@ USER root
 # install Julia packages in /opt/julia instead of ${HOME}
 ENV JULIA_DEPOT_PATH=/opt/julia \
     JULIA_PKGDIR=/opt/julia \
-    JULIA_VERSION=1.8.5 \
+    JULIA_VERSION=1.9.0 \
     JULIA_PKG_SERVER=https://mirrors.ustc.edu.cn/julia
 
 WORKDIR /tmp
