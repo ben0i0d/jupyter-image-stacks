@@ -32,7 +32,7 @@
 4. 如果您有更好的思路，可以在本项目中提出issue，PR  
 5. 对于本地化工作，包括apt，Julia，conda，pip,npm配置中国境内镜像源，汉化等，不建议移除
 ### 参数说明，包括源和版本等
-Python 3.8  
+Python 3.10  
 Julia 1.9.0  
 Tensorflow 默认情况下受支持的最新版  
 pytorch 默认情况下受支持的最新版  
