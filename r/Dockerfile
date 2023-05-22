@@ -7,6 +7,8 @@ USER root
 # R pre-requisites
 RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends fonts-dejavu unixodbc unixodbc-dev r-cran-rodbc gfortran gcc && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}" && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 USER ${NB_UID}
