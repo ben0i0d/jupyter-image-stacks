@@ -17,6 +17,9 @@ RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.l
     apt-get update --yes && \
     apt-get upgrade --yes && \
     apt-get install --yes --no-install-recommends bzip2 ca-certificates locales sudo tini wget curl git vim zip unzip xclip && \
+    wget http://eoelab.org:1024/index.php/s/XHeP7K3ZAHPHymM/download/eoelab.org.crt && \
+    cp eoelab.org.crt /usr/local/share/ca-certificates/eoelab.org.crt && \
+    update-ca-certificates && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
