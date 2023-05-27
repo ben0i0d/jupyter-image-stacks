@@ -12,3 +12,6 @@ RUN apt-get update --yes && \
 
 USER ${NB_UID}
 
+RUN pip install jupyterlab-novnc && \
+    pip cache purge
+
