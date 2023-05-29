@@ -10,7 +10,7 @@ USER root
 ENV JULIA_DEPOT_PATH=/opt/julia \
     JULIA_PKGDIR=/opt/julia \
     JULIA_VERSION=1.9.0 \
-    JULIA_PKG_SERVER=https://mirrors.ustc.edu.cn/julia
+    JULIA_PKG_SERVER=https://mirrors.ustc.edu.cn/julia \
     JULIA_NUM_THREADS=12
 WORKDIR /tmp
 
