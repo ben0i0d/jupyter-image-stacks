@@ -13,8 +13,8 @@ RUN apt-get update && apt-get install -y gnupg && \
 # Install Zulu OpenJdk 11 (LTS)
 RUN apt update && apt install -y zulu11-jdk && \
     apt-get clean && rm -rf /var/lib/apt/lists/* 
+COPY ijava-1.3.0.zip ./ijava-kernel.zip
 # Unpack and install the kernel
-RUN curl -L https://github.com/SpencerPark/IJava/releases/download/v1.3.0/ijava-1.3.0.zip > ijava-kernel.zip
 RUN unzip ijava-kernel.zip -d ijava-kernel \
   && cd ijava-kernel \
   && python3 install.py --sys-prefix
