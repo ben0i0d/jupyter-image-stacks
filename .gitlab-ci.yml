@@ -72,7 +72,7 @@ before_script:
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:cpp-c"
 haskell-c-build:
   stage: build
-  needs: [up-c-build]
+  needs: []
   script:
     - cd haskell
     - /kaniko/executor
