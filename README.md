@@ -55,6 +55,7 @@ julia-pkg ustc: https://mirrors.ustc.edu.cn/julia/
 * Scipy：Python的科学计算环境  
 * Julia：对科学计算语言julia的支持    
 * R：对科学计算语言R的支持    
+* Haskell:对Haskell的支持  
 * CPP：对CPP（11,14,17）的支持，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）  
 您需要额外注意的是，在Notebook中，您的语法结构需要做一定改动，具体可以参考https://github.com/jupyter-xeus/xeus-cling  
 例如,Helloworld程序代码为：  
@@ -74,6 +75,7 @@ A-->G(R)
 A-->H(Sagemath)
 A-->I(CPP)
 A-->J(llinux)
+A-->K(Haskell)
 C(Scipy)-->D(Deeplearning)  
 C(Scipy)-->E(Pyspark)  
 ```  
@@ -82,5 +84,10 @@ C(Scipy)-->E(Pyspark)
 ```
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
+```
+对于派生自ihaskell-notebook的代码，我们添加了如下的版权声明，我们保留并且支持James Brock <jamesbrock@gmail.com>版权
+```
+# Copyright (c) James Brock.
+# Distributed under the terms of the Modified MIT License.
 ```
 对于派生自其他kernel的代码，我们还在进一步查阅项目细节
