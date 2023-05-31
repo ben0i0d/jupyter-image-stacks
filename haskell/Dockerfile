@@ -39,10 +39,9 @@ RUN apt-get update && apt-get install -yq --no-install-recommends python3-pip li
 #
 #    curl -sSL https://get.haskellstack.org/ | sh
 #
-ARG STACK_VERSION="2.11.1"
-ARG STACK_BINDIST="stack-${STACK_VERSION}-linux-x86_64"
-RUN    cd /tmp \
-    && curl -sSL --output ${STACK_BINDIST}.tar.gz https://github.com/commercialhaskell/stack/releases/download/v${STACK_VERSION}/${STACK_BINDIST}.tar.gz \
+ARG STACK_BINDIST="stack-2.11.1-linux-x86_64"
+COPY stack-2.11.1-linux-x86_64.tar.gz /tmp/stack-2.11.1-linux-x86_64.tar.gz
+RUN cd /tmp \
     && tar zxf ${STACK_BINDIST}.tar.gz \
     && cp ${STACK_BINDIST}/stack /usr/bin/stack \
     && rm -rf ${STACK_BINDIST}.tar.gz ${STACK_BINDIST} \
@@ -93,9 +92,9 @@ ARG HVEGA_COMMIT=2b453c230294b889564339853de02b0c1829a081
 
 # Clone IHaskell and install ghc from the IHaskell resolver
 RUN    cd /opt \
-    && curl -L "https://github.com/gibiansky/IHaskell/tarball/$IHASKELL_COMMIT" | tar xzf - \
+    && curl -L "https://eoelab.org:1031/mirrored-sources/IHaskell/tarball/$IHASKELL_COMMIT" | tar xzf - \
     && mv *IHaskell* IHaskell \
-    && curl -L "https://github.com/DougBurke/hvega/tarball/$HVEGA_COMMIT" | tar xzf - \
+    && curl -L "https://eoelab.org:1031/mirrored-sources/hvega/tarball/$HVEGA_COMMIT" | tar xzf - \
     && mv *hvega* hvega \
     && fix-permissions /opt/IHaskell \
     && fix-permissions $STACK_ROOT \
