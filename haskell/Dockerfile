@@ -5,7 +5,7 @@ LABEL maintainer="eoelab <eoelab@eoelab.org>"
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Extra arguments to `stack build`. Used to build --fast, see Makefile.
-ARG STACK_ARGS="--fast"
+ARG STACK_ARGS=
 ARG STACK_BINDIST="stack-2.11.1-linux-x86_64"
 # Example IHaskell notebooks will be collected in this directory.
 ARG EXAMPLES_PATH=/home/$NB_USER/ihaskell_examples
@@ -66,7 +66,6 @@ RUN cd /opt  && \
     fix-permissions /opt/IHaskell  && \
     fix-permissions $STACK_ROOT  && \
 # Install IHaskell.Display libraries
-# https://github.com/gibiansky/IHaskell/tree/master/ihaskell-display
     stack build $STACK_ARGS ihaskell-aeson  && \
     stack build $STACK_ARGS ihaskell-blaze  && \
     stack build $STACK_ARGS ihaskell-charts  && \
