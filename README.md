@@ -46,6 +46,7 @@ npm npmmirror(AliYun): https://registry.npmmirror.com/
 apache tuna: https://mirrors.tuna.tsinghua.edu.cn/apache/
 julia-pkg ustc: https://mirrors.ustc.edu.cn/julia/
 hackage ustc: https://mirrors.ustc.edu.cn/hackage/
+Stackage ustc: https://mirrors.ustc.edu.cn/stackage/
 ### 项目上游
 本项目直接上游是jupyter团队项目https://github.com/jupyter/docker-stacks  
 但是我们与上游的差别较大，包括源，软件包，本地化与扩展等，因此如果您从本项目派生遇到问题，请不要到jupyter团队提问，这会加大他们的工作量  
