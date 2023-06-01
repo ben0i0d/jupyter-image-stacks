@@ -107,7 +107,7 @@ go-c-build:
   stage: build
   needs: []
   script:
-    - cd haskell
+    - cd go
     - /kaniko/executor
       --context ./
       --dockerfile "Dockerfile"
