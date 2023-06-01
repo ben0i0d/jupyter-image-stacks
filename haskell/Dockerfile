@@ -51,6 +51,7 @@ RUN cd /tmp \
 # https://docs.haskellstack.org/en/stable/yaml_configuration/#non-project-specific-config
 RUN mkdir -p /etc/stack
 COPY stack.config.yaml /etc/stack/config.yaml
+COPY global-hints-cache.yaml /etc/stack/global-hints-cache.yaml
 RUN fix-permissions /etc/stack
 
 # Stack global project stack.yaml
