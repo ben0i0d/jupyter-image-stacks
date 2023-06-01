@@ -1,129 +1,215 @@
-# You can override the included template(s) by including variable overrides
-# SAST customization: https://docs.gitlab.com/ee/user/application_security/sast/#customizing-the-sast-settings
-# Secret Detection customization: https://docs.gitlab.com/ee/user/application_security/secret_detection/#customizing-settings
-# Dependency Scanning customization: https://docs.gitlab.com/ee/user/application_security/dependency_scanning/#customizing-the-dependency-scanning-settings
-# Container Scanning customization: https://docs.gitlab.com/ee/user/application_security/container_scanning/#customizing-the-container-scanning-settings
-# Note that environment variables can be set in several places
-# See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
-
-# container_scanning:
-#   variables:
-#     DOCKER_IMAGE: ...
-#     DOCKER_USER: ...
-#     DOCKER_PASSWORD: ...
+#Build Docker image with CI/CD and push to the GitLab registry.
 image:
   name: gcr.io/kaniko-project/executor:debug
-  entrypoint:
-  - ''
+  entrypoint: [""]
 before_script:
-- wget http://eoelab.org:1024/index.php/s/XHeP7K3ZAHPHymM/download/eoelab.org.crt
-- mv eoelab.org.crt /kaniko/ssl/certs/additional-ca-cert-bundle.crt
+  - wget http://eoelab.org:1024/index.php/s/XHeP7K3ZAHPHymM/download/eoelab.org.crt
+  - mv eoelab.org.crt /kaniko/ssl/certs/additional-ca-cert-bundle.crt
 up-c-build:
   stage: build
   needs: []
   script:
-  - cd upstream/cpu
-  - /kaniko/executor --context ./ --dockerfile "Dockerfile" --cache=true --cache-copy-layers=true
-    --cache-run-layers=true --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-    --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-c"
+    - cd upstream/cpu
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-c"
 python-c-build:
   stage: build
-  needs:
-  - up-c-build
+  needs: [up-c-build]
   script:
-  - cd python/cpu
-  - /kaniko/executor --context ./ --dockerfile "Dockerfile" --cache=true --cache-copy-layers=true
-    --cache-run-layers=true --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-    --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:python-c"
+    - cd python/cpu
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:python-c"
 scipy-c-build:
   stage: build
-  needs:
-  - python-c-build
+  needs: [python-c-build]
   script:
-  - cd scipy/cpu
-  - /kaniko/executor --context ./ --dockerfile "Dockerfile" --cache=true --cache-copy-layers=true
-    --cache-run-layers=true --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-    --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy-c"
+    - cd scipy/cpu
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy-c"
 llinux-c-build:
   stage: build
-  needs:
-  - up-c-build
+  needs: [up-c-build]
   script:
-  - cd llinux
-  - /kaniko/executor --context ./ --dockerfile "Dockerfile" --cache=true --cache-copy-layers=true
-    --cache-run-layers=true --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-    --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:llinux-c"
+    - cd llinux
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:llinux-c"
 cpp-c-build:
   stage: build
-  needs:
-  - up-c-build
+  needs: [up-c-build]
   script:
-  - cd cpp
-  - /kaniko/executor --context ./ --dockerfile "Dockerfile" --cache=true --cache-copy-layers=true
-    --cache-run-layers=true --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-    --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:cpp-c"
+    - cd cpp
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:cpp-c"
 java-c-build:
   stage: build
-  needs:
-  - up-c-build
+  needs: [up-c-build]
   script:
-  - cd java
-  - /kaniko/executor --context ./ --dockerfile "Dockerfile" --cache=true --cache-copy-layers=true
-    --cache-run-layers=true --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-    --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:java-c"
+    - cd java
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:java-c"
 haskell-c-build:
   stage: build
-  needs:
-  - up-c-build
+  needs: [up-c-build]
   script:
-  - cd haskell
-  - /kaniko/executor --context ./ --dockerfile "Dockerfile" --cache=true --cache-copy-layers=true
-    --cache-run-layers=true --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-    --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:haskell-c"
+    - cd haskell
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:haskell-c"
 julia-c-build:
   stage: build
-  needs:
-  - up-c-build
+  needs: [up-c-build]
   script:
-  - cd julia
-  - /kaniko/executor --context ./ --dockerfile "Dockerfile" --cache=true --cache-copy-layers=true
-    --cache-run-layers=true --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-    --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:julia-c"
+    - cd julia
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:julia-c"
 r-c-build:
   stage: build
-  needs:
-  - up-c-build
+  needs: [up-c-build]
   script:
-  - cd r
-  - /kaniko/executor --context ./ --dockerfile "Dockerfile" --cache=true --cache-copy-layers=true
-    --cache-run-layers=true --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-    --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:r-c"
+    - cd r
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:r-c"
 sage-c-build:
   stage: build
-  needs:
-  - up-c-build
+  needs: [up-c-build]
   script:
-  - cd sagemath
-  - /kaniko/executor --context ./ --dockerfile "Dockerfile" --cache=true --cache-copy-layers=true
-    --cache-run-layers=true --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-    --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:sage-c"
+    - cd sagemath
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:sage-c"
 pyspark-c-build:
   stage: build
-  needs:
-  - scipy-c-build
+  needs: [scipy-c-build]
   script:
-  - cd pyspark
-  - /kaniko/executor --context ./ --dockerfile "Dockerfile" --cache=true --cache-copy-layers=true
-    --cache-run-layers=true --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-    --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:pyspark-c"
+    - cd pyspark
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:pyspark-c"
 dl-c-build:
   stage: build
-  needs:
-  - scipy-c-build
+  needs: [scipy-c-build]
   script:
-  - cd deeplearning/cpu
-  - /kaniko/executor --context ./ --dockerfile "Dockerfile" --cache=true --cache-copy-layers=true
-    --cache-run-layers=true --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-    --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:dl-c"
-include:
-- template: Auto-DevOps.gitlab-ci.yml
+    - cd deeplearning/cpu
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:dl-c"
+# up-g-build:
+#   stage: build
+#   needs: []
+#   script:
+#     - cd upstream/gpu
+#     - /kaniko/executor
+#       --context ./
+#       --dockerfile "Dockerfile"
+#       --cache=true
+#       --cache-copy-layers=true
+#       --cache-run-layers=true
+#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-g"
+# python-g-build:
+#   stage: build
+#   needs: [up-g-build]
+#   script:
+#     - cd python/gpu
+#     - /kaniko/executor
+#       --context ./
+#       --dockerfile "Dockerfile"
+#       --cache=true
+#       --cache-copy-layers=true
+#       --cache-run-layers=true
+#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:python-g"
+# scipy-g-build:
+#   stage: build
+#   needs: [python-g-build]
+#   script:
+#     - cd scipy/gpu
+#     - /kaniko/executor
+#       --context ./
+#       --dockerfile "Dockerfile"
+#       --cache=true
+#       --cache-copy-layers=true
+#       --cache-run-layers=true
+#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy-g"
+# dl-g-build:
+#   stage: build
+#   needs: [scipy-g-build]
+#   script:
+#     - cd deeplearning/gpu
+#     - /kaniko/executor
+#       --context ./
+#       --dockerfile "Dockerfile"
+#       --cache=true
+#       --cache-copy-layers=true
+#       --cache-run-layers=true
+#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:dl-g"
