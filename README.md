@@ -45,6 +45,8 @@ apt ustc：https://mirrors.ustc.edu.cn/help/ubuntu.html
 npm npmmirror(AliYun): https://registry.npmmirror.com/  
 apache tuna: https://mirrors.tuna.tsinghua.edu.cn/apache/
 julia-pkg ustc: https://mirrors.ustc.edu.cn/julia/
+hackage ustc: https://mirrors.ustc.edu.cn/hackage/
+Stackage ustc: https://mirrors.ustc.edu.cn/stackage/
 ### 项目上游
 本项目直接上游是jupyter团队项目https://github.com/jupyter/docker-stacks  
 但是我们与上游的差别较大，包括源，软件包，本地化与扩展等，因此如果您从本项目派生遇到问题，请不要到jupyter团队提问，这会加大他们的工作量  
@@ -55,6 +57,7 @@ julia-pkg ustc: https://mirrors.ustc.edu.cn/julia/
 * Scipy：Python的科学计算环境  
 * Julia：对科学计算语言julia的支持    
 * R：对科学计算语言R的支持    
+* Haskell:对Haskell的支持  
 * CPP：对CPP（11,14,17）的支持，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）  
 您需要额外注意的是，在Notebook中，您的语法结构需要做一定改动，具体可以参考https://github.com/jupyter-xeus/xeus-cling  
 例如,Helloworld程序代码为：  
@@ -74,6 +77,7 @@ A-->G(R)
 A-->H(Sagemath)
 A-->I(CPP)
 A-->J(llinux)
+A-->K(Haskell)
 C(Scipy)-->D(Deeplearning)  
 C(Scipy)-->E(Pyspark)  
 ```  
@@ -82,5 +86,10 @@ C(Scipy)-->E(Pyspark)
 ```
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
+```
+对于派生自ihaskell-notebook的代码，我们添加了如下的版权声明，我们保留并且支持James Brock <jamesbrock@gmail.com>版权
+```
+# Copyright (c) James Brock.
+# Distributed under the terms of the Modified MIT License.
 ```
 对于派生自其他kernel的代码，我们还在进一步查阅项目细节
