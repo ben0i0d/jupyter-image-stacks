@@ -6,7 +6,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root
 # Install system dependencies
-RUN apt-get update && apt-get install -yq --no-install-recommends golang gcc && \
+RUN apt-get update && apt-get install -yq --no-install-recommends golang gcc libc6-dev && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/,direct && \
     go install github.com/gopherdata/gophernotes@v0.7.5 && \
