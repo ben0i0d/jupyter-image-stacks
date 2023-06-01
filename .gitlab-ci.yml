@@ -1,4 +1,4 @@
-# Build Docker image with CI/CD and push to the GitLab registry.
+#Build Docker image with CI/CD and push to the GitLab registry.
 image:
   name: gcr.io/kaniko-project/executor:debug
   entrypoint: [""]
@@ -70,11 +70,11 @@ cpp-c-build:
       --cache-run-layers=true
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:cpp-c"
-haskell-c-build:
+java-c-build:
   stage: build
-  needs: []
+  needs: [up-c-build]
   script:
-    - cd haskell
+    - cd java
     - /kaniko/executor
       --context ./
       --dockerfile "Dockerfile"
@@ -82,7 +82,7 @@ haskell-c-build:
       --cache-copy-layers=true
       --cache-run-layers=true
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:haskell-c"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:java-c"
 julia-c-build:
   stage: build
   needs: [up-c-build]
