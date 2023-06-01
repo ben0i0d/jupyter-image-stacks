@@ -92,9 +92,9 @@ ARG HVEGA_COMMIT=2b453c230294b889564339853de02b0c1829a081
 
 # Clone IHaskell and install ghc from the IHaskell resolver
 RUN    cd /opt \
-    && curl -L "https://eoelab.org:1031/mirrored-sources/IHaskell/tarball/$IHASKELL_COMMIT" | tar xzf - \
+    && curl -L "https://eoelab.org:1031/mirrored-sources/IHaskell/-/archive/master/IHaskell-master.tar.gz" | tar xzf - \
     && mv *IHaskell* IHaskell \
-    && curl -L "https://eoelab.org:1031/mirrored-sources/hvega/tarball/$HVEGA_COMMIT" | tar xzf - \
+    && curl -L "https://eoelab.org:1031/mirrored-sources/hvega/-/archive/main/hvega-main.tar.gz" | tar xzf - \
     && mv *hvega* hvega \
     && fix-permissions /opt/IHaskell \
     && fix-permissions $STACK_ROOT \
