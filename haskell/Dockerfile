@@ -98,7 +98,8 @@ ENV PATH ${PATH}:/opt/ghc/bin
 # Switch back to jovyan user
 USER $NB_UID
 
-RUN mamba install --quiet --yes 'ipywidgets=7.7.1' && \
+RUN stack exec ihaskell -- install --stack --prefix=/usr/local && \
+    mamba install --quiet --yes 'ipywidgets=7.7.1' && \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}" && \
