@@ -74,13 +74,7 @@ RUN cd /opt  && \
     stack build $STACK_ARGS ihaskell-graphviz  && \
     stack build $STACK_ARGS ihaskell-hatex  && \
     stack build $STACK_ARGS ihaskell-juicypixels  && \
-# ihaskell-magic
-    stack build $STACK_ARGS ihaskell-magic  && \
-    stack build $STACK_ARGS ihaskell-plot  && \
-# ihaskell-rlangqq
-    stack build $STACK_ARGS ihaskell-rlangqq  && \ 
-# ihaskell-static-canvas
-    stack build $STACK_ARGS ihaskell-static-canvas  && \ 
+    stack build $STACK_ARGS ihaskell-plot  && \ 
     stack build $STACK_ARGS ihaskell-widgets  && \
     stack build $STACK_ARGS hvega  && \
     stack build $STACK_ARGS ihaskell-hvega  && \
