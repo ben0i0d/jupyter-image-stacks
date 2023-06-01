@@ -34,6 +34,7 @@
 ### 参数说明，包括源和版本等
 Python 3.10  
 Julia 1.9.0  
+Java zulu11-jdk
 Tensorflow 默认情况下受支持的最新版  
 pytorch 默认情况下受支持的最新版  
 oneflow 默认情况下受支持的最新版  
@@ -58,6 +59,7 @@ Stackage ustc: https://mirrors.ustc.edu.cn/stackage/
 * Julia：对科学计算语言julia的支持    
 * R：对科学计算语言R的支持    
 * Haskell:对Haskell的支持  
+* Java:对Java的支持
 * CPP：对CPP（11,14,17）的支持，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）  
 您需要额外注意的是，在Notebook中，您的语法结构需要做一定改动，具体可以参考https://github.com/jupyter-xeus/xeus-cling  
 例如,Helloworld程序代码为：  
@@ -78,6 +80,7 @@ A-->H(Sagemath)
 A-->I(CPP)
 A-->J(llinux)
 A-->K(Haskell)
+A-->L(Java)
 C(Scipy)-->D(Deeplearning)  
 C(Scipy)-->E(Pyspark)  
 ```  

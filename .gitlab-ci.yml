@@ -83,6 +83,19 @@ java-c-build:
       --cache-run-layers=true
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:java-c"
+haskell-c-build:
+  stage: build
+  needs: [up-c-build]
+  script:
+    - cd haskell
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:haskell-c"
 julia-c-build:
   stage: build
   needs: [up-c-build]
