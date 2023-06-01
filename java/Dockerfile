@@ -23,6 +23,6 @@ RUN apt-get update && apt-get install -y gnupg && \
   jupyter contrib nbextension install --system  && \
   jupyter nbextension enable hide_input/main && \
 # Cleanup
-  rm ijava-kernel.zip
+  rm ../ijava-kernel.zip
 # Set user back to priviledged user.
 USER $NB_USER
