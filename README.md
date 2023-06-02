@@ -67,7 +67,7 @@ C(Scipy)-->E(Pyspark)
 ### 软件包上游与版本
 Python 3.10  
 Julia 1.9.0  
-Java zulu11-jdk  
+Java zulu17-jdk  
 Tensorflow 默认情况下受支持的最新版  
 pytorch 默认情况下受支持的最新版  
 oneflow 默认情况下受支持的最新版  
