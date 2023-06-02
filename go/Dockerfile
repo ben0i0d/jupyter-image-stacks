@@ -17,6 +17,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends golang gcc lib
     # in case copied kernel.json has no write permission
     sed "s|gophernotes|/opt/conda/share/jupyter/kernels/gophernotes|" < kernel.json.in > kernel.json  && \
     fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}"  && \
-    fix-permissions "$(go env GOPATH)"
+    fix-permissions "/home/${NB_USER}"
 USER $NB_USER
+
+RUN fix-permissions "${CONDA_DIR}/share/jupyter"
