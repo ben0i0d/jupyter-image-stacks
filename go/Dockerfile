@@ -10,14 +10,14 @@ RUN apt-get update && apt-get install -yq --no-install-recommends golang gcc lib
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/,direct && \
     go install github.com/gopherdata/gophernotes@v0.7.5 && \
-    mkdir -p ${CONDA_DIR}/share/jupyter/kernels/gophernotes && \
-    cd ${CONDA_DIR}/share/jupyter/kernels/gophernotes && \
+    mkdir -p /opt/conda/share/jupyter/kernels/gophernotes && \
+    cd /opt/conda/share/jupyter/kernels/gophernotes && \
     cp "$(go env GOPATH)"/pkg/mod/github.com/gopherdata/gophernotes@v0.7.5/kernel/*  "." && \
     chmod +w ./kernel.json  && \
     # in case copied kernel.json has no write permission
     sed "s|gophernotes|/opt/conda/share/jupyter/kernels/gophernotes|" < kernel.json.in > kernel.json  && \
+    fix-permissions /opt/conda/share/jupyter/kernels/gophernotes && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
-USER $NB_USER
 
-RUN fix-permissions "${CONDA_DIR}/share/jupyter"
+USER $NB_USER
