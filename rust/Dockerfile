@@ -14,12 +14,9 @@ RUN mkdir -p /opt/rust/.cargo /opt/rust/.rust && \
     apt-get install --yes --no-install-recommends build-essential && \
     apt-get clean && rm -rf /var/lib/apt/lists/* 
 
-#COPY evcxr_jupyter /opt/rust/evcxr_jupyter
 COPY rustup-init.sh /opt/rust/rustup-init.sh
 
 RUN bash /opt/rust/rustup-init.sh -y && \
-#    chmod +x /opt/rust/evcxr_jupyter && \
-#    /opt/rust/evcxr_jupyter --install && \
     cargo install evcxr_jupyter && \
     evcxr_jupyter --install && \
     rm /opt/rust/rustup-init.sh && \
