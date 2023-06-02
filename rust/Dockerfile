@@ -15,7 +15,7 @@ RUN mkdir -p /opt/rust/.cargo /opt/rust/.rust /opt/conda/share/jupyter/kernels/r
     chmod +x /tmp/evcxr_jupyter && \
     /tmp/evcxr_jupyter --install && \
     rm /tmp/evcxr_jupyter /tmp/rustup-init.sh && \
-    cp $HOME/.local/share/jupyter/kernels/* /opt/conda/share/jupyter/kernels/rust/ && \
+    cp -r $HOME/.local/share/jupyter/kernels/rust /opt/conda/share/jupyter/kernels/rust && \
     fix-permissions /opt/rust && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
