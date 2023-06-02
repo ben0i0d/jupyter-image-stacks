@@ -9,7 +9,10 @@ ENV CARGO_HOME=/opt/rust/.cargo \
     RUSTUP_HOME=/opt/rust/.rust \
     PATH=$PATH:/opt/rust/.cargo/bin
 
-RUN mkdir -p /opt/rust/.cargo /opt/rust/.rust
+RUN mkdir -p /opt/rust/.cargo /opt/rust/.rust && \
+    apt-get update --yes && \
+    apt-get install --yes --no-install-recommends build-essential && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* 
 
 #COPY evcxr_jupyter /opt/rust/evcxr_jupyter
 COPY rustup-init.sh /opt/rust/rustup-init.sh
