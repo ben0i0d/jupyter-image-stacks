@@ -7,7 +7,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 USER root
 ENV CARGO_HOME=/opt/rust/.cargo \
     RUSTUP_HOME=/opt/rust/.rust \
-    PATH ${PATH}:/opt/rust/.cargo/bin
+    PATH=$PATH:/opt/rust/.cargo/bin
 
 RUN mkdir -p /opt/rust/.cargo /opt/rust/.rust
 
