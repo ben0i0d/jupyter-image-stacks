@@ -16,7 +16,7 @@ up-c-build:
       --cache=true
       --cache-copy-layers=true
       --cache-run-layers=true
-      --snapshotMode=redo
+      --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-c"
 python-c-build:
@@ -30,7 +30,7 @@ python-c-build:
       --cache=true
       --cache-copy-layers=true
       --cache-run-layers=true
-      --snapshotMode=redo
+      --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:python-c"
 scipy-c-build:
@@ -44,7 +44,7 @@ scipy-c-build:
       --cache=true
       --cache-copy-layers=true
       --cache-run-layers=true
-      --snapshotMode=redo
+      --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy-c"
 llinux-c-build:
@@ -58,7 +58,7 @@ llinux-c-build:
       --cache=true
       --cache-copy-layers=true
       --cache-run-layers=true
-      --snapshotMode=redo
+      --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:llinux-c"
 cpp-c-build:
@@ -72,7 +72,7 @@ cpp-c-build:
       --cache=true
       --cache-copy-layers=true
       --cache-run-layers=true
-      --snapshotMode=redo
+      --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:cpp-c"
 java-c-build:
@@ -86,7 +86,7 @@ java-c-build:
       --cache=true
       --cache-copy-layers=true
       --cache-run-layers=true
-      --snapshotMode=redo
+      --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:java-c"
 haskell-c-build:
@@ -100,7 +100,7 @@ haskell-c-build:
       --cache=true
       --cache-copy-layers=true
       --cache-run-layers=true
-      --snapshotMode=redo
+      --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:haskell-c"
 go-c-build:
@@ -114,7 +114,7 @@ go-c-build:
       --cache=true
       --cache-copy-layers=true
       --cache-run-layers=true
-      --snapshotMode=redo
+      --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:go-c"
 rust-c-build:
@@ -128,7 +128,7 @@ rust-c-build:
       --cache=true
       --cache-copy-layers=true
       --cache-run-layers=true
-      --snapshotMode=redo
+      --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:rust-c"
 julia-c-build:
@@ -142,7 +142,7 @@ julia-c-build:
       --cache=true
       --cache-copy-layers=true
       --cache-run-layers=true
-      --snapshotMode=redo
+      --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:julia-c"
 r-c-build:
@@ -156,7 +156,7 @@ r-c-build:
       --cache=true
       --cache-copy-layers=true
       --cache-run-layers=true
-      --snapshotMode=redo
+      --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:r-c"
 sage-c-build:
@@ -170,7 +170,7 @@ sage-c-build:
       --cache=true
       --cache-copy-layers=true
       --cache-run-layers=true
-      --snapshotMode=redo
+      --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:sage-c"
 pyspark-c-build:
@@ -184,7 +184,7 @@ pyspark-c-build:
       --cache=true
       --cache-copy-layers=true
       --cache-run-layers=true
-      --snapshotMode=redo
+      --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:pyspark-c"
 dl-c-build:
@@ -198,7 +198,7 @@ dl-c-build:
       --cache=true
       --cache-copy-layers=true
       --cache-run-layers=true
-      --snapshotMode=redo
+      --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:dl-c"
 # up-g-build:
@@ -212,7 +212,7 @@ dl-c-build:
 #       --cache=true
 #       --cache-copy-layers=true
 #       --cache-run-layers=true
-#       --snapshotMode=redo
+#       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-g"
 # python-g-build:
@@ -226,7 +226,7 @@ dl-c-build:
 #       --cache=true
 #       --cache-copy-layers=true
 #       --cache-run-layers=true
-#       --snapshotMode=redo
+#       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:python-g"
 # scipy-g-build:
@@ -240,7 +240,7 @@ dl-c-build:
 #       --cache=true
 #       --cache-copy-layers=true
 #       --cache-run-layers=true
-#       --snapshotMode=redo
+#       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy-g"
 # dl-g-build:
@@ -254,6 +254,6 @@ dl-c-build:
   #     --cache=true
   #     --cache-copy-layers=true
   #     --cache-run-layers=true
-  #     --snapshotMode=redo
+  #     --snapshot-mode=redo
   #     --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
   #     --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:dl-g"

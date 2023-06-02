@@ -45,6 +45,22 @@
 * Pyspark: 提供Python对Apache Spark的支持  
 * DeepLearning（With GPU）：只提供Python语言支持，集成TensorFlow,Pytorch,Transformer,Oneflow支持  
 * Sagemath：一个遵循GPL的开源数学工具  
+### 镜像依赖关系
+```mermaid
+graph LR
+A(Upstream)-->B(Python)-->C(Scipy)
+A-->F(Julia)
+A-->G(R)
+A-->H(Sagemath)
+A-->I(CPP)
+A-->J(llinux)
+A-->K(Haskell)
+A-->L(Java)
+A-->M(Go)
+A-->N(Rust)
+C(Scipy)-->D(Deeplearning)  
+C(Scipy)-->E(Pyspark)  
+```  
 ### 如何参与
 1. 项目内main分支Dockerfile是经过测试而发布的，如果您有测试或者新需求，请构建一个新分支，注意修改新分支内的CI配置文件，并且在提交合并请求时还原CI配置
 2. 项目测试场景是基于Rancher管理下的基于RKE2的私有K8S集群
@@ -80,22 +96,6 @@ jupyter团队项目 https://github.com/jupyter/docker-stacks
 * Julia: https://github.com/JuliaLang/IJulia.jl
 * R: http://irkernel.github.io/
 * Rust: https://github.com/evcxr/evcxr
-## 镜像依赖关系
-```mermaid
-graph LR
-A(Upstream)-->B(Python)-->C(Scipy)
-A-->F(Julia)
-A-->G(R)
-A-->H(Sagemath)
-A-->I(CPP)
-A-->J(llinux)
-A-->K(Haskell)
-A-->L(Java)
-A-->M(Go)
-A-->N(Rust)
-C(Scipy)-->D(Deeplearning)  
-C(Scipy)-->E(Pyspark)  
-```  
 ## 必要的版权说明
 对于派生自jupyter团队的代码，我们添加了如下的版权声明，我们保留并且支持jupyter开发团队版权
 ```
