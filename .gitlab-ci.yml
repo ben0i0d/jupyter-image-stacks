@@ -117,6 +117,20 @@ go-c-build:
       --snapshotMode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:go-c"
+rust-c-build:
+  stage: build
+  needs: [up-c-build]
+  script:
+    - cd rust
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
+      --snapshotMode=redo
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:rust-c"
 julia-c-build:
   stage: build
   needs: [up-c-build]
@@ -230,16 +244,16 @@ dl-c-build:
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy-g"
 # dl-g-build:
-#   stage: build
-#   needs: [scipy-g-build]
-#   script:
-#     - cd deeplearning/gpu
-#     - /kaniko/executor
-#       --context ./
-#       --dockerfile "Dockerfile"
-#       --cache=true
-#       --cache-copy-layers=true
-#       --cache-run-layers=true
-#       --snapshotMode=redo
-#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:dl-g"
+  # stage: build
+  # needs: [scipy-g-build]
+  # script:
+  #   - cd deeplearning/gpu
+  #   - /kaniko/executor
+  #     --context ./
+  #     --dockerfile "Dockerfile"
+  #     --cache=true
+  #     --cache-copy-layers=true
+  #     --cache-run-layers=true
+  #     --snapshotMode=redo
+  #     --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+  #     --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:dl-g"

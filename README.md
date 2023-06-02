@@ -25,12 +25,32 @@
           nvidia.com/gpu: '1'
         image: ben0i0d/jupyter:dl-g
 ```
-### 如何参与以及贡献指导
-1. 项目内main分支Dockerfile是经过测试而发布的
-2. 如果您有测试或者新需求，请构建一个新分支，注意修改新分支内的CI配置文件，并且在提交合并请求时还原CI配置
-3. 本项目默认落地场景是我们的K8S集群（RKE2）
-4. 对于本地化工作，包括配置中国境内镜像源，汉化等，不建议移除
-### 参数说明，包括源和版本等
+### 当前构建镜像清单
+* Llinux：在无特权的情况下学习Linux系统   
+* Python：对Python语言的基础支持  
+* Scipy：Python的科学计算环境  
+* Julia：对科学计算语言julia的支持    
+* R：对科学计算语言R的支持    
+* Haskell:对Haskell的支持  
+* Java:对Java的支持
+* Go:对Go的支持
+* Rust:对Rust的支持
+* CPP：对CPP（11,14,17）的支持，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）  
+您需要额外注意的是，在Notebook中，您的语法结构需要做一定改动，具体可以参考https://github.com/jupyter-xeus/xeus-cling  
+例如,Helloworld程序代码为：  
+```
+    #include <iostream>
+    std::cout << "Hello, world!" << "\n";
+```
+* Pyspark: 提供Python对Apache Spark的支持  
+* DeepLearning（With GPU）：只提供Python语言支持，集成TensorFlow,Pytorch,Transformer,Oneflow支持  
+* Sagemath：一个遵循GPL的开源数学工具  
+### 如何参与
+1. 项目内main分支Dockerfile是经过测试而发布的，如果您有测试或者新需求，请构建一个新分支，注意修改新分支内的CI配置文件，并且在提交合并请求时还原CI配置
+2. 项目测试场景是基于Rancher管理下的基于RKE2的私有K8S集群
+3. 项目默认配置中国境内镜像源，汉化
+## 上游
+### 软件包上游与版本
 Python 3.10  
 Julia 1.9.0  
 Java zulu11-jdk  
@@ -49,28 +69,17 @@ hackage ustc: https://mirrors.ustc.edu.cn/hackage/
 Stackage ustc: https://mirrors.ustc.edu.cn/stackage/  
 GO AliYun: https://mirrors.aliyun.com/goproxy/  
 ### 项目上游
-本项目直接上游是jupyter团队项目https://github.com/jupyter/docker-stacks  
-但是我们与上游的差别较大，包括源，软件包，本地化与扩展等，因此如果您从本项目派生遇到问题，请不要到jupyter团队提问，这会加大他们的工作量  
-对于很多自定义化的镜像，请查看对应kernel，或者在项目内提issue  
-### 当前构建镜像清单
-* Llinux：在无特权的情况下学习Linux系统   
-* Python：对Python语言的基础支持  
-* Scipy：Python的科学计算环境  
-* Julia：对科学计算语言julia的支持    
-* R：对科学计算语言R的支持    
-* Haskell:对Haskell的支持  
-* Java:对Java的支持
-* Go:对Go的支持
-* CPP：对CPP（11,14,17）的支持，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）  
-您需要额外注意的是，在Notebook中，您的语法结构需要做一定改动，具体可以参考https://github.com/jupyter-xeus/xeus-cling  
-例如,Helloworld程序代码为：  
-```
-    #include <iostream>
-    std::cout << "Hello, world!" << "\n";
-```
-* Pyspark: 提供Python对Apache Spark的支持  
-* DeepLearning（With GPU）：只提供Python语言支持，集成TensorFlow,Pytorch,Transformer,Oneflow支持  
-* Sagemath：一个遵循GPL的开源数学工具  
+jupyter团队项目 https://github.com/jupyter/docker-stacks  
+**但是我们与上游差别较大，包括源，软件包，本地化与扩展等，因此如果您从本项目派生遇到问题，请不要到jupyter团队提问，这会加大他们的工作量**
+### kernel
+* Cpp: https://github.com/jupyter-xeus/xeus-cling
+* Python：https://ipython.org/
+* Go: https://github.com/gopherdata/gophernotes
+* Haskell: https://github.com/gibiansky/IHaskell
+* Java: https://github.com/SpencerPark/IJava
+* Julia: https://github.com/JuliaLang/IJulia.jl
+* R: http://irkernel.github.io/
+* Rust: https://github.com/evcxr/evcxr
 ## 镜像依赖关系
 ```mermaid
 graph LR
@@ -83,10 +92,11 @@ A-->J(llinux)
 A-->K(Haskell)
 A-->L(Java)
 A-->M(Go)
+A-->N(Rust)
 C(Scipy)-->D(Deeplearning)  
 C(Scipy)-->E(Pyspark)  
 ```  
-## 必要的授权说明
+## 必要的版权说明
 对于派生自jupyter团队的代码，我们添加了如下的版权声明，我们保留并且支持jupyter开发团队版权
 ```
 # Copyright (c) Jupyter Development Team.
@@ -97,4 +107,3 @@ C(Scipy)-->E(Pyspark)
 # Copyright (c) James Brock.
 # Distributed under the terms of the Modified MIT License.
 ```
-对于派生自其他kernel的代码，我们还在进一步查阅项目细节
