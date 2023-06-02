@@ -9,7 +9,7 @@ USER root
 RUN apt-get update && apt-get install -yq --no-install-recommends golang gcc libc6-dev && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/,direct && \
-    go install eoelab.org:1031/mirrored-sources/gophernotes@v0.7.5 && \
+    go install github.com/gopherdata/gophernotes@v0.7.5 && \
     mkdir -p ${CONDA_DIR}/share/jupyter/kernels/gophernotes && \
     cd ${CONDA_DIR}/share/jupyter/kernels/gophernotes && \
     cp "$(go env GOPATH)"/pkg/mod/github.com/gopherdata/gophernotes@v0.7.5/kernel/*  "." && \
@@ -17,6 +17,6 @@ RUN apt-get update && apt-get install -yq --no-install-recommends golang gcc lib
     # in case copied kernel.json has no write permission
     sed "s|gophernotes|/opt/conda/share/jupyter/kernels/gophernotes|" < kernel.json.in > kernel.json  && \
     fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}" 
-
+    fix-permissions "/home/${NB_USER}"  && \
+    fix-permissions "$(go env GOPATH)"
 USER $NB_USER
