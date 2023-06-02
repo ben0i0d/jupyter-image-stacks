@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends golang gcc lib
     cp "$(go env GOPATH)"/pkg/mod/github.com/gopherdata/gophernotes@v0.7.5/kernel/*  "." && \
     chmod +w ./kernel.json  && \
     # in case copied kernel.json has no write permission
-    sed "s|gophernotes|$(go env GOPATH)/bin/gophernotes|" < kernel.json.in > kernel.json  && \
+    sed "s|gophernotes|/opt/conda/share/jupyter/kernels/gophernotes|" < kernel.json.in > kernel.json  && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}" 
 
