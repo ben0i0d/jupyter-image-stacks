@@ -11,12 +11,15 @@ ENV CARGO_HOME=/opt/rust/.cargo \
 
 RUN mkdir -p /opt/rust/.cargo /opt/rust/.rust
 
-COPY evcxr_jupyter /opt/rust/evcxr_jupyter
+#COPY evcxr_jupyter /opt/rust/evcxr_jupyter
 COPY rustup-init.sh /opt/rust/rustup-init.sh
 
 RUN bash /opt/rust/rustup-init.sh -y && \
-    chmod +x /opt/rust/evcxr_jupyter && \
-    /opt/rust/evcxr_jupyter --install && \
+#    chmod +x /opt/rust/evcxr_jupyter && \
+#    /opt/rust/evcxr_jupyter --install && \
+    rm /opt/rust/rustup-init.sh && \
+    cargo install evcxr_jupyter && \
+    evcxr_jupyter --install && \
     cp -r $HOME/.local/share/jupyter/kernels/rust /opt/conda/share/jupyter/kernels/ && \
     rustup component add rust-src && \
     fix-permissions /opt/rust && \
