@@ -6,7 +6,6 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 USER root
 
 RUN apt-get update --yes && \
-    apt-get upgrade --yes && \
     apt-get install --yes --no-install-recommends build-essential && \
     apt-get clean && rm -rf /var/lib/apt/lists/* 
 
