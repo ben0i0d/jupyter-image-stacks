@@ -11,7 +11,7 @@ COPY evcxr_jupyter /tmp/evcxr_jupyter
 ENV CARGO_HOME=/opt/rust/.cargo \
     RUSTUP_HOME=/opt/rust/.rust
 RUN mkdir -p /opt/rust/.cargo /opt/rust/.rust /opt/conda/share/jupyter/kernels/rust && \
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -y && \
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh && \
     chmod +x /tmp/evcxr_jupyter && \
     /tmp/evcxr_jupyter --install && \
     rm /tmp/evcxr_jupyter && \
