@@ -8,7 +8,7 @@ USER root
 RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends octave liboctave-dev octave-doc \
     octave-image \
-    build-essential qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools qt5* && \
+    gnuplot && \
     apt-get clean && rm -rf /var/lib/apt/lists/* 
 
 USER ${NB_UID}
