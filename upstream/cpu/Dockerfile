@@ -16,7 +16,7 @@ RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.l
     sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \   
     apt-get update --yes && \
     apt-get upgrade --yes && \
-    apt-get install --yes --no-install-recommends bzip2 ca-certificates locales sudo tini wget curl git vim zip unzip xclip p7zip-full rar unrar && \
+    apt-get install --yes --no-install-recommends bzip2 ca-certificates locales sudo tini wget curl git git-lfs vim zip unzip xclip p7zip-full rar unrar && \
     wget http://eoelab.org:1024/index.php/s/XHeP7K3ZAHPHymM/download/eoelab.org.crt && \
     cp eoelab.org.crt /usr/local/share/ca-certificates/eoelab.org.crt && \
     update-ca-certificates && \
