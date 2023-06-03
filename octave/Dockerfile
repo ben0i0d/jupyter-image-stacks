@@ -8,7 +8,7 @@ USER root
 RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends octave liboctave-dev octave-doc \
     octave-image \
-    gnuplot && \
+    gnuplot qt4* && \
     apt-get clean && rm -rf /var/lib/apt/lists/* 
 
 USER ${NB_UID}

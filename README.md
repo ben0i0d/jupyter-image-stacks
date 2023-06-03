@@ -45,9 +45,8 @@
 * Pyspark: 提供Python对Apache Spark的支持  
 * DeepLearning（With GPU）：只提供Python语言支持，集成TensorFlow,Pytorch,Transformer,Oneflow支持  
 * Octave: 提供对Octave这一门科学计算语言的支持，其类似于matlab，但占用内存小，广受机器学习爱好者的喜爱  
-注意:使用到package时候，要将其加载  
-例如：在使用image中函数时，遇到了图片.png  
-使用以下代码加载image  
+注意:使用到package时，要预先将其加载  
+例如：在使用image中函数时，使用以下代码加载image  
 ```
 pkg load image
 ```
