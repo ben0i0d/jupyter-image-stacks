@@ -44,6 +44,7 @@
 ```
 * Pyspark: 提供Python对Apache Spark的支持  
 * DeepLearning（With GPU）：只提供Python语言支持，集成TensorFlow,Pytorch,Transformer,Oneflow支持  
+* Octave: 提供对Octave这一门科学计算语言的支持，其类似于matlab，但占用内存小，广受机器学习爱好者的喜爱  
 * Sagemath：一个遵循GPL的开源数学工具  
 ### 镜像依赖关系
 ```mermaid
@@ -58,6 +59,7 @@ A-->K(Haskell)
 A-->L(Java)
 A-->M(Go)
 A-->N(Rust)
+A-->O(Octave)
 C(Scipy)-->D(Deeplearning)  
 C(Scipy)-->E(Pyspark)  
 ```  
@@ -94,6 +96,7 @@ jupyter团队项目 https://github.com/jupyter/docker-stacks
 * Julia: https://github.com/JuliaLang/IJulia.jl
 * R: http://irkernel.github.io/
 * Rust: https://github.com/evcxr/evcxr
+* Octave: https://github.com/Calysto/octave_kernel
 ## 必要的版权说明
 对于派生自jupyter团队的代码，我们添加了如下的版权声明，我们保留并且支持jupyter开发团队版权
 ```
