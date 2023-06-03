@@ -36,7 +36,7 @@
 * Go:对Go的支持
 * Rust:对Rust的支持
 * CPP：对CPP（11,14,17）的支持，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）  
-您需要额外注意的是，在Notebook中，您的语法结构需要做一定改动，具体可以参考https://github.com/jupyter-xeus/xeus-cling  
+注意:在Notebook中，您的语法结构需要做一定改动  
 例如,Helloworld程序代码为：  
 ```
     #include <iostream>
@@ -45,6 +45,12 @@
 * Pyspark: 提供Python对Apache Spark的支持  
 * DeepLearning（With GPU）：只提供Python语言支持，集成TensorFlow,Pytorch,Transformer,Oneflow支持  
 * Octave: 提供对Octave这一门科学计算语言的支持，其类似于matlab，但占用内存小，广受机器学习爱好者的喜爱  
+注意:使用到package时候，要将其加载  
+例如：在使用image中函数时，遇到了图片.png  
+使用以下代码加载image  
+```
+pkg load image
+```
 * Sagemath：一个遵循GPL的开源数学工具  
 ### 镜像依赖关系
 ```mermaid
