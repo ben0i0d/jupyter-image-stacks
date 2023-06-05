@@ -7,7 +7,7 @@ USER root
 # Install Octave + development_files + doc + package + graph_toolkit
 RUN apt-get update --yes && \
     apt-get install --yes octave liboctave-dev octave-doc \
-    octave-image \
+    octave-* \
     gnuplot && \
     apt-get clean && rm -rf /var/lib/apt/lists/* 
 
