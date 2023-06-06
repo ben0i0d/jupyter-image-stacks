@@ -3,9 +3,26 @@ LABEL maintainer="eoelab <eoelab@eoelab.org>"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 USER root
+# Allow buildtime config of HIVE_VERSION
+ARG HIVE_VERSION
+# Set HIVE_VERSION from arg if provided at build, env if provided at run, or default
+# https://docs.docker.com/engine/reference/builder/#using-arg-variables
+# https://docs.docker.com/engine/reference/builder/#environment-replacement
+ENV HIVE_VERSION=${HIVE_VERSION:-2.3.2}
+
+ENV HIVE_HOME /opt/hive
+ENV PATH $HIVE_HOME/bin:$PATH
+ENV HADOOP_HOME /opt/hadoop-$HADOOP_VERSION
 #install packages
-RUN apt-get update && apt-get install -y --no-install-recommends openssh-server vim rsync iproute2 inetutils-ping && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+RUN apt-get update && apt-get install -y --no-install-recommends openssh-server vim rsync iproute2 inetutils-ping \
+	procps  && \
+	wget https://mirrors.tuna.tsinghua.edu.cn/apache/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz && \
+	tar -xzvf apache-hive-$HIVE_VERSION-bin.tar.gz && \
+	mv apache-hive-$HIVE_VERSION-bin hive && \
+	wget https://jdbc.postgresql.org/download/postgresql-9.4.1212.jar -O $HIVE_HOME/lib/postgresql-jdbc.jar && \
+	rm apache-hive-$HIVE_VERSION-bin.tar.gz && \
+	apt-get clean && \
+	rm -rf /var/lib/apt/lists/*
 #passwordless ssh
 RUN mkdir /var/run/sshd; \
 	echo 'root:123456' | chpasswd; \
@@ -42,9 +59,23 @@ RUN sed -i "/export HADOOP_PREFIX/a export JAVA_HOME=/opt/tools/jdk1.8.0_77" /op
 	echo 'export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin'  >> /etc/bash.bashrc; \
 	echo 'localhost' >> /opt/tools/hadoop/slaves; \
 	echo 'master' > /etc/hostname
-    
+#Custom configuration goes here
+ADD conf/hive-site.xml $HIVE_HOME/conf
+ADD conf/beeline-log4j2.properties $HIVE_HOME/conf
+ADD conf/hive-env.sh $HIVE_HOME/conf
+ADD conf/hive-exec-log4j2.properties $HIVE_HOME/conf
+ADD conf/hive-log4j2.properties $HIVE_HOME/conf
+ADD conf/ivysettings.xml $HIVE_HOME/conf
+ADD conf/llap-daemon-log4j2.properties $HIVE_HOME/conf
+
+COPY startup.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/startup.sh
+
+COPY entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 # Hdfs ports: 50010 50020 50070 50075 50090  Mapred ports: 19888 Yarn ports: 8030 8031 8032 8033 8040 8042 8088
-EXPOSE 22 50010 50020 50070 50075 50090 19888 8030 8031 8032 8033 8040 8042 8088 49707 2122 
+EXPOSE 22 50010 50020 50070 50075 50090 19888 8030 8031 8032 8033 8040 8042 8088 49707 2122 10002 10000
 USER $NB_USER
 
 WORKDIR "${HOME}"
