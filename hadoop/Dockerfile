@@ -4,8 +4,8 @@ LABEL maintainer="eoelab <eoelab@eoelab.org>"
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 USER root
 #install packages
-RUN apt-get install -y openssh-server vim rsync iproute ping
-
+RUN apt-get update && apt-get install -y --no-install-recommends openssh-server vim rsync iproute ping && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
 #passwordless ssh
 RUN mkdir /var/run/sshd; \
 	echo 'root:123456' | chpasswd; \
