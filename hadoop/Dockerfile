@@ -14,7 +14,7 @@ ENV HIVE_HOME /opt/hive
 ENV PATH $HIVE_HOME/bin:$PATH
 ENV HADOOP_HOME /opt/hadoop-$HADOOP_VERSION
 #install packages
-RUN mkdir $HIVE_HOME/lib && \
+RUN mkdir -p $HIVE_HOME/lib && \
 	wget https://jdbc.postgresql.org/download/postgresql-9.4.1212.jar -O $HIVE_HOME/lib/postgresql-jdbc.jar && \
 	apt-get update && apt-get install -y --no-install-recommends openssh-server vim rsync iproute2 inetutils-ping \
 	procps  && \
