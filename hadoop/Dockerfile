@@ -1,8 +1,8 @@
-FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy-c
+FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-c
 LABEL maintainer="eoelab <eoelab@eoelab.org>"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
+USER root
 #install packages
 RUN apt-get install -y openssh-server vim rsync iproute ping
 
@@ -45,5 +45,8 @@ RUN sed -i "/export HADOOP_PREFIX/a export JAVA_HOME=/opt/tools/jdk1.8.0_77" /op
     
 # Hdfs ports: 50010 50020 50070 50075 50090  Mapred ports: 19888 Yarn ports: 8030 8031 8032 8033 8040 8042 8088
 EXPOSE 22 50010 50020 50070 50075 50090 19888 8030 8031 8032 8033 8040 8042 8088 49707 2122 
+USER $NB_USER
+
+WORKDIR "${HOME}"
 
 CMD ["/usr/sbin/sshd", "-D"]
