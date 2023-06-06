@@ -1,10 +1,10 @@
 #Build Docker image with CI/CD and push to the GitLab registry.
-# image:
-#   name: gcr.io/kaniko-project/executor:debug
-#   entrypoint: [""]
-# before_script:
-#   - wget http://eoelab.org:1024/index.php/s/XHeP7K3ZAHPHymM/download/eoelab.org.crt
-#   - mv eoelab.org.crt /kaniko/ssl/certs/additional-ca-cert-bundle.crt
+image:
+  name: gcr.io/kaniko-project/executor:debug
+  entrypoint: [""]
+before_script:
+  - wget http://eoelab.org:1024/index.php/s/XHeP7K3ZAHPHymM/download/eoelab.org.crt
+  - mv eoelab.org.crt /kaniko/ssl/certs/additional-ca-cert-bundle.crt
 # up-c-build:
 #   stage: build
 #   needs: []
