@@ -3,6 +3,7 @@ LABEL maintainer="eoelab <eoelab@eoelab.org>"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+WORKDIR "${HOME}"
 USER root
 
 # Spark dependencies
@@ -16,9 +17,7 @@ ENV APACHE_SPARK_VERSION="${spark_version}" \
     HADOOP_VERSION="${hadoop_version}"
 
 RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends \
-    "openjdk-17-jre-headless" \
-    ca-certificates-java && \
+    apt-get install --yes --no-install-recommends "openjdk-17-jre-headless" ca-certificates-java && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Spark installation
@@ -56,9 +55,7 @@ RUN fix-permissions "/etc/ipython/"
 USER ${NB_UID}
 
 # Install pyarrow
-RUN mamba install --yes \
-    'pyarrow' && \
+RUN mamba install --yes 'pyarrow' && \
     mamba clean --all -f -y 
 
-WORKDIR "${HOME}"
 EXPOSE 4040
