@@ -80,4 +80,5 @@ USER $NB_USER
 
 WORKDIR "${HOME}"
 
-CMD ["/usr/sbin/sshd", "-D"]
+ENTRYPOINT ["entrypoint.sh"]
+CMD startup.sh
