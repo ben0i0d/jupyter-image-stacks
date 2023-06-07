@@ -73,7 +73,8 @@ RUN chmod +x /usr/local/bin/startup.sh && \
 	chmod +x /usr/local/bin/entrypoint.sh && \
 	fix-permissions "/opt" && \
 	fix-permissions "/home/${NB_USER}" && \
-	fix-permissions "/etc/init.d/ssh"
+	fix-permissions "/etc/init.d/ssh" && \
+	fix-permissions "/run"
 USER $NB_USER
 
 WORKDIR "${HOME}"
