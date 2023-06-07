@@ -13,8 +13,8 @@ WORKDIR /root
 RUN apt-get update && apt-get install -y openssh-server 
 
 # install hadoop 2.7.2
-ADD resources/hadoop-2.7.2.tar.gz /usr/local/hadoop
-ADD resources/jdk-8u77-linux-x64.tar.gz /usr/local/hadoop
+ADD hadoop-2.7.2.tar.gz /usr/local/hadoop
+ADD jdk-8u77-linux-x64.tar.gz /usr/local/hadoop
 
 
 RUN mv /usr/local/hadoop/hadoop-* /usr/local/hadoop/hadoop && \
