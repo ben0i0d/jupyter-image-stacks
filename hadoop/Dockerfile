@@ -38,7 +38,7 @@ RUN mkdir -p ~/hdfs/namenode && \
     mkdir $HADOOP_HOME/logs && \
     mkdir $HADOOP_HOME/tmp
 
-COPY config/* /tmp/
+COPY conf/* /tmp/
 
 RUN mv /tmp/ssh_config ~/.ssh/config && \
     mv /tmp/hadoop-env.sh $HADOOP_HOME/etc/hadoop/hadoop-env.sh && \
