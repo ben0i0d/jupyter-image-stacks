@@ -46,6 +46,7 @@ ADD hadoop-2.7.2.tar.gz /opt
 RUN cd /opt && mv hadoop-2.7.2 hadoop
 
 #Hadoop configruation
+ADD hadoopconf/*.xml /etc/hadoop/
 ADD hadoopconf/*.xml /opt/hadoop/etc/hadoop/
 #Hive conf
 ADD hiveconf/*.xml $HIVE_HOME/conf/
@@ -78,6 +79,4 @@ USER $NB_USER
 
 WORKDIR "${HOME}"
 
-ENTRYPOINT ["entrypoint.sh"]
-CMD startup.sh
-CMD /etc/init.d/ssh start
+CMD [ "sh", "-c", "service ssh start; bash"]
