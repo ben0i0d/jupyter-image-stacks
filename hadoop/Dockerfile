@@ -6,77 +6,62 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # ports
 EXPOSE 22 50010 50020 50070 50075 50090 19888 8030 8031 8032 8033 8040 8042 8088 49707 2122 10002 10000
 
-USER root
-# Allow buildtime config of HIVE_VERSION
-ARG HIVE_VERSION
-# Set HIVE_VERSION from arg if provided at build, env if provided at run, or default
-ENV HIVE_VERSION=${HIVE_VERSION:-2.3.9}
-ENV HIVE_HOME /opt/hive
-ENV PATH $HIVE_HOME/bin:$PATH
-#install packages
-RUN	cd /opt && \
-	apt-get update && apt-get install -y --no-install-recommends openssh-server vim rsync iproute2 inetutils-ping procps  && \
-	wget https://mirrors.tuna.tsinghua.edu.cn/apache/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz && \
-	tar -xzvf apache-hive-$HIVE_VERSION-bin.tar.gz && \
-	mv apache-hive-$HIVE_VERSION-bin hive && \
-	cd $HIVE_HOME/lib  && \
-	wget https://jdbc.postgresql.org/download/postgresql-9.4.1212.jar && \
-	mv postgresql-9.4.1212.jar	postgresql-jdbc.jar && \
-	rm /opt/apache-hive-$HIVE_VERSION-bin.tar.gz && \
-	apt-get clean && \
-	rm -rf /var/lib/apt/lists/*
-#passwordless ssh
-RUN mkdir /var/run/sshd; \
-	echo 'root:123456' | chpasswd; \
-	sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config; \
-	ssh-keygen -q -N "" -t rsa -f /root/.ssh/id_rsa; \
-	cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys; \
-	cp /root/.ssh/id_rsa.pub /home/jovyan/.ssh/authorized_keys; \
-	cp /root/.ssh/id_rsa /home/jovyan/.ssh/id_rsa; \
-# SSH login fix. Otherwise user is kicked off after login
-	sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 
- 
+WORKDIR /root
 
-ADD jdk-8u77-linux-x64.tar.gz /opt
+# install openssh-server, openjdk and wget
+RUN apt-get update && apt-get install -y openssh-server 
 
-#hadoop 
-ADD hadoop-2.7.2.tar.gz /opt
+# install hadoop 2.7.2
+ADD resources/hadoop-2.7.2.tar.gz /usr/local/hadoop
+ADD resources/jdk-8u77-linux-x64.tar.gz /usr/local/hadoop
 
-RUN cd /opt && mv hadoop-2.7.2 hadoop
 
-#Hadoop configruation
-ADD hadoopconf/*.xml /etc/hadoop/
-ADD hadoopconf/*.xml /opt/hadoop/etc/hadoop/
-#Hive conf
-ADD hiveconf/*.xml $HIVE_HOME/conf/
-ADD hiveconf/*.properties $HIVE_HOME/conf/
-ADD hiveconf/*.sh $HIVE_HOME/conf/
+RUN mv /usr/local/hadoop/hadoop-* /usr/local/hadoop/hadoop && \
+    mv /usr/local/hadoop/jdk* /usr/local/hadoop/jdk1.8
 
-#set env
-RUN sed -i "/export HADOOP_PREFIX/a export JAVA_HOME=/opt/tools/jdk1.8.0_77" /opt/tools/hadoop/libexec/hadoop-config.sh; \
-	echo 'export JAVA_HOME=/opt/jdk1.8.0_77' >> /etc/bash.bashrc; \
-    echo 'export HADOOP_PREFIX=/opt/hadoop'  >> /etc/bash.bashrc; \
-    echo 'export HADOOP_COMMON_HOME=/opt/hadoop'  >> /etc/bash.bashrc; \
-    echo 'export HADOOP_HDFS_HOME=/opt/hadoop'  >> /etc/bash.bashrc; \
-	echo 'export HADOOP_MAPRED_HOME=/opt/hadoop'  >> /etc/bash.bashrc; \
-	echo 'export HADOOP_YARN_HOME=/opt/hadoop'  >> /etc/bash.bashrc; \
-	echo 'export HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop'  >> /etc/bash.bashrc; \
-	echo 'export YARN_CONF_DIR=$HADOOP_PREFIX/etc/hadoop'  >> /etc/bash.bashrc; \
-	echo 'export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin'  >> /etc/bash.bashrc; \
-	echo 'export PATH=$PATH:$HIVE_HOME/apache-hive-2.3.9-bin'  >> /etc/bash.bashrc; \
-	echo 'localhost' >> /opt/hadoop/slaves; \
-	echo 'master' > /etc/hostname
+# set environment variable
+ENV JAVA_HOME=/usr/local/hadoop/jdk1.8
+ENV JRE_HOME=$JAVA_HOME/jre
+ENV CLASSPATH=.:$CLASSPATH:$JAVA_HOME/lib:$JRE_HOME/lib
+ENV PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin
 
-COPY startup.sh /usr/local/bin/
-COPY entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/startup.sh && \
-	chmod +x /usr/local/bin/entrypoint.sh && \
-	fix-permissions "/opt" && \
-	fix-permissions "/home/${NB_USER}" 
+ENV HADOOP_HOME=/usr/local/hadoop/hadoop
+ENV PATH=$PATH:/usr/local/hadoop/hadoop/bin:/usr/local/hadoop/hadoop/sbin 
 
-USER $NB_USER
+# ssh without key
+RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
+    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
-WORKDIR "${HOME}"
+RUN mkdir -p ~/hdfs/namenode && \ 
+    mkdir -p ~/hdfs/datanode && \
+    mkdir $HADOOP_HOME/logs && \
+    mkdir $HADOOP_HOME/tmp
+
+COPY config/* /tmp/
+
+RUN mv /tmp/ssh_config ~/.ssh/config && \
+    mv /tmp/hadoop-env.sh $HADOOP_HOME/etc/hadoop/hadoop-env.sh && \
+    mv /tmp/hdfs-site.xml $HADOOP_HOME/etc/hadoop/hdfs-site.xml && \ 
+    mv /tmp/core-site.xml $HADOOP_HOME/etc/hadoop/core-site.xml && \
+    mv /tmp/mapred-site.xml $HADOOP_HOME/etc/hadoop/mapred-site.xml && \
+    mv /tmp/yarn-site.xml $HADOOP_HOME/etc/hadoop/yarn-site.xml && \
+    mv /tmp/slaves $HADOOP_HOME/etc/hadoop/slaves && \
+    mv /tmp/start-hadoop.sh ~/start-hadoop.sh && \
+    mv /tmp/run-wordcount.sh ~/run-wordcount.sh
+
+RUN chmod +x ~/start-hadoop.sh && \
+    chmod +x ~/stop-hadoop.sh && \
+    chmod +x ~/run-wordcount.sh && \
+    chmod +x $HADOOP_HOME/sbin/start-dfs.sh && \
+    chmod +x $HADOOP_HOME/sbin/start-yarn.sh 
+
+RUN cat /tmp/profile >> /etc/profile && \
+    rm -rf $HADOOP_HOME/share/doc
+
+# format namenode
+RUN $HADOOP_HOME/bin/hdfs namenode -format
 
 CMD [ "sh", "-c", "service ssh start; bash"]
+
+
