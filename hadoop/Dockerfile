@@ -41,9 +41,9 @@ RUN cd /opt/tools/ && mv hadoop-2.7.2 hadoop
 #Hadoop configruation
 ADD hadoopconf/*.xml /opt/tools/hadoop/etc/hadoop/
 #Hive conf
-ADD hiveconf/*.xml $HIVE_HOME/conf
-ADD conf/*.properties $HIVE_HOME/conf
-ADD conf/*.sh $HIVE_HOME/conf
+ADD hiveconf/*.xml $HIVE_HOME/conf/
+ADD conf/*.properties $HIVE_HOME/conf/
+ADD conf/*.sh $HIVE_HOME/conf/
 
 #set env
 RUN sed -i "/export HADOOP_PREFIX/a export JAVA_HOME=/opt/tools/jdk1.8.0_77" /opt/tools/hadoop/libexec/hadoop-config.sh; \
