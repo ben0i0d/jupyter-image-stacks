@@ -2,6 +2,10 @@ FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-c
 LABEL maintainer="eoelab <eoelab@eoelab.org>"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+# ports
+EXPOSE 22 50010 50020 50070 50075 50090 19888 8030 8031 8032 8033 8040 8042 8088 49707 2122 10002 10000
+
 USER root
 # Allow buildtime config of HIVE_VERSION
 ARG HIVE_VERSION
@@ -67,9 +71,8 @@ RUN chmod +x /usr/local/bin/startup.sh
 
 COPY entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
+RUN fix-permissions "/opt"
 
-# Hdfs ports: 50010 50020 50070 50075 50090  Mapred ports: 19888 Yarn ports: 8030 8031 8032 8033 8040 8042 8088
-EXPOSE 22 50010 50020 50070 50075 50090 19888 8030 8031 8032 8033 8040 8042 8088 49707 2122 10002 10000
 USER $NB_USER
 
 WORKDIR "${HOME}"
