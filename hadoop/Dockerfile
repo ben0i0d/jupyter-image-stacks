@@ -57,8 +57,8 @@ RUN sed -i "/export HADOOP_PREFIX/a export JAVA_HOME=/opt/tools/jdk1.8.0_77" /op
 	echo 'export HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop'  >> /etc/bash.bashrc; \
 	echo 'export YARN_CONF_DIR=$HADOOP_PREFIX/etc/hadoop'  >> /etc/bash.bashrc; \
 	echo 'export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin'  >> /etc/bash.bashrc; \
-	echo 'export PATH=$PATH:$HIVE_HOME/bin'  >> /etc/bash.bashrc; \
-	echo 'localhost' >> /opt/tools/hadoop/slaves; \
+	echo 'export PATH=$PATH:$HIVE_HOME/apache-hive-2.3.9-bin'  >> /etc/bash.bashrc; \
+	echo 'localhost' >> /opt/hadoop/slaves; \
 	echo 'master' > /etc/hostname
 
 COPY startup.sh /usr/local/bin/
