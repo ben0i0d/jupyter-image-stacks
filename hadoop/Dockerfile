@@ -6,18 +6,13 @@ USER root
 # Allow buildtime config of HIVE_VERSION
 ARG HIVE_VERSION
 # Set HIVE_VERSION from arg if provided at build, env if provided at run, or default
-# https://docs.docker.com/engine/reference/builder/#using-arg-variables
-# https://docs.docker.com/engine/reference/builder/#environment-replacement
 ENV HIVE_VERSION=${HIVE_VERSION:-2.3.9}
-
 ENV HIVE_HOME /opt/hive
 ENV PATH $HIVE_HOME/bin:$PATH
-ENV HADOOP_HOME /opt/hadoop-$HADOOP_VERSION
 #install packages
 RUN mkdir -p $HIVE_HOME/lib && \
 	wget https://jdbc.postgresql.org/download/postgresql-9.4.1212.jar -O $HIVE_HOME/lib/postgresql-jdbc.jar && \
-	apt-get update && apt-get install -y --no-install-recommends openssh-server vim rsync iproute2 inetutils-ping \
-	procps  && \
+	apt-get update && apt-get install -y --no-install-recommends openssh-server vim rsync iproute2 inetutils-ping procps  && \
 	wget https://mirrors.tuna.tsinghua.edu.cn/apache/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz && \
 	tar -xzvf apache-hive-$HIVE_VERSION-bin.tar.gz && \
 	mv apache-hive-$HIVE_VERSION-bin hive && \
@@ -41,10 +36,14 @@ ADD jdk-8u77-linux-x64.tar.gz /opt/tools
 #hadoop 
 ADD hadoop-2.7.2.tar.gz /opt/tools
 
-RUN cd /opt/tools/ && ln -s ./hadoop-2.7.2 hadoop
+RUN cd /opt/tools/ && mv hadoop-2.7.2 hadoop
 
-#replace the default configruation
-ADD *.xml /opt/tools/hadoop/etc/hadoop/
+#Hadoop configruation
+ADD hadoopconf/*.xml /opt/tools/hadoop/etc/hadoop/
+#Hive conf
+ADD hiveconf/*.xml $HIVE_HOME/conf
+ADD conf/*.properties $HIVE_HOME/conf
+ADD conf/*.sh $HIVE_HOME/conf
 
 #set env
 RUN sed -i "/export HADOOP_PREFIX/a export JAVA_HOME=/opt/tools/jdk1.8.0_77" /opt/tools/hadoop/libexec/hadoop-config.sh; \
@@ -56,18 +55,9 @@ RUN sed -i "/export HADOOP_PREFIX/a export JAVA_HOME=/opt/tools/jdk1.8.0_77" /op
 	echo 'export HADOOP_YARN_HOME=/opt/tools/hadoop'  >> /etc/bash.bashrc; \
 	echo 'export HADOOP_CONF_DIR=/opt/tools/hadoop/etc/hadoop'  >> /etc/bash.bashrc; \
 	echo 'export YARN_CONF_DIR=$HADOOP_PREFIX/etc/hadoop'  >> /etc/bash.bashrc; \
-
 	echo 'export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin'  >> /etc/bash.bashrc; \
 	echo 'localhost' >> /opt/tools/hadoop/slaves; \
 	echo 'master' > /etc/hostname
-#Custom configuration goes here
-ADD conf/hive-site.xml $HIVE_HOME/conf
-ADD conf/beeline-log4j2.properties $HIVE_HOME/conf
-ADD conf/hive-env.sh $HIVE_HOME/conf
-ADD conf/hive-exec-log4j2.properties $HIVE_HOME/conf
-ADD conf/hive-log4j2.properties $HIVE_HOME/conf
-ADD conf/ivysettings.xml $HIVE_HOME/conf
-ADD conf/llap-daemon-log4j2.properties $HIVE_HOME/conf
 
 COPY startup.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/startup.sh
