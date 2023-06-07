@@ -72,8 +72,8 @@ COPY entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/startup.sh && \
 	chmod +x /usr/local/bin/entrypoint.sh && \
 	fix-permissions "/opt" && \
-	fix-permissions "/home/${NB_USER}" 
-
+	fix-permissions "/home/${NB_USER}" && \
+	fix-permissions "/etc/init.d/ssh"
 USER $NB_USER
 
 WORKDIR "${HOME}"
