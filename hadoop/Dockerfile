@@ -5,7 +5,7 @@ LABEL maintainer="eoelab <eoelab@eoelab.org>"
 USER root
 #install packages
 RUN apt-get update --yes && \
-	apt-get install -y openssh-server rsync iproute2 ping && \
+	apt-get install -y openssh-server rsync iproute2 iputils-ping && \
 	apt-get clean && rm -rf /var/lib/apt/lists/* 
 
 #passwordless ssh
