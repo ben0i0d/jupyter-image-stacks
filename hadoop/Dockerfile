@@ -10,7 +10,8 @@ ENV HIVE_VERSION=${HIVE_VERSION:-2.3.9}
 ENV HIVE_HOME /opt/hive
 ENV PATH $HIVE_HOME/bin:$PATH
 #install packages
-RUN	apt-get update && apt-get install -y --no-install-recommends openssh-server vim rsync iproute2 inetutils-ping procps  && \
+RUN	cd /opt && \
+	apt-get update && apt-get install -y --no-install-recommends openssh-server vim rsync iproute2 inetutils-ping procps  && \
 	wget https://mirrors.tuna.tsinghua.edu.cn/apache/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz && \
 	tar -xzvf apache-hive-$HIVE_VERSION-bin.tar.gz && \
 	mv apache-hive-$HIVE_VERSION-bin hive && \
