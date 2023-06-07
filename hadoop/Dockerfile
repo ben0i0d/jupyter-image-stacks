@@ -72,12 +72,12 @@ COPY entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/startup.sh && \
 	chmod +x /usr/local/bin/entrypoint.sh && \
 	fix-permissions "/opt" && \
-	fix-permissions "/home/${NB_USER}" && \
-	fix-permissions "/etc/init.d/ssh" && \
-	fix-permissions "/run"
+	fix-permissions "/home/${NB_USER}" 
+
 USER $NB_USER
 
 WORKDIR "${HOME}"
 
 ENTRYPOINT ["entrypoint.sh"]
 CMD startup.sh
+CMD /etc/init.d/ssh start
