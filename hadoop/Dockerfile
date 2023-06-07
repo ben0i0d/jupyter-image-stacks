@@ -31,7 +31,8 @@ RUN mkdir /var/run/sshd; \
 	sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config; \
 	ssh-keygen -q -N "" -t rsa -f /root/.ssh/id_rsa; \
 	cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys; \
-
+	cp /root/.ssh/id_rsa.pub /home/jovyan/.ssh/authorized_keys; \
+	cp /root/.ssh/id_rsa /home/jovyan/.ssh/id_rsa; \
 # SSH login fix. Otherwise user is kicked off after login
 	sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 
@@ -67,11 +68,11 @@ RUN sed -i "/export HADOOP_PREFIX/a export JAVA_HOME=/opt/tools/jdk1.8.0_77" /op
 	echo 'master' > /etc/hostname
 
 COPY startup.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/startup.sh
-
 COPY entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/entrypoint.sh
-RUN fix-permissions "/opt"
+RUN chmod +x /usr/local/bin/startup.sh && \
+	chmod +x /usr/local/bin/entrypoint.sh && \
+	fix-permissions "/opt" && \
+	fix-permissions "/home/${NB_USER}" 
 
 USER $NB_USER
 
