@@ -1,68 +1,49 @@
 FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-c
+
 LABEL maintainer="eoelab <eoelab@eoelab.org>"
 
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
-# ports
-EXPOSE 22 50010 50020 50070 50075 50090 19888 8030 8031 8032 8033 8040 8042 8088 49707 2122 10002 10000
-
 USER root
+#install packages
+RUN apt-get install -y openssh-server rsync iproute2 ping
 
-WORKDIR /root
+#passwordless ssh
+RUN mkdir /var/run/sshd; \
+	echo 'root:123456' | chpasswd; \
+	sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config; \
+	ssh-keygen -q -N "" -t rsa -f /root/.ssh/id_rsa; \
+	cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys; \
 
-# install openssh-server, openjdk and wget
-RUN apt-get update && apt-get install -y openssh-server 
+# SSH login fix. Otherwise user is kicked off after login
+	sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 
-# install hadoop 2.7.2
-ADD hadoop-2.7.2.tar.gz /usr/local/hadoop
-ADD jdk-8u77-linux-x64.tar.gz /usr/local/hadoop
+ 
 
+ADD jdk-8u77-linux-x64.tar.gz /opt/tools
 
-RUN mv /usr/local/hadoop/hadoop-* /usr/local/hadoop/hadoop && \
-    mv /usr/local/hadoop/jdk* /usr/local/hadoop/jdk1.8
+#hadoop 
+ADD hadoop-2.7.2.tar.gz /opt/tools
 
-# set environment variable
-ENV JAVA_HOME=/usr/local/hadoop/jdk1.8
-ENV JRE_HOME=$JAVA_HOME/jre
-ENV CLASSPATH=.:$CLASSPATH:$JAVA_HOME/lib:$JRE_HOME/lib
-ENV PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin
+RUN cd /opt/tools/ && ln -s ./hadoop-2.7.2 hadoop
 
-ENV HADOOP_HOME=/usr/local/hadoop/hadoop
-ENV PATH=$PATH:/usr/local/hadoop/hadoop/bin:/usr/local/hadoop/hadoop/sbin 
+#replace the default configruation
+ADD *.xml /opt/tools/hadoop/etc/hadoop/
 
-# ssh without key
-RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
-    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+#set env
+RUN sed -i "/export HADOOP_PREFIX/a export JAVA_HOME=/opt/tools/jdk1.8.0_77" /opt/tools/hadoop/libexec/hadoop-config.sh; \
+	echo 'export JAVA_HOME=/opt/tools/jdk1.8.0_77' >> /etc/bash.bashrc; \
+    echo 'export HADOOP_PREFIX=/opt/tools/hadoop'  >> /etc/bash.bashrc; \
+    echo 'export HADOOP_COMMON_HOME=/opt/tools/hadoop'  >> /etc/bash.bashrc; \
+    echo 'export HADOOP_HDFS_HOME=/opt/tools/hadoop'  >> /etc/bash.bashrc; \
+	echo 'export HADOOP_MAPRED_HOME=/opt/tools/hadoop'  >> /etc/bash.bashrc; \
+	echo 'export HADOOP_YARN_HOME=/opt/tools/hadoop'  >> /etc/bash.bashrc; \
+	echo 'export HADOOP_CONF_DIR=/opt/tools/hadoop/etc/hadoop'  >> /etc/bash.bashrc; \
+	echo 'export YARN_CONF_DIR=$HADOOP_PREFIX/etc/hadoop'  >> /etc/bash.bashrc; \
 
-RUN mkdir -p ~/hdfs/namenode && \ 
-    mkdir -p ~/hdfs/datanode && \
-    mkdir $HADOOP_HOME/logs && \
-    mkdir $HADOOP_HOME/tmp
+	echo 'export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin'  >> /etc/bash.bashrc; \
+	echo 'localhost' >> /opt/tools/hadoop/slaves; \
+	echo 'master' > /etc/hostname
+    
+# Hdfs ports: 50010 50020 50070 50075 50090  Mapred ports: 19888 Yarn ports: 8030 8031 8032 8033 8040 8042 8088
+EXPOSE 22 50010 50020 50070 50075 50090 19888 8030 8031 8032 8033 8040 8042 8088 49707 2122 
 
-COPY conf/* /tmp/
-
-RUN mv /tmp/ssh_config ~/.ssh/config && \
-    mv /tmp/hadoop-env.sh $HADOOP_HOME/etc/hadoop/hadoop-env.sh && \
-    mv /tmp/hdfs-site.xml $HADOOP_HOME/etc/hadoop/hdfs-site.xml && \ 
-    mv /tmp/core-site.xml $HADOOP_HOME/etc/hadoop/core-site.xml && \
-    mv /tmp/mapred-site.xml $HADOOP_HOME/etc/hadoop/mapred-site.xml && \
-    mv /tmp/yarn-site.xml $HADOOP_HOME/etc/hadoop/yarn-site.xml && \
-    mv /tmp/slaves $HADOOP_HOME/etc/hadoop/slaves && \
-    mv /tmp/start-hadoop.sh ~/start-hadoop.sh && \
-    mv /tmp/run-wordcount.sh ~/run-wordcount.sh
-
-RUN chmod +x ~/start-hadoop.sh && \
-    chmod +x ~/stop-hadoop.sh && \
-    chmod +x ~/run-wordcount.sh && \
-    chmod +x $HADOOP_HOME/sbin/start-dfs.sh && \
-    chmod +x $HADOOP_HOME/sbin/start-yarn.sh 
-
-RUN cat /tmp/profile >> /etc/profile && \
-    rm -rf $HADOOP_HOME/share/doc
-
-# format namenode
-RUN $HADOOP_HOME/bin/hdfs namenode -format
-
-CMD [ "sh", "-c", "service ssh start; bash"]
-
-
+CMD ["/usr/sbin/sshd", "-D"]
