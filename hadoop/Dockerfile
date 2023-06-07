@@ -14,7 +14,7 @@ RUN	apt-get update && apt-get install -y --no-install-recommends openssh-server 
 	wget https://mirrors.tuna.tsinghua.edu.cn/apache/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz && \
 	tar -xzvf apache-hive-$HIVE_VERSION-bin.tar.gz && \
 	mv apache-hive-$HIVE_VERSION-bin hive && \
-	cd HIVE_HOME/lib  && \
+	cd $HIVE_HOME/lib  && \
 	wget https://jdbc.postgresql.org/download/postgresql-9.4.1212.jar && \
 	mv postgresql-9.4.1212.jar	postgresql-jdbc.jar && \
 	rm apache-hive-$HIVE_VERSION-bin.tar.gz && \
