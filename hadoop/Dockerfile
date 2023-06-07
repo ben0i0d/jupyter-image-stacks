@@ -18,7 +18,7 @@ RUN	cd /opt && \
 	cd $HIVE_HOME/lib  && \
 	wget https://jdbc.postgresql.org/download/postgresql-9.4.1212.jar && \
 	mv postgresql-9.4.1212.jar	postgresql-jdbc.jar && \
-	rm apache-hive-$HIVE_VERSION-bin.tar.gz && \
+	rm /opt/apache-hive-$HIVE_VERSION-bin.tar.gz && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
 #passwordless ssh
