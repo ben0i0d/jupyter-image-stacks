@@ -32,15 +32,15 @@ RUN mkdir /var/run/sshd; \
 
  
 
-ADD jdk-8u77-linux-x64.tar.gz /opt/tools
+ADD jdk-8u77-linux-x64.tar.gz /opt
 
 #hadoop 
-ADD hadoop-2.7.2.tar.gz /opt/tools
+ADD hadoop-2.7.2.tar.gz /opt
 
-RUN cd /opt/tools/ && mv hadoop-2.7.2 hadoop
+RUN cd /opt && mv hadoop-2.7.2 hadoop
 
 #Hadoop configruation
-ADD hadoopconf/*.xml /opt/tools/hadoop/etc/hadoop/
+ADD hadoopconf/*.xml /opt/hadoop/etc/hadoop/
 #Hive conf
 ADD hiveconf/*.xml $HIVE_HOME/conf/
 ADD hiveconf/*.properties $HIVE_HOME/conf/
@@ -48,15 +48,16 @@ ADD hiveconf/*.sh $HIVE_HOME/conf/
 
 #set env
 RUN sed -i "/export HADOOP_PREFIX/a export JAVA_HOME=/opt/tools/jdk1.8.0_77" /opt/tools/hadoop/libexec/hadoop-config.sh; \
-	echo 'export JAVA_HOME=/opt/tools/jdk1.8.0_77' >> /etc/bash.bashrc; \
-    echo 'export HADOOP_PREFIX=/opt/tools/hadoop'  >> /etc/bash.bashrc; \
-    echo 'export HADOOP_COMMON_HOME=/opt/tools/hadoop'  >> /etc/bash.bashrc; \
-    echo 'export HADOOP_HDFS_HOME=/opt/tools/hadoop'  >> /etc/bash.bashrc; \
-	echo 'export HADOOP_MAPRED_HOME=/opt/tools/hadoop'  >> /etc/bash.bashrc; \
-	echo 'export HADOOP_YARN_HOME=/opt/tools/hadoop'  >> /etc/bash.bashrc; \
-	echo 'export HADOOP_CONF_DIR=/opt/tools/hadoop/etc/hadoop'  >> /etc/bash.bashrc; \
+	echo 'export JAVA_HOME=/opt/jdk1.8.0_77' >> /etc/bash.bashrc; \
+    echo 'export HADOOP_PREFIX=/opt/hadoop'  >> /etc/bash.bashrc; \
+    echo 'export HADOOP_COMMON_HOME=/opt/hadoop'  >> /etc/bash.bashrc; \
+    echo 'export HADOOP_HDFS_HOME=/opt/hadoop'  >> /etc/bash.bashrc; \
+	echo 'export HADOOP_MAPRED_HOME=/opt/hadoop'  >> /etc/bash.bashrc; \
+	echo 'export HADOOP_YARN_HOME=/opt/hadoop'  >> /etc/bash.bashrc; \
+	echo 'export HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop'  >> /etc/bash.bashrc; \
 	echo 'export YARN_CONF_DIR=$HADOOP_PREFIX/etc/hadoop'  >> /etc/bash.bashrc; \
 	echo 'export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin'  >> /etc/bash.bashrc; \
+	echo 'export PATH=$PATH:$HIVE_HOME/bin'  >> /etc/bash.bashrc; \
 	echo 'localhost' >> /opt/tools/hadoop/slaves; \
 	echo 'master' > /etc/hostname
 
