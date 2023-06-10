@@ -7,8 +7,6 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # Extra arguments to `stack build`. Used to build --fast, see Makefile.
 ARG STACK_ARGS=
 ARG STACK_BINDIST="stack-2.11.1-linux-x86_64"
-# Example IHaskell notebooks will be collected in this directory.
-ARG EXAMPLES_PATH=/home/$NB_USER/ihaskell_examples
 
 USER root
 # The global snapshot package database will be here in the STACK_ROOT.
@@ -99,27 +97,5 @@ RUN stack exec ihaskell -- install --stack --prefix=/usr/local && \
     mamba install --quiet --yes 'ipywidgets=7.7.1' && \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}" && \
-# Collect all the IHaskell example notebooks in EXAMPLES_PATH.
-    mkdir -p $EXAMPLES_PATH  && \
-    cd $EXAMPLES_PATH  && \
-    mkdir -p ihaskell  && \
-    cp --recursive /opt/IHaskell/notebooks/* ihaskell/  && \
-    mkdir -p ihaskell-juicypixels  && \
-    cp /opt/IHaskell/ihaskell-display/ihaskell-juicypixels/*.ipynb ihaskell-juicypixels/  && \
-    mkdir -p ihaskell-charts  && \
-    cp /opt/IHaskell/ihaskell-display/ihaskell-charts/*.ipynb ihaskell-charts/  && \
-    mkdir -p ihaskell-diagrams  && \
-    cp /opt/IHaskell/ihaskell-display/ihaskell-diagrams/*.ipynb ihaskell-diagrams/  && \
-    mkdir -p ihaskell-gnuplot  && \
-    cp /opt/IHaskell/ihaskell-display/ihaskell-gnuplot/*.ipynb ihaskell-gnuplot/  && \
-    mkdir -p ihaskell-widgets  && \
-    cp --recursive /opt/IHaskell/ihaskell-display/ihaskell-widgets/Examples/* ihaskell-widgets/  && \
-    mkdir -p ihaskell-hvega  && \
-    cp /opt/hvega/notebooks/*.ipynb ihaskell-hvega/  && \
-    cp /opt/hvega/notebooks/*.tsv ihaskell-hvega/  && \
-    mkdir -p ihaskell-plot  && \
-    cp /opt/IHaskell/ihaskell-display/ihaskell-plot/PlotExample.ipynb ihaskell-plot/  && \
-    fix-permissions $EXAMPLES_PATH
-
+    fix-permissions "/home/${NB_USER}"
 

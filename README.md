@@ -154,7 +154,7 @@ C(Scipy)-->E(Pyspark)
 ## 上游
 ### 软件包上游与版本
 Python 3.10  
-Julia 1.9.0  
+Julia 1.9.1  
 Java zulu17-jdk  
 Tensorflow latest  
 pytorch latest  
