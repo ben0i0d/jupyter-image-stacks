@@ -175,7 +175,7 @@ sage-c-build:
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:sage-c"
 octave-c-build:
   stage: build
-  needs: []
+  needs: [up-c-build]
   script:
     - cd octave
     - /kaniko/executor
