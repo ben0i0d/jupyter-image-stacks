@@ -3,7 +3,7 @@ image:
   name: gcr.io/kaniko-project/executor:debug
   entrypoint: [""]
 before_script:
-  - wget http://eoelab.org:1024/index.php/s/XHeP7K3ZAHPHymM/download/eoelab.org.crt
+  - wget https://eoelab.org:1024/index.php/s/XHeP7K3ZAHPHymM/download/eoelab.org.crt
   - mv eoelab.org.crt /kaniko/ssl/certs/additional-ca-cert-bundle.crt
 # up-c-build:
 #   stage: build
