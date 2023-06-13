@@ -11,7 +11,7 @@ USER root
 RUN cd /opt && \
     apt-get update && apt-get install -yq --no-install-recommends gnupg && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && \
-    echo "deb https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list && \
+    echo "deb https://download.mono-project.com/repo/ubuntu stable-jammy main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list && \
     apt-get update && apt-get install -yq --no-install-recommends mono-complete && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     mozroots --import --machine --sync && \
