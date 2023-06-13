@@ -28,10 +28,12 @@
 ### 当前构建镜像清单
 * Upstream:镜像上游，类似于jupyter官方的minimal-notebook镜像  
 提供软件包：文件压缩/解压(.bz2|.zip|.rar|.7z)，项目管理(git|git lfs),证书管理(ca-certificates)，编辑器（vim）,网络交互（curl|wget）,sudo  
-* Llinux：在无特权的情况下学习Linux系统   
-提供软件包：build-essential  
 * Python：对Python语言的基础支持  
 * Scipy：Python的科学计算环境  
+* Pyspark: 提供Python对Apache Spark的支持  
+* DeepLearning（With GPU）：只提供Python语言支持，集成TensorFlow,Pytorch,Transformer,Oneflow支持  
+* Llinux：在无特权的情况下学习Linux系统   
+提供软件包：build-essential  
 * Julia：对科学计算语言julia的支持    
 * R：对科学计算语言R的支持    
 * Haskell:对Haskell的支持  
@@ -45,8 +47,7 @@
     #include <iostream>
     std::cout << "Hello, world!" << "\n";
 ```
-* Pyspark: 提供Python对Apache Spark的支持  
-* DeepLearning（With GPU）：只提供Python语言支持，集成TensorFlow,Pytorch,Transformer,Oneflow支持  
+* Sagemath：一个遵循GPL的开源数学工具  
 * Octave: 提供对Octave这一门科学计算语言的支持，兼容matlab，其占用内存小，广受机器学习爱好者的喜爱  
 注意:使用到package时，要预先将其加载  
 例如：在使用image中函数时，使用以下代码加载image  
@@ -131,7 +132,6 @@ fuzzy-logic-toolkit  |       0.4.6 |
              zenity  |       0.5.7 |
              zeromq  |       1.5.3 |
 ```  
-* Sagemath：一个遵循GPL的开源数学工具  
 ### 镜像依赖关系
 ```mermaid
 graph LR
