@@ -40,6 +40,12 @@
 * Java:对Java的支持
 * Go:对Go的支持
 * Rust:对Rust的支持
+* Csharp:对C#的支持  
+注意：
+```
+Console.WriteLine does not print output in the notebook
+Console.ReadLine does not work currently
+```
 * CPP：对CPP（11,14,17）的支持，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）  
 注意:在Notebook中，您的语法结构需要做一定改动  
 例如,Helloworld程序代码为：  
@@ -144,6 +150,7 @@ A-->J(llinux)
 A-->K(Haskell)
 A-->L(Java)
 A-->M(Go)
+A-->N(Csharp)
 A-->N(Rust)
 A-->O(Octave)
 C(Scipy)-->D(Deeplearning)  
