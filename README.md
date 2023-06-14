@@ -27,7 +27,7 @@
 ```
 ### 当前构建镜像清单
 * Upstream:镜像上游，类似于jupyter官方的minimal-notebook镜像  
-提供软件包：文件压缩/解压(.bz2|.zip|.rar|.7z)，项目管理(git|git lfs),证书管理(ca-certificates)，编辑器（vim）,网络交互（curl|wget）,sudo  
+提供软件包：文件压缩/解压(.bz2|.zip|.rar|.7z)，项目管理(git|git lfs),证书管理(ca-certificates)，编辑器（vim）,网络交互（curl|wget） 
 * Python：对Python语言的基础支持  
 * Scipy：Python的科学计算环境  
 * Scraper: Python的网页采取环境
