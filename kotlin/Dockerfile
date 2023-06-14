@@ -12,5 +12,5 @@ USER $NB_UID
 
 ENV JUPYTER_ENABLE_LAB=yes
 
-RUN mamba install -c jetbrains kotlin-jupyter-kernel && \
+RUN mamba install --yes -c jetbrains kotlin-jupyter-kernel && \
     mamba clean --all -f -y 
