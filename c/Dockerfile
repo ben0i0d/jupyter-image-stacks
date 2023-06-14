@@ -5,15 +5,15 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root
 
-RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends build-essential && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    fix-permissions /opt
-    
-USER ${NB_UID}
-# install Kernel
-RUN cd /opt && \
-    git clone https://github.com/XaverKlemenschits/jupyter-c-kernel.git && \
-    cd jupyter-c-kernel && \
-    pip install -e .  && \
+WORKDIR /tmp
+
+RUN git clone https://eoelab.org:1031/mirrored-sources/jupyter-c-kernel.git && cd jupyter-c-kernel && \
+    pip install --no-cache-dir -e .  && \
     cd jupyter_c_kernel && install_c_kernel --user 
+
+USER ${NB_UID}
+WORKDIR "${HOME}"
+
+
+
+
