@@ -12,7 +12,7 @@ RUN apt-get update --yes && \
     cd /opt && \
     git clone https://eoelab.org:1031/mirrored-sources/jupyter-c-kernel.git && \
     cd jupyter-c-kernel && \
-    sudo install .  && \
+    pip install -e .  && \
     cd jupyter_c_kernel && sudo install_c_kernel && \
     fix-permissions /opt/jupyter-c-kernel && \
     fix-permissions "${CONDA_DIR}" 
