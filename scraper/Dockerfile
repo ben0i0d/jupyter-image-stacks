@@ -12,7 +12,7 @@ COPY linux_signing_key.pub ./linux_signing_key.pub
 RUN apt-key add linux_signing_key.pub && \
     sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list' && \
 # install chrome
-    apt-get update && apt-get -y installgoogle-chrome-stable && \
+    apt-get update && apt-get -y install google-chrome-stable && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
 # install chromedriver
     wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE`/chromedriver_linux64.zip  && \
