@@ -10,7 +10,7 @@ RUN mkdir -p /opt/dotnet/tools && \
     apt-get update && apt-get install -y --no-install-recommends dotnet-sdk-7.0 && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     dotnet tool install Microsoft.dotnet-interactive --tool-path /opt/dotnet/tools
-RUN dotnet interactive jupyter install && \
+RUN dotnet-interactive jupyter install && \
     fix-permissions /opt/dotnet && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
