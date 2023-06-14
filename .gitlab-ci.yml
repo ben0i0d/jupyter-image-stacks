@@ -47,20 +47,20 @@ before_script:
 #       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy-c"
-scraper-c-build:
-  stage: build
-  needs: []
-  script:
-    - cd scraper
-    - /kaniko/executor
-      --context ./
-      --dockerfile "Dockerfile"
-      --cache=true
-      --cache-copy-layers=true
-      --cache-run-layers=true
-      --snapshot-mode=redo
-      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scraper-c"
+# scraper-c-build:
+#   stage: build
+#   needs: [python-c-build]
+#   script:
+#     - cd scraper
+#     - /kaniko/executor
+#       --context ./
+#       --dockerfile "Dockerfile"
+#       --cache=true
+#       --cache-copy-layers=true
+#       --cache-run-layers=true
+#       --snapshot-mode=redo
+#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scraper-c"
 # pyspark-c-build:
 #   stage: build
 #   needs: [scipy-c-build]
@@ -103,6 +103,20 @@ scraper-c-build:
 #       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:llinux-c"
+c-c-build:
+  stage: build
+  needs: []
+  script:
+    - cd c
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
+      --snapshot-mode=redo
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:c-c"
 # cpp-c-build:
 #   stage: build
 #   needs: [up-c-build]

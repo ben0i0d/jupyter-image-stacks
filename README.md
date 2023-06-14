@@ -42,6 +42,7 @@
 * Go:对Go的支持
 * Kotlin: 对Kotlin的支持
 * Rust:对Rust的支持
+* C: 对C的支持，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）
 * CPP：对CPP（11,14,17）的支持，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）  
 注意:在Notebook中，您的语法结构需要做一定改动  
 例如,Helloworld程序代码为：  
@@ -146,15 +147,16 @@ C(Scipy)-->F(Pyspark)
 A-->G(Julia)
 A-->H(R)
 A-->I(Sagemath)
-A-->J(CPP)
-A-->K(llinux)
-A-->L(Haskell)
-A-->M(Java)
-A-->N(Go)
-A-->O(Rust)
-A-->P(Octave)
-A-->Q(Dotnet)
-A-->R(Kotlin)
+A-->J
+A-->K(CPP)
+A-->L(llinux)
+A-->M(Haskell)
+A-->N(Java)
+A-->O(Go)
+A-->P(Rust)
+A-->Q(Octave)
+A-->R(Dotnet)
+A-->S(Kotlin)
 ```  
 ### 如何参与
 项目内main分支Dockerfile是经过测试而发布的，如果您有测试或者新需求，请构建一个新分支，注意修改新分支内的CI配置文件，并且在提交合并请求时还原CI配置
@@ -183,6 +185,7 @@ GO AliYun: https://mirrors.aliyun.com/goproxy/
 jupyter团队项目 https://github.com/jupyter/docker-stacks  
 **但是我们与上游差别较大，包括源，软件包，本地化与扩展等，因此如果您从本项目派生遇到问题，请不要到jupyter团队提问，这会加大他们的工作量**
 ### kernel
+* C: https://github.com/XaverKlemenschits/jupyter-c-kernel
 * Cpp: https://github.com/jupyter-xeus/xeus-cling
 * Python：https://ipython.org/
 * Go: https://github.com/gopherdata/gophernotes
