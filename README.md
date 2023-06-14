@@ -39,12 +39,8 @@
 * Haskell:对Haskell的支持  
 * Java:对Java的支持
 * Go:对Go的支持
+* Kotlin: 对Kotlin的支持
 * Rust:对Rust的支持
-注意：
-```
-Console.WriteLine does not print output in the notebook
-Console.ReadLine does not work currently
-```
 * CPP：对CPP（11,14,17）的支持，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）  
 注意:在Notebook中，您的语法结构需要做一定改动  
 例如,Helloworld程序代码为：  
@@ -155,6 +151,7 @@ A-->M(Go)
 A-->N(Rust)
 A-->O(Octave)
 A-->P(Dotnet)
+A-->Q(Kotlin)
 ```  
 ### 如何参与
 项目内main分支Dockerfile是经过测试而发布的，如果您有测试或者新需求，请构建一个新分支，注意修改新分支内的CI配置文件，并且在提交合并请求时还原CI配置
@@ -163,6 +160,7 @@ A-->P(Dotnet)
 Python 3.10  
 Julia 1.9.1  
 Java zulu17-jdk  
+kotlin(jre) openjdk-17-jre
 Dotnet 7.0
 Tensorflow latest  
 pytorch latest  
@@ -192,6 +190,7 @@ jupyter团队项目 https://github.com/jupyter/docker-stacks
 * Rust: https://github.com/evcxr/evcxr
 * Octave: https://github.com/Calysto/octave_kernel
 * Dotnet(C#,F#,Powershell)： https://github.com/dotnet/interactive
+* Kotlin: https://github.com/Kotlin/kotlin-jupyter
 ## 必要的版权说明
 对于派生自jupyter团队的代码，我们添加了如下的版权声明，我们保留并且支持jupyter开发团队版权
 ```
