@@ -30,6 +30,7 @@
 提供软件包：文件压缩/解压(.bz2|.zip|.rar|.7z)，项目管理(git|git lfs),证书管理(ca-certificates)，编辑器（vim）,网络交互（curl|wget）,sudo  
 * Python：对Python语言的基础支持  
 * Scipy：Python的科学计算环境  
+* Scraper: Python的网页采取环境
 * Pyspark: 提供Python对Apache Spark的支持  
 * DeepLearning（With GPU）：只提供Python语言支持，集成TensorFlow,Pytorch,Transformer,Oneflow支持  
 * Llinux：在无特权的情况下学习Linux系统   
@@ -137,21 +138,23 @@ fuzzy-logic-toolkit  |       0.4.6 |
 ### 镜像依赖关系
 ```mermaid
 graph LR
-A(Upstream)-->B(Python)-->C(Scipy)
-C(Scipy)-->D(Deeplearning)  
-C(Scipy)-->E(Pyspark)  
-A-->F(Julia)
-A-->G(R)
-A-->H(Sagemath)
-A-->I(CPP)
-A-->J(llinux)
-A-->K(Haskell)
-A-->L(Java)
-A-->M(Go)
-A-->N(Rust)
-A-->O(Octave)
-A-->P(Dotnet)
-A-->Q(Kotlin)
+A(Upstream)-->B(Python)
+B-->C(Scipy)
+B-->D(scraper)
+C(Scipy)-->E(Deeplearning)  
+C(Scipy)-->F(Pyspark)  
+A-->G(Julia)
+A-->H(R)
+A-->I(Sagemath)
+A-->J(CPP)
+A-->K(llinux)
+A-->L(Haskell)
+A-->M(Java)
+A-->N(Go)
+A-->O(Rust)
+A-->P(Octave)
+A-->Q(Dotnet)
+A-->R(Kotlin)
 ```  
 ### 如何参与
 项目内main分支Dockerfile是经过测试而发布的，如果您有测试或者新需求，请构建一个新分支，注意修改新分支内的CI配置文件，并且在提交合并请求时还原CI配置
