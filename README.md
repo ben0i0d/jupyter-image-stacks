@@ -54,6 +54,7 @@ Console.ReadLine does not work currently
     std::cout << "Hello, world!" << "\n";
 ```
 * Sagemath：一个遵循GPL的开源数学工具  
+* Dotnet:提供对.net的支持，内置包括（ C#,F#）  
 * Octave: 提供对Octave这一门科学计算语言的支持，兼容matlab，其占用内存小，广受机器学习爱好者的喜爱  
 注意:使用到package时，要预先将其加载  
 例如：在使用image中函数时，使用以下代码加载image  
