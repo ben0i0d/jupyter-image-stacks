@@ -142,6 +142,8 @@ fuzzy-logic-toolkit  |       0.4.6 |
 ```mermaid
 graph LR
 A(Upstream)-->B(Python)-->C(Scipy)
+C(Scipy)-->D(Deeplearning)  
+C(Scipy)-->E(Pyspark)  
 A-->F(Julia)
 A-->G(R)
 A-->H(Sagemath)
@@ -152,8 +154,7 @@ A-->L(Java)
 A-->M(Go)
 A-->N(Rust)
 A-->O(Octave)
-C(Scipy)-->D(Deeplearning)  
-C(Scipy)-->E(Pyspark)  
+A-->P(Dotnet)
 ```  
 ### 如何参与
 项目内main分支Dockerfile是经过测试而发布的，如果您有测试或者新需求，请构建一个新分支，注意修改新分支内的CI配置文件，并且在提交合并请求时还原CI配置
