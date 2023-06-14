@@ -6,10 +6,12 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root
 # Install system dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends dotnet-sdk-7.0 && \
+RUN mkdir -p /opt/dotnet/tools && \
+    apt-get update && apt-get install -y --no-install-recommends dotnet-sdk-7.0 && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    dotnet tool install --global Microsoft.dotnet-interactive && \
+    dotnet tool install Microsoft.dotnet-interactive --tool-path /opt/dotnet/tools && \
     dotnet interactive jupyter install && \
+    fix-permissions /opt/dotnet && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
