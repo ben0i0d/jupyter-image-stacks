@@ -6,10 +6,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root
 # Install system dependencies
-RUN wget https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
-    dpkg -i packages-microsoft-prod.deb && \
-    rm packages-microsoft-prod.deb && \
-    apt-get update && apt-get install -y --no-install-recommends dotnet-sdk-7.0 && \
+RUN apt-get update && apt-get install -y --no-install-recommends dotnet-sdk-7.0 && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     dotnet tool install --global Microsoft.dotnet-interactive && \
     dotnet interactive jupyter install && \
