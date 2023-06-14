@@ -42,7 +42,7 @@
 * Go:对Go的支持
 * Kotlin: 对Kotlin的支持
 * Rust:对Rust的支持
-* C: 对C的支持，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）
+* C: 对C的支持(C89/ANSI C:all newer versions)，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）
 * CPP：对CPP（11,14,17）的支持，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）  
 注意:在Notebook中，您的语法结构需要做一定改动  
 例如,Helloworld程序代码为：  
@@ -147,7 +147,7 @@ C(Scipy)-->F(Pyspark)
 A-->G(Julia)
 A-->H(R)
 A-->I(Sagemath)
-A-->J
+A-->J(C)
 A-->K(CPP)
 A-->L(llinux)
 A-->M(Haskell)
