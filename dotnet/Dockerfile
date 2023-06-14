@@ -6,6 +6,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root
 # Install system dependencies
+ENV PATH ${PATH}:/opt/dotnet/tools
 RUN mkdir -p /opt/dotnet/tools && \
     apt-get update && apt-get install -y --no-install-recommends dotnet-sdk-7.0 && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
