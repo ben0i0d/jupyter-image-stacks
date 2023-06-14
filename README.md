@@ -40,7 +40,6 @@
 * Java:对Java的支持
 * Go:对Go的支持
 * Rust:对Rust的支持
-* Csharp:对C#的支持  
 注意：
 ```
 Console.WriteLine does not print output in the notebook
@@ -151,9 +150,8 @@ A-->J(llinux)
 A-->K(Haskell)
 A-->L(Java)
 A-->M(Go)
-A-->N(Csharp)
-A-->O(Rust)
-A-->P(Octave)
+A-->N(Rust)
+A-->O(Octave)
 C(Scipy)-->D(Deeplearning)  
 C(Scipy)-->E(Pyspark)  
 ```  
