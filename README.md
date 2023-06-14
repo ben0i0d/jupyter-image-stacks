@@ -53,7 +53,7 @@ Console.ReadLine does not work currently
     std::cout << "Hello, world!" << "\n";
 ```
 * Sagemath：一个遵循GPL的开源数学工具  
-* Dotnet:提供对.net的支持，内置包括（ C#,F#）  
+* Dotnet:提供对.net的支持，内置包括（C#,F#,Powershell）  
 * Octave: 提供对Octave这一门科学计算语言的支持，兼容matlab，其占用内存小，广受机器学习爱好者的喜爱  
 注意:使用到package时，要预先将其加载  
 例如：在使用image中函数时，使用以下代码加载image  
@@ -191,7 +191,7 @@ jupyter团队项目 https://github.com/jupyter/docker-stacks
 * R: http://irkernel.github.io/
 * Rust: https://github.com/evcxr/evcxr
 * Octave: https://github.com/Calysto/octave_kernel
-* Dotnet： https://github.com/dotnet/interactive
+* Dotnet(C#,F#,Powershell)： https://github.com/dotnet/interactive
 ## 必要的版权说明
 对于派生自jupyter团队的代码，我们添加了如下的版权声明，我们保留并且支持jupyter开发团队版权
 ```
