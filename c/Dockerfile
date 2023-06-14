@@ -5,7 +5,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root
 
-WORKDIR /tmp
+WORKDIR /opt
 
 RUN git clone https://eoelab.org:1031/mirrored-sources/jupyter-c-kernel.git && cd jupyter-c-kernel && \
     pip install --no-cache-dir -e .  && \
