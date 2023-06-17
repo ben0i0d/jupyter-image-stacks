@@ -26,7 +26,7 @@
         image: ben0i0d/jupyter:dl-g
 ```
 ### 当前构建镜像清单
-* Upstream:镜像上游，类似于jupyter官方的minimal-notebook镜像  
+* Upstream: 镜像上游，类似于jupyter官方的minimal-notebook镜像  
 提供软件包：文件压缩/解压(.bz2|.zip|.rar|.7z)，项目管理(git|git lfs),证书管理(ca-certificates)，编辑器（vim）,网络交互（curl|wget） 
 * Python：对Python语言的基础支持  
 * Scipy：Python的科学计算环境  
@@ -37,11 +37,11 @@
 提供软件包：build-essential  
 * Julia：对科学计算语言julia的支持    
 * R：对科学计算语言R的支持    
-* Haskell:对Haskell的支持  
-* Java:对Java的支持
-* Go:对Go的支持
+* Haskell: 对Haskell的支持  
+* Java: 对Java的支持
+* Go: 对Go的支持
 * Kotlin: 对Kotlin的支持
-* Rust:对Rust的支持
+* Rust: 对Rust的支持
 * C: 对C的支持(C89/ANSI C:all newer versions)，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）
 * CPP：对CPP（11,14,17）的支持，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）  
 注意:在Notebook中，您的语法结构需要做一定改动  
@@ -52,7 +52,8 @@
 ```
 * Fortran：对Fortran的支持
 * Sagemath：一个遵循GPL的开源数学工具  
-* Dotnet:提供对.net的支持，内置包括（C#,F#,Powershell）  
+* Dotnet: 提供对.net的支持，内置包括（C#,F#,Powershell）  
+* Scilab: 提供对Scilab的支持
 * Octave: 提供对Octave这一门科学计算语言的支持，兼容matlab，其占用内存小，广受机器学习爱好者的喜爱  
 注意:使用到package时，要预先将其加载  
 例如：在使用image中函数时，使用以下代码加载image  
@@ -159,6 +160,7 @@ A-->Q(Octave)
 A-->R(Dotnet)
 A-->S(Kotlin)
 A-->T(Fortran)
+A-->U(Scilab)
 ```  
 ### 如何参与
 项目内main分支Dockerfile是经过测试而发布的，如果您有测试或者新需求，请构建一个新分支，注意修改新分支内的CI配置文件，并且在提交合并请求时还原CI配置
