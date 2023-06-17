@@ -32,7 +32,7 @@
 * Scipy：Python的科学计算环境  
 * Scraper: Python的网页采取环境
 * Pyspark: 提供Python对Apache Spark的支持  
-* DeepLearning（With GPU）：只提供Python语言支持，集成TensorFlow,Pytorch,Transformer,Oneflow支持  
+* pyai（With GPU）：提供Python下AI工具链，集成TensorFlow,Pytorch,Transformer,Oneflow支持  
 * Llinux：在无特权的情况下学习Linux系统   
 提供软件包：build-essential  
 * Julia：对科学计算语言julia的支持    
@@ -143,7 +143,7 @@ graph LR
 A(Upstream)-->B(Python)
 B-->C(Scipy)
 B-->D(scraper)
-C(Scipy)-->E(Deeplearning)  
+C(Scipy)-->E(Pyai)  
 C(Scipy)-->F(Pyspark)  
 A-->G(Julia)
 A-->H(R)

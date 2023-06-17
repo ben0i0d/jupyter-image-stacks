@@ -75,11 +75,11 @@ before_script:
 #       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:pyspark-c"
-# dl-c-build:
+# pyai-c-build:
 #   stage: build
 #   needs: [scipy-c-build]
 #   script:
-#     - cd deeplearning/cpu
+#     - cd pyai/cpu
 #     - /kaniko/executor
 #       --context ./
 #       --dockerfile "Dockerfile"
@@ -88,7 +88,7 @@ before_script:
 #       --cache-run-layers=true
 #       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:dl-c"
+#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:pyai-c"
 # llinux-c-build:
 #   stage: build
 #   needs: [up-c-build]
@@ -328,11 +328,11 @@ fortran-c-build:
 #       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy-g"
-# dl-g-build:
+# pyai-g-build:
   # stage: build
   # needs: [scipy-g-build]
   # script:
-  #   - cd deeplearning/gpu
+  #   - cd pyai/gpu
   #   - /kaniko/executor
   #     --context ./
   #     --dockerfile "Dockerfile"
@@ -341,4 +341,4 @@ fortran-c-build:
   #     --cache-run-layers=true
   #     --snapshot-mode=redo
   #     --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-  #     --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:dl-g"
+  #     --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:pyai-g"
