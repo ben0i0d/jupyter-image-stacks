@@ -199,6 +199,7 @@ jupyter团队项目 https://github.com/jupyter/docker-stacks
 * Octave: https://github.com/Calysto/octave_kernel
 * Dotnet(C#,F#,Powershell)： https://github.com/dotnet/interactive
 * Kotlin: https://github.com/Kotlin/kotlin-jupyter
+* Fortran: https://github.com/lfortran/lfortran
 ## 必要的版权说明
 对于派生自jupyter团队的代码，我们添加了如下的版权声明，我们保留并且支持jupyter开发团队版权
 ```
