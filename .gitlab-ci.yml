@@ -287,7 +287,7 @@ before_script:
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:octave-c"
 scilab-c-build:
   stage: build
-  needs: [up-c-build]
+  needs: []
   script:
     - cd scilab
     - /kaniko/executor
