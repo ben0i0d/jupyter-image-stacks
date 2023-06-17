@@ -3,16 +3,26 @@ LABEL maintainer="eoelab <eoelab@eoelab.org>"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+ARG TURBOVNC_VERSION=2.2.6
+
 USER root
 
-RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends dbus-x11 libgl1-mesa-glx xfce4 xfce4-panel xfce4-session xfce4-settings xorg xubuntu-icon-theme websockify && \
+RUN apt-get -y -q update && \ 
+    apt-get -y -q upgrade && \ 
+    apt-get -y -q install dbus-x11 firefox xfce4 xfce4-panel xfce4-session xfce4-settings xorg xubuntu-icon-theme \
+    chown -R $NB_UID:$NB_GID $HOME && \ 
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+
+COPY turbovnc_2.2.6_amd64.deb /tmp/turbovnc_2.2.6_amd64.deb
+
+# Install TurboVNC (https://github.com/TurboVNC/turbovnc)
+RUN apt-get install -y -q /tmp/turbovnc_2.2.6_amd64.deb  && \
+    apt-get remove -y -q light-locker  && \
+    rm ./turbovnc.deb  && \
+    ln -s /opt/TurboVNC/bin/* /usr/local/bin/
+
+USER $NB_USER
+RUN mamba install -y websockify && \
     pip install jupyter-remote-desktop-proxy && \
-    pip cache purge && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*  && \
-    fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}" 
-
-USER ${NB_UID}
-
-
+    mamba clean --all -f -y && \
+    pip cache purge
