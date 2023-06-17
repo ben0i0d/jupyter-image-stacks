@@ -89,20 +89,20 @@ before_script:
 #       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:pyai-c"
-llinux-c-build:
-  stage: build
-  needs: []
-  script:
-    - cd llinux
-    - /kaniko/executor
-      --context ./
-      --dockerfile "Dockerfile"
-      --cache=true
-      --cache-copy-layers=true
-      --cache-run-layers=true
-      --snapshot-mode=redo
-      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:llinux-c"
+# llinux-c-build:
+#   stage: build
+#   needs: [up-c-build]
+#   script:
+#     - cd llinux
+#     - /kaniko/executor
+#       --context ./
+#       --dockerfile "Dockerfile"
+#       --cache=true
+#       --cache-copy-layers=true
+#       --cache-run-layers=true
+#       --snapshot-mode=redo
+#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:llinux-c"
 # c-c-build:
 #   stage: build
 #   needs: [up-c-build]
@@ -285,20 +285,20 @@ llinux-c-build:
 #       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:octave-c"
-# scilab-c-build:
-#   stage: build
-#   needs: [up-c-build]
-#   script:
-#     - cd scilab
-#     - /kaniko/executor
-#       --context ./
-#       --dockerfile "Dockerfile"
-#       --cache=true
-#       --cache-copy-layers=true
-#       --cache-run-layers=true
-#       --snapshot-mode=redo
-#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scilab-c"
+scilab-c-build:
+  stage: build
+  needs: []
+  script:
+    - cd scilab
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
+      --snapshot-mode=redo
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scilab-c"
 
 
 # up-g-build:
