@@ -33,8 +33,7 @@
 * Scraper: Python的网页采取环境
 * Pyspark: 提供Python对Apache Spark的支持  
 * pyai（With GPU）：提供Python下AI工具链，集成TensorFlow,Pytorch,Transformer,Oneflow支持  
-* Llinux：在无特权的情况下学习Linux系统   
-提供软件包：build-essential  
+* Llinux（With Desktop-GUI）：在无特权的情况下学习Linux系统，提供Xfce桌面支持   
 * Julia：对科学计算语言julia的支持    
 * R：对科学计算语言R的支持    
 * Haskell: 对Haskell的支持  
