@@ -7,7 +7,7 @@ USER root
 #install denpencies
 RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends default-jre libxft2 libtinfo5 libjogl2-java tk curl build-essential && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* 
+    apt-get clean && rm -rf /var/lib/apt/lists/*  && \
 #install scilab
     cd /opt  && \
     wget https://www.scilab.org/download/2023.1.0/scilab-2023.1.0.bin.x86_64-linux-gnu.tar.xz && \
