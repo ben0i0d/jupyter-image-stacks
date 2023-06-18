@@ -8,7 +8,7 @@ ENV SCILAB_EXECUTABLE='scilab-cli'
 #install scilab+extension
 RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends scilab scilab-* && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*  && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*  
 
 USER ${NB_UID}
 
