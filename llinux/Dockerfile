@@ -3,8 +3,6 @@ LABEL maintainer="eoelab <eoelab@eoelab.org>"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-ARG TURBOVNC_VERSION=2.2.6
-
 USER root
 
 COPY turbovnc_2.2.6_amd64.deb /tmp/turbovnc_2.2.6_amd64.deb

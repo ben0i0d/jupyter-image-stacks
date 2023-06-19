@@ -7,6 +7,5 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # install tf torch oneflow transformers
 RUN pip install tensorflow transformers && \
     pip install torch torchvision torchaudio && \
-    pip install oneflow && \
     pip cache purge
 
