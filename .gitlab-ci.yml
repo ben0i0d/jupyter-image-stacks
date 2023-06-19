@@ -5,20 +5,20 @@ image:
 before_script:
   - wget https://eoelab.org:1024/index.php/s/XHeP7K3ZAHPHymM/download/eoelab.org.crt
   - mv eoelab.org.crt /kaniko/ssl/certs/additional-ca-cert-bundle.crt
-# up-c-build:
-#   stage: build
-#   needs: []
-#   script:
-#     - cd upstream/cpu
-#     - /kaniko/executor
-#       --context ./
-#       --dockerfile "Dockerfile"
-#       --cache=true
-#       --cache-copy-layers=true
-#       --cache-run-layers=true
-#       --snapshot-mode=redo
-#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-c"
+up-c-build:
+  stage: build
+  needs: []
+  script:
+    - cd upstream/cpu
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
+      --snapshot-mode=redo
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-c"
 # python-c-build:
 #   stage: build
 #   needs: [up-c-build]
@@ -159,20 +159,20 @@ before_script:
 #       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:java-c"
-js-c-build:
-  stage: build
-  needs: []
-  script:
-    - cd js
-    - /kaniko/executor
-      --context ./
-      --dockerfile "Dockerfile"
-      --cache=true
-      --cache-copy-layers=true
-      --cache-run-layers=true
-      --snapshot-mode=redo
-      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:js-c"
+# js-c-build:
+#   stage: build
+#   needs: [up-c-build]
+#   script:
+#     - cd js
+#     - /kaniko/executor
+#       --context ./
+#       --dockerfile "Dockerfile"
+#       --cache=true
+#       --cache-copy-layers=true
+#       --cache-run-layers=true
+#       --snapshot-mode=redo
+#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:js-c"
 # kotlin-c-build:
 #   stage: build
 #   needs: [up-c-build]
