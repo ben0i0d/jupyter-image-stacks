@@ -85,7 +85,7 @@ RUN wget -qO /tmp/micromamba.tar.bz2 "https://micromamba.snakepit.net/api/microm
 
 COPY --chown=${NB_UID}:${NB_GID} conf/Rprofile.site /opt/conda/lib/R/etc/
 COPY start-sh/start-notebook.sh start-sh/start-singleuser.sh /usr/local/bin/
-COPY conf/jupyter_server_config.py docker_healthcheck.py /etc/jupyter/
+COPY conf/jupyter_server_config.py conf/docker_healthcheck.py /etc/jupyter/
 
 # Fix permissions on /etc/jupyter as root
 USER root
