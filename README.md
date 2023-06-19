@@ -8,13 +8,13 @@
 ### 用途
 用于支撑我们基础计算设施与公开IDE-Jupyterhub的镜像构建项目，测试与工作场景是Rancher管理的基于RKE2的私有K8S集群，并完成汉化，扩展等工作  
 ### 如何使用
-#### Docker
+**Docker**  
 镜像可以像jupyternotebook一样使用，容器端口为8888  
 对于用后即抛地使用，可以用如下指令,注意这没有数据持久化，意味着你需要使用诸如Git等工具同步您的工作进度  
 `docker run -p 8888:8888 ben0i0d/jupyter:<tag>`  
 对于需要长期使用，可以用如下指令，这将挂载一个目录到容器内,以提供数据持久化  
 `docker run -it --rm -p 8888:8888 -v "${PWD}":/home/jovyan ben0i0d/jupyter:<tag>`  
-#### Jupyterhub
+**Jupyterhub**  
 在singleuser内的profile指定镜像即可  
 例如：
 ```
@@ -62,7 +62,7 @@
 * jupyterlab-language-pack-zh-CN:对中文的支持：Global
 * jupyterlab_widgets：
 * jupyterlab-git：图形化操作git仓库
-* jupyterlab_latex：支持在线编辑并预览LaTeX文档：Global
+* jupyterlab_latex：支持在线编辑并预览LaTeX文档：Global  
 **局部**
 * jupyterlab-lsp：用于自动补全、参数建议、函数文档查询、跳转定义：Python，Julia，R
 ### 镜像依赖关系
@@ -103,7 +103,7 @@ A-->V(JavaSript)
 * pytorch latest
 * oneflow latest
 * cuda 11.6.2
-* cudnn 8
+* cudnn 8  
 **镜像源**
 * conda bfsu：https://mirrors.bfsu.edu.cn/help/anaconda/
 * pip bfsu：https://mirrors.bfsu.edu.cn/help/pypi/
