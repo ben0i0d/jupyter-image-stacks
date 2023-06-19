@@ -32,7 +32,9 @@ USER ${NB_UID}
 # Install IJulia as jovyan and then move the kernelspec out
 # to the system share location. Avoids problems with runtime UID change not
 # taking effect properly on the .local folder in the jovyan home dir.
-RUN julia -e 'import Pkg; Pkg.update()' && \
+RUN pip install jupyterlab-lsp && \
+    pip cache purge && \
+    julia -e 'import Pkg; Pkg.update()' && \
     julia -e 'using Pkg; Pkg.add("LanguageServer")' && \
     julia -e 'using Pkg; pkg"add IJulia"; pkg"precompile"' && \
     mv "${HOME}/.local/share/jupyter/kernels/julia"* "${CONDA_DIR}/share/jupyter/kernels/" && \

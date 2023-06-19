@@ -13,5 +13,7 @@ RUN apt-get update --yes && \
 # Switch back to jovyan to avoid accidental container runs as root
 USER ${NB_UID}
 # python-lsp
-RUN mamba install -c conda-forge python-lsp-server && \
+RUN pip install jupyterlab-lsp && \
+    mamba install -c conda-forge python-lsp-server && \
+    pip cache purge && \
     mamba clean --all -f -y 

@@ -6,14 +6,14 @@
 4. 对于issue/PR，我们推荐在源仓库上提，这对于我们工作更方便，但是如果您在github上提，我们也会跟进处理  
 ## 项目梗概
 ### 用途
-用于支撑我们基础计算设施与在线IDE-Jupyterhub的镜像构建项目，测试与工作场景是Rancher管理的基于RKE2的私有K8S集群，并完成汉化，扩展等工作
+用于支撑我们基础计算设施与公开IDE-Jupyterhub的镜像构建项目，测试与工作场景是Rancher管理的基于RKE2的私有K8S集群，并完成汉化，扩展等工作  
 ### 如何使用
 #### Docker
 镜像可以像jupyternotebook一样使用，容器端口为8888  
 对于用后即抛地使用，可以用如下指令,注意这没有数据持久化，意味着你需要使用诸如Git等工具同步您的工作进度  
-`docker run -p 8888:8888 ben0i0d/jupyter:<name>`  
+`docker run -p 8888:8888 ben0i0d/jupyter:<tag>`  
 对于需要长期使用，可以用如下指令，这将挂载一个目录到容器内,以提供数据持久化  
-`docker run -it --rm -p 8888:8888 -v "${PWD}":/home/jovyan ben0i0d/jupyter:<name>`  
+`docker run -it --rm -p 8888:8888 -v "${PWD}":/home/jovyan ben0i0d/jupyter:<tag>`  
 #### Jupyterhub
 在singleuser内的profile指定镜像即可  
 例如：
@@ -42,7 +42,7 @@
 * Go: 对Go的支持
 * Kotlin: 对Kotlin的支持
 * Rust: 对Rust的支持
-* C: 对C的支持(C89/ANSI C:all newer versions)，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）
+* C: 对C的支持(versions ≥ C89)，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）
 * CPP：对CPP（11,14,17）的支持，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）  
 注意:在Notebook中，您的语法结构需要做一定改动  
 例如,Helloworld程序代码为：  
@@ -53,91 +53,18 @@
 * Fortran：对Fortran的支持
 * Sagemath：一个遵循GPL的开源数学工具  
 * Dotnet: 提供对.net的支持，内置包括（C#,F#,Powershell）  
-* Scilab: 提供对Scilab的支持
-* Octave: 提供对Octave这一门科学计算语言的支持，兼容matlab，其占用内存小，广受机器学习爱好者的喜爱  
-注意:使用到package时，要预先将其加载  
-例如：在使用image中函数时，使用以下代码加载image  
+* Scilab（With Desktop-GUI）: 提供对Scilab的支持，默认包含apt可获取的全部插件
+* Octave: 提供对Octave的支持，兼容matlab，默认包含apt可获取的全部插件  
+注意:使用到package时，要预先将其加载,例如在使用image中函数时，使用以下代码加载image,当然octave会提醒缺失  
 `pkg load image`  
-package-list:  
-```  
-Package Name         | Version     |
----------------------+-------------+
-            arduino  |       0.8.0 |
-              audio  |       2.0.4 | 
-                bim  |       1.1.5 | 
-         brain2mesh  |       0.7.9 |
-              bsltl  |       1.3.1 |
-                cgi  |       0.1.2 |
-     communications  |       1.2.4 |
-            control  |       3.4.0 |
-             csxcad  |      0.0.35 |
-     data-smoothing  |       1.3.0 |
-           database  |       2.4.4 |
-          dataframe  |       1.2.0 |
-              dicom  |       0.4.0 |
-             divand  |       1.1.2 |
-            doctest  |       0.7.0 |
-       econometrics  |       1.1.2 |
-          financial  |       0.5.3 |
-               fits  |       1.0.7 |
-                fpl  |       1.3.5 |
-fuzzy-logic-toolkit  |       0.4.6 |
-                 ga  |      0.10.3 |
-            general  |       2.1.2 |
-           geometry  |       4.0.0 |
-                gsl  |       2.1.1 |
-              image  |      2.12.0 |
-  image-acquisition  |       0.2.2 |
- instrument-control  |       0.7.1 |
-           interval  |       3.2.1 |
-                 io  |       2.6.4 |
-           iso2mesh  |       1.9.6 |
-             jnifti  |       0.6.1 |
-            jsonlab  |         2.0 |
-          level-set  |       0.3.1 |
-     linear-algebra  |       2.2.3 |
-               lssa  |       0.1.4 |
-              ltfat  |       2.3.1 |
-            mapping  |       1.4.2 |
-            matgeom  |       1.2.3 |
-      miscellaneous  |       1.3.0 |
-  missing-functions  |       1.0.2 |
-                mpi  |       3.1.0 |
-                msh  |      1.0.10 |
-                mvn  |       1.1.0 |
-                nan  |       3.6.1 |
-            ncarray  |       1.0.4 |
-             netcdf  |      1.0.14 |
-              nurbs  |       1.4.3 |
-            octclip  |       2.0.1 |
-            octproj  |       2.0.1 |
-            openems  |      0.0.35 |
-             optics  |       0.1.4 |
-              optim  |       1.6.1 |
-        optiminterp  |       0.3.7 |
-           parallel  |       4.0.1 |
-             phclab  | 2.4.85+dfsg |
-         quaternion  |       2.4.0 |
-           queueing  |       1.2.7 |
-             secs1d  |       0.0.9 |
-             secs2d  |       0.0.8 |
-             secs3d  |       0.0.1 |
-             signal  |       1.4.1 |
-            sockets  |       1.2.1 |
-          sparsersb  |       1.0.9 |
-            specfun  |       1.1.0 |
-            splines  |       1.3.4 |
-         statistics  |       1.4.3 |
-                stk  |       2.6.1 |
-            strings  |       1.2.0 |
-             struct  |      1.0.17 |
-                tsa  |       4.6.3 |
-              vibes  |       0.2.0 |
-              video  |       2.0.2 |
-               vrml  |      1.0.13 |
-             zenity  |       0.5.7 |
-             zeromq  |       1.5.3 |
-```  
+### 插件清单
+**全局**
+* jupyterlab-language-pack-zh-CN:对中文的支持：Global
+* jupyterlab_widgets：
+* jupyterlab-git：图形化操作git仓库
+* jupyterlab_latex：支持在线编辑并预览LaTeX文档：Global
+**局部**
+* jupyterlab-lsp：用于自动补全、参数建议、函数文档查询、跳转定义：Python，Julia，R
 ### 镜像依赖关系
 ```mermaid
 graph LR
@@ -166,26 +93,27 @@ A-->V(JavaSript)
 ### 如何参与
 项目内main分支Dockerfile是经过测试而发布的，如果您有测试或者新需求，请构建一个新分支，注意修改新分支内的CI配置文件，并且在提交合并请求时还原CI配置
 ## 上游
-### 软件包上游与版本
-Python 3.10  
-Julia 1.9.1  
-Java zulu17-jdk  
-kotlin(jre) openjdk-17-jre
-Dotnet 7.0
-Tensorflow latest  
-pytorch latest  
-oneflow latest  
-cuda 11.6.2  
-cudnn 8  
-conda bfsu：https://mirrors.bfsu.edu.cn/help/anaconda/  
-pip bfsu：https://mirrors.bfsu.edu.cn/help/pypi/  
-apt ustc：https://mirrors.ustc.edu.cn/help/ubuntu.html  
-npm npmmirror(AliYun): https://registry.npmmirror.com/  
-apache tuna: https://mirrors.tuna.tsinghua.edu.cn/apache/  
-julia-pkg ustc: https://mirrors.ustc.edu.cn/julia/  
-hackage ustc: https://mirrors.ustc.edu.cn/hackage/  
-Stackage ustc: https://mirrors.ustc.edu.cn/stackage/  
-GO AliYun: https://mirrors.aliyun.com/goproxy/  
+**软件包版本**
+* Python 3.10
+* Julia 1.9.1
+* Java zulu17-jdk
+* kotlin(jre) openjdk-17-jre
+* Dotnet 7.0
+* Tensorflow latest
+* pytorch latest
+* oneflow latest
+* cuda 11.6.2
+* cudnn 8
+**镜像源**
+* conda bfsu：https://mirrors.bfsu.edu.cn/help/anaconda/
+* pip bfsu：https://mirrors.bfsu.edu.cn/help/pypi/
+* apt ustc：https://mirrors.ustc.edu.cn/help/ubuntu.html
+* npm npmmirror(AliYun): https://registry.npmmirror.com/
+* apache tuna: https://mirrors.tuna.tsinghua.edu.cn/apache/
+* julia-pkg ustc: https://mirrors.ustc.edu.cn/julia/
+* hackage ustc: https://mirrors.ustc.edu.cn/hackage/
+* Stackage ustc: https://mirrors.ustc.edu.cn/stackage/
+* GO AliYun: https://mirrors.aliyun.com/goproxy/
 ### 项目上游
 jupyter团队项目 https://github.com/jupyter/docker-stacks  
 **但是我们与上游差别较大，包括源，软件包，本地化与扩展等，因此如果您从本项目派生遇到问题，请不要到jupyter团队提问，这会加大他们的工作量**

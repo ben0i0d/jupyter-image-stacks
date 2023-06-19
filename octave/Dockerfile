@@ -6,9 +6,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 USER root
 # Install Octave + development_files + doc + package + graph_toolkit
 RUN apt-get update --yes && \
-    apt-get install --yes octave liboctave-dev octave-doc \
-    octave-* \
-    gnuplot && \
+    apt-get install --yes octave liboctave-dev octave-doc octave-* gnuplot && \
     apt-get clean && rm -rf /var/lib/apt/lists/* 
 
 USER ${NB_UID}

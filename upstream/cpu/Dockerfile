@@ -71,10 +71,8 @@ RUN wget -qO /tmp/micromamba.tar.bz2 "https://micromamba.snakepit.net/api/microm
     npm config set registry https://registry.npmmirror.com/ && \
     pip install jupyterlab_widgets && \
     pip install jupyterlab-language-pack-zh-CN && \
-    pip install jupyterlab-lsp && \
     pip install jupyterlab-git && \
     pip install jupyterlab_latex && \
-    pip install jupyterlab-github && \
     pip cache purge && \
     npm cache clean --force && \
     jupyter lab clean && \
