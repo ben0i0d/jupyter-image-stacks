@@ -59,10 +59,9 @@
 `pkg load image`  
 ### 插件清单
 **全局**
-* jupyterlab-spreadsheet:在Lab中支持excel。
 * jupyterlab-drawio:在Lab中启用drawio绘图工具，drawio是一款非常棒的流程图工具。
 * jupyterlab-language-pack-zh-CN:对中文的支持
-* jupyterlab_widgets
+* jupyterlab_widgets:交互式控件
 * jupyterlab-git：图形化操作git仓库
 * jupyterlab_latex：支持在线编辑并预览LaTeX文档  
 **局部**
