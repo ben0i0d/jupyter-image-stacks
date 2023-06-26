@@ -55,7 +55,7 @@ RUN fix-permissions "/etc/ipython/"
 USER ${NB_UID}
 
 # Install pyarrow
-RUN mamba install --yes 'pyarrow' && \
+RUN mamba install --yes 'pyarrow' 'findspark' && \
     mamba clean --all -f -y 
 
 WORKDIR "${HOME}"
