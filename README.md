@@ -59,12 +59,15 @@
 `pkg load image`  
 ### 插件清单
 **全局**
-* jupyterlab-language-pack-zh-CN:对中文的支持：Global
-* jupyterlab_widgets：
+* jupyterlab-spreadsheet:在Lab中支持excel。
+* jupyterlab-drawio:在Lab中启用drawio绘图工具，drawio是一款非常棒的流程图工具。
+* jupyterlab-language-pack-zh-CN:对中文的支持
+* jupyterlab_widgets
 * jupyterlab-git：图形化操作git仓库
-* jupyterlab_latex：支持在线编辑并预览LaTeX文档：Global  
+* jupyterlab_latex：支持在线编辑并预览LaTeX文档  
 **局部**
 * jupyterlab-lsp：用于自动补全、参数建议、函数文档查询、跳转定义：Python，Julia，R
+* lckr-jupyterlab-variableinspector:在Lab中展示代码中的变量及其属性，类似RStudio中的变量检查器:R
 ### 镜像依赖关系
 ```mermaid
 graph LR

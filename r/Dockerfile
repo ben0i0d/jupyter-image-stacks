@@ -13,11 +13,11 @@ RUN apt-get update --yes && \
 
 USER ${NB_UID}
 # R packages including IRKernel which gets installed globally.
-# R-lsp
-RUN pip install jupyterlab-lsp && \
-    pip cache purge && \
-    mamba install --yes 'r-base' 'r-caret' 'r-crayon' 'r-devtools' 'r-e1071' 'r-forecast' 'r-hexbin' 'r-htmltools' 'r-htmlwidgets' 'r-irkernel' \
+# R-lsp variableinspector
+RUN mamba install --yes 'r-base' 'r-caret' 'r-crayon' 'r-devtools' 'r-e1071' 'r-forecast' 'r-hexbin' 'r-htmltools' 'r-htmlwidgets' 'r-irkernel' \
     'r-nycflights13' 'r-randomforest' 'r-rcurl' 'r-rmarkdown' 'r-rodbc' 'r-rsqlite' 'r-shiny' 'r-tidymodels' 'r-tidyverse' 'unixodbc' 'r-languageserver' && \
     mamba clean --all -f -y && \
+    pip install jupyterlab-lsp lckr-jupyterlab-variableinspector && \
+    pip cache purge && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"

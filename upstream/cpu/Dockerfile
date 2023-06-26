@@ -70,6 +70,8 @@ RUN wget -qO /tmp/micromamba.tar.bz2 "https://micromamba.snakepit.net/api/microm
     pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple && \
     npm config set registry https://registry.npmmirror.com/ && \
     pip install jupyterlab_widgets && \
+    pip install jupyterlab-drawio && \
+    pip install jupyterlab-spreadsheet && \
     pip install jupyterlab-language-pack-zh-CN && \
     pip install jupyterlab-git && \
     pip install jupyterlab_latex && \
