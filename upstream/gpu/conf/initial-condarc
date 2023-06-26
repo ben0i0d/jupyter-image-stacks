@@ -15,4 +15,3 @@ custom_channels:
   pytorch: https://mirrors.bfsu.edu.cn/anaconda/cloud
   pytorch-lts: https://mirrors.bfsu.edu.cn/anaconda/cloud
   simpleitk: https://mirrors.bfsu.edu.cn/anaconda/cloud
-

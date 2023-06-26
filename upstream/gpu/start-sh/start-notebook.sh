@@ -1,6 +1,7 @@
-#!/bin/bash
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
+#!/bin/bash
+
 set -e
 
 # The Jupyter command to launch

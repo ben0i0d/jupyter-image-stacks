@@ -1,4 +1,4 @@
-FROM eoelab.org:1032/mirrored-sources/mirror-image-stacks/cuda:11.6.2-cudnn8-runtime-ubuntu20.04
+FROM eoelab.org:1032/mirrored-sources/mirror-image-stacks/ubuntu:22.04
 
 LABEL maintainer="eoelab <eoelab@eoelab.org>"
 
@@ -10,21 +10,18 @@ EXPOSE 8888
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+COPY cert/eoelab.org.crt /usr/local/share/ca-certificates/eoelab.org.crt
+
 USER root
-
 ENV DEBIAN_FRONTEND noninteractive 
-
 RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list && \
-    sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
-    apt-get update --yes && \
-    apt-get upgrade --yes && \
+    sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \   
+    apt-get update --yes && apt-get upgrade --yes && \
     apt-get install --yes --no-install-recommends sudo bzip2 ca-certificates locales tini wget curl git git-lfs vim zip unzip xclip p7zip-full rar unrar && \
-    wget --no-check-certificate https://eoelab.org:1024/index.php/s/XHeP7K3ZAHPHymM/download/eoelab.org.crt && \
-    cp eoelab.org.crt /usr/local/share/ca-certificates/eoelab.org.crt && \
     update-ca-certificates && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
-    locale-gen
+    echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && locale-gen
+
 # Configure environment
 ENV CONDA_DIR=/opt/conda \
     SHELL=/bin/bash \
@@ -36,10 +33,8 @@ ENV CONDA_DIR=/opt/conda \
     LANGUAGE=en_US.UTF-8
 ENV PATH="${CONDA_DIR}/bin:${PATH}" \
     HOME="/home/${NB_USER}"
-
-# Copy a script that we will use to correct permissions after running certain commands 
-# Enable prompt color in the skeleton .bashrc before creating the default NB_USER hadolint ignore=SC2016
-COPY fix-permissions /usr/local/bin/fix-permissions
+# Copy a script that we will use to correct permissions after running certain commands
+COPY conf/fix-permissions /usr/local/bin/fix-permissions
 RUN chmod a+rx /usr/local/bin/fix-permissions && \
     sed -i 's/^#force_color_prompt=yes/force_color_prompt=yes/' /etc/skel/.bashrc && \
     echo 'eval "$(command conda shell.bash hook 2> /dev/null)"' >> /etc/skel/.bashrc && \
@@ -53,30 +48,31 @@ RUN chmod a+rx /usr/local/bin/fix-permissions && \
     fix-permissions "/home/${NB_USER}" && \
     fix-permissions "${CONDA_DIR}"
 
+
 USER ${NB_UID}
 
 # Setup work directory for backward-compatibility
 RUN mkdir "/home/${NB_USER}/work" && fix-permissions "/home/${NB_USER}"
-# Download and install Micromamba, and initialize Conda prefix.
-COPY --chown="${NB_UID}:${NB_GID}" initial-condarc "${CONDA_DIR}/.condarc"
+
+COPY --chown="${NB_UID}:${NB_GID}" conf/initial-condarc "${CONDA_DIR}/.condarc"
+
 WORKDIR /tmp
-RUN wget -qO /tmp/micromamba.tar.bz2 \
-        "https://micromamba.snakepit.net/api/micromamba/linux-64/latest" && \
-    tar -xvjf /tmp/micromamba.tar.bz2 --strip-components=1 bin/micromamba && \
-    rm /tmp/micromamba.tar.bz2 && \
-    ./micromamba install --root-prefix="${CONDA_DIR}" --prefix="${CONDA_DIR}" --yes "python=3.10" 'notebook' 'mamba' 'jupyterhub' 'jupyterlab' && \
+#install jupyter python mamba extension
+#change sources
+RUN wget -qO /tmp/micromamba.tar.bz2 "https://micromamba.snakepit.net/api/micromamba/linux-64/latest" && \
+    tar -xvjf /tmp/micromamba.tar.bz2 --strip-components=1 bin/micromamba && rm /tmp/micromamba.tar.bz2 && \
+    ./micromamba install --root-prefix="${CONDA_DIR}" --prefix="${CONDA_DIR}" --yes 'mamba' "python=3.10" 'jupyter_core' && \
     rm micromamba && \
     mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
+    mamba install --yes 'notebook' 'jupyterhub' 'jupyterlab' && \
     jupyter serverextension enable --py jupyterlab --sys-prefix && \
     jupyter notebook --generate-config && \
     pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple && \
     npm config set registry https://registry.npmmirror.com/ && \
     pip install jupyterlab_widgets && \
     pip install jupyterlab-language-pack-zh-CN && \
-    pip install jupyterlab-lsp && \
     pip install jupyterlab-git && \
     pip install jupyterlab_latex && \
-    pip install jupyterlab-github && \
     pip cache purge && \
     npm cache clean --force && \
     jupyter lab clean && \
@@ -84,23 +80,31 @@ RUN wget -qO /tmp/micromamba.tar.bz2 \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}" 
-# Copy local files as late as possible to avoid cache busting
-COPY start.sh start-notebook.sh start-singleuser.sh /usr/local/bin/
-# Currently need to have both jupyter_notebook_config and jupyter_server_config to support classic and lab
-COPY jupyter_server_config.py /etc/jupyter/
+
+COPY --chown=${NB_UID}:${NB_GID} conf/Rprofile.site /opt/conda/lib/R/etc/
+COPY start-sh/start-notebook.sh start-sh/start-singleuser.sh /usr/local/bin/
+COPY conf/jupyter_server_config.py conf/docker_healthcheck.py /etc/jupyter/
+
 # Fix permissions on /etc/jupyter as root
 USER root
-# Legacy for Jupyter Notebook Server
-RUN sed -re "s/c.ServerApp/c.NotebookApp/g" \
-    /etc/jupyter/jupyter_server_config.py > /etc/jupyter/jupyter_notebook_config.py && \
+# Legacy for Jupyter Notebook Server, see: [#1205](https://github.com/jupyter/docker-stacks/issues/1205)
+RUN sed -re "s/c.ServerApp/c.NotebookApp/g" /etc/jupyter/jupyter_server_config.py > /etc/jupyter/jupyter_notebook_config.py && \
     fix-permissions /etc/jupyter/
+# HEALTHCHECK documentation: https://docs.docker.com/engine/reference/builder/#healthcheck
+HEALTHCHECK --interval=5s --timeout=3s --start-period=5s --retries=3 CMD /etc/jupyter/docker_healthcheck.py || exit 1
+# Configure container startup
+ENTRYPOINT ["tini", "-g", "--"]
+CMD ["start.sh"]
 
-# This healtcheck works well for `lab`, `notebook`, `nbclassic`, `server` and `retro` jupyter commands
-HEALTHCHECK  --interval=15s --timeout=3s --start-period=5s --retries=3 \
-    CMD wget -O- --no-verbose --tries=1 --no-check-certificate \
-    http${GEN_CERT:+s}://localhost:8888${JUPYTERHUB_SERVICE_PREFIX:-/}api || exit 1
+# Copy local files as late as possible to avoid cache busting
+COPY start-sh/start.sh /usr/local/bin/
 
 # Switch back to jovyan to avoid accidental container runs as root
 USER ${NB_UID}
 
 WORKDIR "${HOME}"
+
+
+
+
+
