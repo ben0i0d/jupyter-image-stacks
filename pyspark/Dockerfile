@@ -58,4 +58,5 @@ USER ${NB_UID}
 RUN mamba install --yes 'pyarrow' && \
     mamba clean --all -f -y 
 
+WORKDIR "${HOME}"
 EXPOSE 4040
