@@ -36,6 +36,7 @@
 * Llinux（With Desktop-GUI）：在无特权的情况下学习Linux系统，提供Xfce桌面支持   
 * Julia：对科学计算语言julia的支持    
 * R：对科学计算语言R的支持    
+* Rspark:提供R对Apache Spark的支持
 * Haskell: 对Haskell的支持  
 * Java: 对Java的支持
 * JavaSript: 对JavaSript的支持
@@ -91,6 +92,7 @@ A-->S(Kotlin)
 A-->T(Fortran)
 A-->U(Scilab)
 A-->V(JavaSript)
+A-->W(Rspark)
 ```  
 ### 如何参与
 项目内main分支Dockerfile是经过测试而发布的，如果您有测试或者新需求，请构建一个新分支，注意修改新分支内的CI配置文件，并且在提交合并请求时还原CI配置
