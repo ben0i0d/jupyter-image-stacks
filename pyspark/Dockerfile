@@ -4,6 +4,9 @@ LABEL maintainer="eoelab <eoelab@eoelab.org>"
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 WORKDIR "${HOME}"
+
+EXPOSE 4040
+
 USER root
 
 # Spark dependencies
@@ -11,8 +14,11 @@ USER root
 ARG spark_version="3.4.0"
 ARG hadoop_version="3"
 ARG spark_checksum="67bc912e9192ef2159540cb480820e5466dfd91e907c97c5a4787587e3020be042b76c40c51854f2a5dbeb8c3775fe12d9021c1200c4704463ec644132243a69"
-
-ENV APACHE_SPARK_VERSION="${spark_version}" \
+# Configure Spark
+ENV SPARK_HOME=/usr/local/spark
+ENV SPARK_OPTS="--driver-java-options=-Xms1024M --driver-java-options=-Xmx4096M --driver-java-options=-Dlog4j.logLevel=info" \
+    PATH="${PATH}:${SPARK_HOME}/bin" \
+    APACHE_SPARK_VERSION="${spark_version}" \
     HADOOP_VERSION="${hadoop_version}"
 
 RUN apt-get update --yes && \
@@ -28,11 +34,6 @@ RUN wget -qO "spark.tgz" "https://mirrors.tuna.tsinghua.edu.cn/apache/spark/spar
   echo "${spark_checksum} *spark.tgz" | sha512sum -c - && \
   tar xzf "spark.tgz" -C /usr/local --owner root --group root --no-same-owner && \
   rm "spark.tgz"
-
-# Configure Spark
-ENV SPARK_HOME=/usr/local/spark
-ENV SPARK_OPTS="--driver-java-options=-Xms1024M --driver-java-options=-Xmx4096M --driver-java-options=-Dlog4j.logLevel=info" \
-    PATH="${PATH}:${SPARK_HOME}/bin"
 
 RUN ln -s "spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}" "${SPARK_HOME}"; \
   # Add a link in the before_notebook hook in order to source automatically PYTHONPATH && \
@@ -50,4 +51,4 @@ RUN mamba install --yes 'pyarrow' 'findspark' && \
     mamba clean --all -f -y 
 
 WORKDIR "${HOME}"
-EXPOSE 4040
+
