@@ -19,7 +19,7 @@ ENV SPARK_HOME=/usr/local/spark
 ENV SPARK_OPTS="--driver-java-options=-Xms1024M --driver-java-options=-Xmx4096M --driver-java-options=-Dlog4j.logLevel=info" \
     PATH="${PATH}:${SPARK_HOME}/bin" \
     APACHE_SPARK_VERSION="${spark_version}" \
-    HADOOP_VERSION="${hadoop_version}"
+    HADOOP_VERSION="${hadoop_version}" \
     # RSpark config
     R_LIBS_USER="${SPARK_HOME}/R/lib"
 
