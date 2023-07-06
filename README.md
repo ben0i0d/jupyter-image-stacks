@@ -118,6 +118,7 @@ A-->W(Rspark)
 * hackage ustc: https://mirrors.ustc.edu.cn/hackage/
 * Stackage ustc: https://mirrors.ustc.edu.cn/stackage/
 * GO AliYun: https://mirrors.aliyun.com/goproxy/
+* cargo ustc: git://mirrors.ustc.edu.cn/crates.io-index
 ### 项目上游
 jupyter团队项目 https://github.com/jupyter/docker-stacks  
 **但是我们与上游差别较大，包括源，软件包，本地化与扩展等，因此如果您从本项目派生遇到问题，请不要到jupyter团队提问，这会加大他们的工作量**

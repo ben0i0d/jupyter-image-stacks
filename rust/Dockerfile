@@ -15,6 +15,7 @@ RUN mkdir -p /opt/rust/.cargo /opt/rust/.rust && \
     apt-get clean && rm -rf /var/lib/apt/lists/* 
 
 COPY rustup-init.sh /opt/rust/rustup-init.sh
+COPY config /opt/rust/.cargo/config
 
 RUN bash /opt/rust/rustup-init.sh -y && \
     cargo install evcxr_jupyter && \
