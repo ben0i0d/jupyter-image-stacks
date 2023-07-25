@@ -5,7 +5,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root
 # Install fortran kernel
-RUN mamba install --quiet --yes -c conda-forge lfortran && \
+RUN mamba install --yes -c conda-forge lfortran && \
     mamba clean --all -f -y  && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"

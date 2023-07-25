@@ -12,5 +12,5 @@ RUN apt-get update --yes && \
 USER ${NB_UID}
 
 # Install Cpp kernel
-RUN mamba install --quiet --yes -c conda-forge xeus-cling && \
+RUN mamba install --yes -c conda-forge xeus-cling && \
     mamba clean --all -f -y 

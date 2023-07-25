@@ -6,7 +6,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 
 RUN pip install jupyterlab-lsp && \
-    mamba install --quiet --yes 'python-lsp-server' \
+    mamba install --yes 'python-lsp-server' \
     # IPython notebook support
     'ipympl' 'ipywidgets' 'widgetsnbextension'&& \
     pip cache purge && \

@@ -13,7 +13,7 @@ RUN apt-get update --yes && \
 USER ${NB_UID}
 
 # Install Python 3 packages
-RUN mamba install --quiet --yes \
+RUN mamba install --yes \
     # Data analysis and visualization
     'altair' 'pandas' 'matplotlib' 'seaborn' 'bokeh' \
     # Performance optimization

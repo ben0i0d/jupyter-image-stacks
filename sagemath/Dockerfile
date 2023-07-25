@@ -16,7 +16,7 @@ RUN apt-get update && \
 USER $NB_UID
 
 # Install Sage conda environsage
-RUN mamba install --quiet --yes -c conda-forge widgetsnbextension sage && \
+RUN mamba install --yes -c conda-forge widgetsnbextension sage && \
     mamba clean --all -f -y && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER

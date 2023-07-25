@@ -18,7 +18,7 @@ RUN apt-key add linux_signing_key.pub && \
     wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE`/chromedriver_linux64.zip  && \
     unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/ && \
 # Install Python 3 packages
-    mamba install --quiet --yes 'beautifulsoup4' 'requests' 'selenium' 'schedule' && \
+    mamba install --yes 'beautifulsoup4' 'requests' 'selenium' 'schedule' && \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
