@@ -4,8 +4,10 @@ LABEL maintainer="eoelab <eoelab@eoelab.org>"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-# python-lsp
+
 RUN pip install jupyterlab-lsp && \
-    mamba install -c conda-forge python-lsp-server && \
+    mamba install --quiet --yes 'python-lsp-server' \
+    # IPython notebook support
+    'ipympl' 'ipywidgets' 'widgetsnbextension'&& \
     pip cache purge && \
     mamba clean --all -f -y 

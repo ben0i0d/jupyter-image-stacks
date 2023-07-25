@@ -17,7 +17,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list && \
     sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \   
     apt-get update --yes && apt-get upgrade --yes && \
-    apt-get install --yes --no-install-recommends fonts-noto-cjk fonts-wqy-zenhei sudo bzip2 ca-certificates locales tini wget curl git git-lfs vim zip unzip xclip p7zip-full rar unrar && \
+    apt-get install --yes --no-install-recommends fonts-wqy-zenhei sudo bzip2 ca-certificates locales tini wget curl git git-lfs vim zip unzip xclip p7zip-full rar unrar && \
     update-ca-certificates && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && locale-gen
@@ -68,11 +68,7 @@ RUN wget -qO /tmp/micromamba.tar.bz2 "https://micromamba.snakepit.net/api/microm
     jupyter notebook --generate-config && \
     pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple && \
     npm config set registry https://registry.npmmirror.com/ && \
-    pip install jupyterlab_widgets && \
-    pip install jupyterlab-drawio && \
-    pip install jupyterlab-language-pack-zh-CN && \
-    pip install jupyterlab-git && \
-    pip install jupyterlab_latex && \
+    pip install jupyterlab_widgets jupyterlab-drawio jupyterlab-language-pack-zh-CN && \
     pip cache purge && \
     npm cache clean --force && \
     jupyter lab clean && \
