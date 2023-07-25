@@ -16,7 +16,7 @@ USER ${NB_UID}
 RUN mamba install --quiet --yes 'altair' 'beautifulsoup4' 'bokeh' 'bottleneck' 'cloudpickle' 'conda-forge::blas=*=openblas' \
     'cython' 'dask' 'dill' 'h5py' 'ipympl' 'ipywidgets' 'jupyter_server>=2.0.0' 'matplotlib-base' 'numba' \
     'numexpr' 'openpyxl' 'pandas' 'patsy' 'protobuf' 'pytables' 'scikit-image' 'scikit-learn' \
-    'scipy' 'seaborn' 'sqlalchemy' 'statsmodels' 'sympy' 'widgetsnbextension' 'xlrd' && \
+    'scipy' 'seaborn' 'sqlalchemy' 'statsmodels' 'sympy' 'widgetsnbextension' 'xlrd' 'jax' && \
     mamba clean --all -f -y 
 
 # Import matplotlib the first time to build the font cache.

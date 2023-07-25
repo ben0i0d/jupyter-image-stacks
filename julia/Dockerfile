@@ -9,9 +9,9 @@ USER root
 # install Julia packages in /opt/julia instead of ${HOME}
 ENV JULIA_DEPOT_PATH=/opt/julia \
     JULIA_PKGDIR=/opt/julia \
-    JULIA_VERSION=1.9.1 \
+    JULIA_VERSION=1.9.2 \
     JULIA_PKG_SERVER=https://mirrors.ustc.edu.cn/julia \
-    JULIA_NUM_THREADS=12
+    JULIA_NUM_THREADS=4
 WORKDIR /tmp
 
 # hadolint ignore=SC2046
