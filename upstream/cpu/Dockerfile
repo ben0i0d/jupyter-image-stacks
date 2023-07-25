@@ -65,7 +65,7 @@ RUN wget -qO /tmp/micromamba.tar.bz2 "https://micromamba.snakepit.net/api/microm
     rm micromamba && \
     mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
     mamba install --yes 'notebook' 'jupyterhub' 'jupyterlab' && \
-    jupyter serverextension enable --py jupyterlab --sys-prefix && \
+#    jupyter serverextension enable --py jupyterlab --sys-prefix && \
     jupyter notebook --generate-config && \
     pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple && \
     npm config set registry https://registry.npmmirror.com/ && \
