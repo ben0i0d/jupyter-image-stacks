@@ -99,8 +99,3 @@ COPY start-sh/start.sh /usr/local/bin/
 USER ${NB_UID}
 
 WORKDIR "${HOME}"
-
-
-
-
-
