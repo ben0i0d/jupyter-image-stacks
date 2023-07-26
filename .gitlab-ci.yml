@@ -44,6 +44,7 @@ scipy-c-build:
       --cache=true
       --cache-copy-layers=true
       --cache-run-layers=true
+      --compressed-caching=false
       --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy-c"
@@ -72,6 +73,7 @@ pyspark-c-build:
       --cache=true
       --cache-copy-layers=true
       --cache-run-layers=true
+      --compressed-caching=false
       --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:pyspark-c"
@@ -86,6 +88,7 @@ pyai-c-build:
       --cache=true
       --cache-copy-layers=true
       --cache-run-layers=true
+      --compressed-caching=false
       --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:pyai-c"
@@ -254,6 +257,7 @@ r-c-build:
       --cache=true
       --cache-copy-layers=true
       --cache-run-layers=true
+      --compressed-caching=false
       --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:r-c"
@@ -268,6 +272,7 @@ rspark-c-build:
       --cache=true
       --cache-copy-layers=true
       --cache-run-layers=true
+      --compressed-caching=false
       --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:rspark-c"
@@ -282,6 +287,7 @@ sage-c-build:
       --cache=true
       --cache-copy-layers=true
       --cache-run-layers=true
+      --compressed-caching=false
       --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:sage-c"
