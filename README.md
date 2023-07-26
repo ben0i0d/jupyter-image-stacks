@@ -64,9 +64,9 @@
 * jupyterlab_widgets:交互式控件
 * jupyterlab-git：图形化操作git仓库
 * jupyterlab_latex：支持在线编辑并预览LaTeX文档
+* jupyterlab_tabnine：用于自动补全、参数建议、函数文档查询、跳转定义
 
 **局部**
-* jupyterlab-lsp：用于自动补全、参数建议、函数文档查询、跳转定义：Python，Julia，R
 * lckr-jupyterlab-variableinspector:在Lab中展示代码中的变量及其属性，类似RStudio中的变量检查器:R
 
 ### 镜像依赖关系
