@@ -316,6 +316,7 @@ octave-c-build:
       --cache=true
       --cache-copy-layers=true
       --cache-run-layers=true
+      --compressed-caching=false
       --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:octave-c"
@@ -330,6 +331,7 @@ scilab-c-build:
       --cache=true
       --cache-copy-layers=true
       --cache-run-layers=true
+      --compressed-caching=false
       --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scilab-c"
