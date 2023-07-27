@@ -102,7 +102,7 @@ A-->W(Rspark)
 ## 上游
 
 **软件包版本**
-* cuda 11.6.2
+* cuda 12.1.0
 * cudnn 8
 * Python 3.11
 * Julia 1.9.2

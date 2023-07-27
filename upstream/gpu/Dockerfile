@@ -1,4 +1,4 @@
-FROM eoelab.org:1032/mirrored-sources/mirror-image-stacks/cuda:11.6.2-cudnn8-runtime-ubuntu20.04
+FROM eoelab.org:1032/mirrored-sources/mirror-image-stacks/cuda:12.1.0-cudnn8-runtime-ubuntu22.04
 
 LABEL maintainer="eoelab <eoelab@eoelab.org>"
 
