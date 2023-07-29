@@ -5,49 +5,49 @@ image:
 before_script:
   - wget https://eoelab.org:1024/index.php/s/XHeP7K3ZAHPHymM/download/eoelab.org.crt
   - mv eoelab.org.crt /kaniko/ssl/certs/additional-ca-cert-bundle.crt
-up-c-build:
-  stage: build
-  needs: []
-  script:
-    - cd upstream/cpu
-    - /kaniko/executor
-      --context ./
-      --dockerfile "Dockerfile"
-      --cache=true
-      --cache-copy-layers=true
-      --cache-run-layers=true
-      --snapshot-mode=redo
-      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-c"
-python-c-build:
-  stage: build
-  needs: [up-c-build]
-  script:
-    - cd python/cpu
-    - /kaniko/executor
-      --context ./
-      --dockerfile "Dockerfile"
-      --cache=true
-      --cache-copy-layers=true
-      --cache-run-layers=true
-      --snapshot-mode=redo
-      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:python-c"
-scipy-c-build:
-  stage: build
-  needs: [python-c-build]
-  script:
-    - cd scipy/cpu
-    - /kaniko/executor
-      --context ./
-      --dockerfile "Dockerfile"
-      --cache=true
-      --cache-copy-layers=true
-      --cache-run-layers=true
-      --compressed-caching=false
-      --snapshot-mode=redo
-      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy-c"
+# up-c-build:
+#   stage: build
+#   needs: []
+#   script:
+#     - cd upstream/cpu
+#     - /kaniko/executor
+#       --context ./
+#       --dockerfile "Dockerfile"
+#       --cache=true
+#       --cache-copy-layers=true
+#       --cache-run-layers=true
+#       --snapshot-mode=redo
+#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-c"
+# python-c-build:
+#   stage: build
+#   needs: [up-c-build]
+#   script:
+#     - cd python/cpu
+#     - /kaniko/executor
+#       --context ./
+#       --dockerfile "Dockerfile"
+#       --cache=true
+#       --cache-copy-layers=true
+#       --cache-run-layers=true
+#       --snapshot-mode=redo
+#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:python-c"
+# scipy-c-build:
+#   stage: build
+#   needs: [python-c-build]
+#   script:
+#     - cd scipy/cpu
+#     - /kaniko/executor
+#       --context ./
+#       --dockerfile "Dockerfile"
+#       --cache=true
+#       --cache-copy-layers=true
+#       --cache-run-layers=true
+#       --compressed-caching=false
+#       --snapshot-mode=redo
+#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy-c"
 # scraper-c-build:
 #   stage: build
 #   needs: [python-c-build]
@@ -79,7 +79,7 @@ scipy-c-build:
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:pyspark-c"
 pyai-c-build:
   stage: build
-  needs: [scipy-c-build]
+  needs: [] # scipy-c-build
   script:
     - cd pyai/cpu
     - /kaniko/executor
