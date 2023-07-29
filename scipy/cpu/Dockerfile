@@ -25,7 +25,7 @@ RUN mamba install --yes \
     # Machine learning and data mining
     'scikit-image' 'scikit-learn' 'statsmodels' 'jax' \
     # Scientific calculations and statistical analysis
-    'scipy' 'patsy' 'numpy' 'conda-forge::blas=*=openblas' &&\
+    'scipy' 'patsy' 'numpy' 'mkl' &&\
     mamba clean --all -f -y 
 
 # Import matplotlib the first time to build the font cache.
