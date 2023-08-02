@@ -1,4 +1,4 @@
-Build Docker image with CI/CD and push to the GitLab registry.
+#Build Docker image with CI/CD and push to the GitLab registry.
 image:
   name: gcr.io/kaniko-project/executor:debug
   entrypoint: [""]
