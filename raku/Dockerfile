@@ -15,8 +15,8 @@ RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends libzmq3-dev && \
     apt-get clean && rm -rf /var/lib/apt/lists/*  && \
     tar -xzf rakudo-star-*.tar.gz && \
-    mv rakudo-star-*/* rakudo-star && \
-    rm -fr rakudo-star-*.tar.gz && \
+    mv rakudo-star-* rakudo-star && \
+    rm rakudo-star-*.tar.gz && \
     rakudo-star/bin/rstar install && \
     zef install Jupyter::Kernel && \
     jupyter-kernel.raku --generate-config && \
