@@ -108,7 +108,7 @@ A-->W(Rspark)
 **软件包版本**
 * cuda 12.1.0
 * cudnn 8
-* Python 3.9
+* Python 3.11
 * Julia 1.9.2
 * Java zulu17-jdk
 * kotlin(jre) openjdk-17-jre
