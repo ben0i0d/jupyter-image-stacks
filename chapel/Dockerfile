@@ -17,7 +17,7 @@ ENV PATH ${PATH}:/home/linuxbrew/.linuxbrew/bin/ \
 RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends build-essential && \
     apt-get clean && rm -rf /var/lib/apt/lists/*  && \
-    /bin/bash -c "$(curl -fsSL https://mirrors.ustc.edu.cn/misc/brew-install.sh)" && \
+    NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://mirrors.ustc.edu.cn/misc/brew-install.sh)" && \
     brew update && brew install chapel  && \
     pip install --no-cache-dir jupyter-kernel-chapel  && \
     fix-permissions "/home/${NB_USER}" && \
