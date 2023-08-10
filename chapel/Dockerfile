@@ -23,7 +23,7 @@ RUN apt-get update --yes && \
     echo 'linuxbrew ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers  && \
     su - linuxbrew -c 'mkdir ~/.linuxbrew' && \
     git clone --depth=1 https://eoelab.org:1031/mirrored-sources/brew.git && \
-    mv brew /home/linuxbrew/.linuxbrew/Homebrew 
+    mv brew /home/linuxbrew/.linuxbrew/Homebrew  && \
     chown  /home/linuxbrew/.linuxbrew/Homebrew linuxbrew
 
 USER linuxbrew
