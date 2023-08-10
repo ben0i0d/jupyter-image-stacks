@@ -350,10 +350,16 @@ raku-c-build:
   stage: build
   needs: [up-c-build]
   script:
-    - cd lua
+    - cd raku
     - /kaniko/executor
       --context ./
       --dockerfile "Dockerfile"
+      --build-arg "http_proxy=http://192.168.2.175:7890"
+      --build-arg "HTTP_PROXY=http://192.168.2.175:7890"
+      --build-arg "https_proxy=http://192.168.2.175:7890"
+      --build-arg "HTTPS_PROXY=http://192.168.2.175:7890"
+      --build-arg "no_proxy=127.0.0.1,localhost,172.0.0.0/8,192.0.0.0/8"
+      --build-arg "NO_PROXY=127.0.0.1,localhost,172.0.0.0/8,192.0.0.0/8"
       --cache=true
       --cache-copy-layers=true
       --cache-run-layers=true
