@@ -49,6 +49,7 @@
 * Agda: 对Agda的支持
 * APL (Dyalog): 对APL (Dyalog)的支持
 * Chapel: 对Chapel的支持 
+* Perl: 对Perl的支持
 * Scipy：Python的科学计算环境  
 * Scraper: Python的网页采取环境
 * Pyspark: 提供Python对Apache Spark的支持  
