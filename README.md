@@ -46,6 +46,7 @@
 * Rust: 对Rust的支持
 * Fortran：对Fortran的支持
 * Agda: 对Agda的支持
+* APL (Dyalog): 对APL (Dyalog)的支持
 * Scipy：Python的科学计算环境  
 * Scraper: Python的网页采取环境
 * Pyspark: 提供Python对Apache Spark的支持  

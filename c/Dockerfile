@@ -16,7 +16,3 @@ RUN apt-get update --yes && \
 
 USER ${NB_UID}
 WORKDIR "${HOME}"
-
-
-
-

@@ -290,11 +290,25 @@ up-c-build:
 #       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:agda-c"
-ansible-c-build:
+# ansible-c-build:
+#   stage: build
+#   needs: [up-c-build]
+#   script:
+#     - cd ansible
+#     - /kaniko/executor
+#       --context ./
+#       --dockerfile "Dockerfile"
+#       --cache=true
+#       --cache-copy-layers=true
+#       --cache-run-layers=true
+#       --snapshot-mode=redo
+#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:ansible-c"
+dyalog-c-build:
   stage: build
   needs: [up-c-build]
   script:
-    - cd ansible
+    - cd dyalog
     - /kaniko/executor
       --context ./
       --dockerfile "Dockerfile"
@@ -303,7 +317,7 @@ ansible-c-build:
       --cache-run-layers=true
       --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:ansible-c"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:dyalog-c"
 # sage-c-build:
 #   stage: build
 #   needs: [up-c-build]
