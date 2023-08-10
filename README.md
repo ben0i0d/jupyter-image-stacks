@@ -48,6 +48,7 @@
 * Fortran：对Fortran的支持
 * Agda: 对Agda的支持
 * APL (Dyalog): 对APL (Dyalog)的支持
+* Chapel: 对Chapel的支持 
 * Scipy：Python的科学计算环境  
 * Scraper: Python的网页采取环境
 * Pyspark: 提供Python对Apache Spark的支持  
@@ -127,6 +128,7 @@ A-->W(Rspark)
 * Stackage ustc: https://mirrors.ustc.edu.cn/stackage/
 * GO AliYun: https://mirrors.aliyun.com/goproxy/
 * cargo ustc: git://mirrors.ustc.edu.cn/crates.io-index
+* Homebrew ustc: https://mirrors.ustc.edu.cn/brew.git/
 
 ### 项目上游
 jupyter团队项目 https://github.com/jupyter/docker-stacks

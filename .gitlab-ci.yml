@@ -318,7 +318,7 @@ up-c-build:
 #       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:dyalog-c"
-dyalog-c-build:
+cadabra-c-build:
   stage: build
   needs: [up-c-build]
   script:
@@ -332,6 +332,20 @@ dyalog-c-build:
       --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:cadabra-c"
+chapel-c-build:
+  stage: build
+  needs: [up-c-build]
+  script:
+    - cd chapel
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
+      --snapshot-mode=redo
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:chapel-c"
 # sage-c-build:
 #   stage: build
 #   needs: [up-c-build]
