@@ -36,6 +36,7 @@
 * Python：对Python语言的基础支持
 * C: 对C的支持(versions ≥ C89)，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）
 * CPP：对CPP（11,14,17）的支持，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）  
+* Cadabra: 对Cadabra的支持
 * Julia：对科学计算语言julia的支持
 * R：对科学计算语言R的支持
 * Haskell: 对Haskell的支持  
