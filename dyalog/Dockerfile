@@ -7,11 +7,10 @@ USER root
 
 WORKDIR /opt
 
-RUN wget -O - http://packages.dyalog.com/dyalog-apt-key.gpg.key | sudo apt-key add -  && \
-    echo "deb http://packages.dyalog.com jammy main" | sudo tee /etc/apt/sources.list.d/dyalog.list  && \
-    apt-get update --yes && \
-    apt-get install --yes --no-install-recommends dyalog-unicode && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*  && \
+COPY linux_64_18.2.45405_unicode.x86_64.deb ./
+
+RUN dpkg -i linux_64_18.2.45405_unicode.x86_64.deb && \
+    rm linux_64_18.2.45405_unicode.x86_64.deb && \
     git clone --depth=1 https://eoelab.org:1031/mirrored-sources/dyalog-jupyter-kernel.git && cd dyalog-jupyter-kernel && \
     bash install.sh
 
