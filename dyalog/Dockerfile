@@ -6,9 +6,9 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 USER root
 
 WORKDIR /opt
-ENV CODENAME=$(lsb_release -sc)
+
 RUN wget -O - http://packages.dyalog.com/dyalog-apt-key.gpg.key | sudo apt-key add -  && \
-    echo "deb http://packages.dyalog.com ${CODENAME} main" | sudo tee /etc/apt/sources.list.d/dyalog.list  && \
+    echo "deb http://packages.dyalog.com jammy main" | sudo tee /etc/apt/sources.list.d/dyalog.list  && \
     apt-get update --yes && \
     apt-get install --yes --no-install-recommends dyalog-unicode&& \
     apt-get clean && rm -rf /var/lib/apt/lists/*  && \
