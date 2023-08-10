@@ -8,7 +8,7 @@ USER root
 WORKDIR /opt
 
 RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends libzmq-dev && \
+    apt-get install --yes --no-install-recommends libzmq3-dev && \
     apt-get clean && rm -rf /var/lib/apt/lists/*  && \
     zef install Jupyter::Kernel && \
     jupyter-kernel.raku --generate-config && \
