@@ -17,9 +17,9 @@ RUN apt-get update --yes && \
     tar -xzf rakudo-star-*.tar.gz && mkdir rakudo-star &&  mv rakudo-star-*/* rakudo-star && rm -rf rakudo-star-* && \
     ./rakudo-star/bin/rstar install && \
     zef install Jupyter::Kernel && \
-    jupyter-kernel.raku --generate-config && \
-    jupyter notebook --generate-config && \
-    jupyter console --generate-config
+    jupyter-kernel.raku --generate-config --location=/opt/conda && \
+    fix-permissions "/home/${NB_USER}" && \
+    fix-permissions "${CONDA_DIR}"
 
 USER ${NB_UID}
 WORKDIR "${HOME}"
