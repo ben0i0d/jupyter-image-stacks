@@ -17,7 +17,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list && \
     sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \   
     apt-get update --yes && apt-get upgrade --yes && \
-    apt-get install --yes --no-install-recommends sudo gnupg ca-certificates locales tini wget curl git git-lfs vim bzip2 zip unzip xclip p7zip-full unrar fonts-wqy-zenhei && \
+    apt-get install --yes --no-install-recommends sudo ca-certificates locales tini wget curl git git-lfs vim bzip2 zip unzip xclip p7zip-full unrar fonts-wqy-zenhei && \
     update-ca-certificates && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && locale-gen
