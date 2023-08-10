@@ -7,9 +7,12 @@ USER root
 
 WORKDIR /opt
 
-RUN mamba install cadabra2-jupyter-kernel &&  mamba clean --all -f -y && \
-    fix-permissions "/home/${NB_USER}" && \
-    fix-permissions "${CONDA_DIR}"
+RUN apt-get update --yes && \
+    apt-get install --yes --no-install-recommends cadabra2 && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* 
+#    mamba install cadabra2-jupyter-kernel &&  mamba clean --all -f -y && \
+#    fix-permissions "/home/${NB_USER}" && \
+#    fix-permissions "${CONDA_DIR}"
 
 USER ${NB_UID}
 WORKDIR "${HOME}"
