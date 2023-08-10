@@ -138,23 +138,17 @@ jupyter团队项目 https://github.com/jupyter/docker-stacks
 * Go: https://github.com/gopherdata/gophernotes
 * Haskell: https://github.com/gibiansky/IHaskell
 * Java: https://github.com/SpencerPark/IJava
+* JavaScript: https://github.com/n-riesco/ijavascript
 * Julia: https://github.com/JuliaLang/IJulia.jl
 * R: http://irkernel.github.io/
 * Rust: https://github.com/evcxr/evcxr
+* agda: https://github.com/lclem/agda-kernel
+* ansible: https://github.com/ansible/ansible-jupyter-kernel
 * Octave: https://github.com/Calysto/octave_kernel
 * Dotnet(C#,F#,Powershell)： https://github.com/dotnet/interactive
 * Kotlin: https://github.com/Kotlin/kotlin-jupyter
 * Fortran: https://github.com/lfortran/lfortran
-* JavaScript: https://github.com/n-riesco/ijavascript
-## 必要的版权说明
-对于派生自jupyter团队的代码，我们添加了如下的版权声明，我们保留并且支持jupyter开发团队版权
-```
-# Copyright (c) Jupyter Development Team.
-# Distributed under the terms of the Modified BSD License.
-```
 
-对于派生自ihaskell-notebook的代码，我们添加了如下的版权声明，我们保留并且支持James Brock <jamesbrock@gmail.com>版权
-```
-# Copyright (c) James Brock.
-# Distributed under the terms of the Modified MIT License.
-```
+## 必要的版权说明
+对于派生自其他团队的代码，我们在文件头添加了原版版权声明，我们保留并且支持其他开发团队版权
+
