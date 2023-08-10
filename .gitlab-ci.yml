@@ -346,11 +346,25 @@ before_script:
 #       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:chapel-c"
-raku-c-build:
+# raku-c-build:
+#   stage: build
+#   needs: [up-c-build]
+#   script:
+#     - cd raku
+#     - /kaniko/executor
+#       --context ./
+#       --dockerfile "Dockerfile"
+#       --cache=true
+#       --cache-copy-layers=true
+#       --cache-run-layers=true
+#       --snapshot-mode=redo
+#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:raku-c"
+lua-c-build:
   stage: build
   needs: []
   script:
-    - cd raku
+    - cd lua
     - /kaniko/executor
       --context ./
       --dockerfile "Dockerfile"
@@ -359,7 +373,7 @@ raku-c-build:
       --cache-run-layers=true
       --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:raku-c"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:lua-c"
 # sage-c-build:
 #   stage: build
 #   needs: [up-c-build]
