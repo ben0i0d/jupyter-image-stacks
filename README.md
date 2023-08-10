@@ -50,6 +50,7 @@
 * C: 对C的支持(versions ≥ C89)，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）
 * CPP：对CPP（11,14,17）的支持，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）  
 * Fortran：对Fortran的支持
+* Agda: 对Agda的支持
 * Sagemath：一个遵循GPL的开源数学工具  
 * Dotnet: 提供对.net的支持，内置包括（C#,F#,Powershell）  
 * Scilab（With Desktop-GUI）: 提供对Scilab的支持，默认包含apt可获取的全部插件
