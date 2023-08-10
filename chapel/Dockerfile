@@ -10,15 +10,11 @@ COPY chapel-1.31.0.tar.gz ./
 USER root
 
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}" \
-    CHPL_LIB_PIC=shared \
-    HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git" \
-    HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git" \
-    OMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles" \
-    HOMEBREW_API_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles/api" 
+    CHPL_LIB_PIC=shared 
 
 RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends gcc g++ m4 perl make mawk pkg-config cmake  \
-    llvm-11-dev llvm-11 llvm-11-tools clang-11 libclang-11-dev libedit-dev && \
+    apt-get install --yes --no-install-recommends gcc g++ m4 perl make mawk pkg-config cmake \
+    llvm-dev llvm clang libclang-dev libclang-cpp-dev libedit-dev && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     tar -xzf chapel-1.31.0.tar.gz && \
     cd chapel-1.31.0 && \
@@ -27,7 +23,3 @@ RUN apt-get update --yes && \
 
 USER ${NB_UID}
 WORKDIR "${HOME}"
-
-
-
-

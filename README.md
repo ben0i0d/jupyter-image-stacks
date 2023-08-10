@@ -128,7 +128,6 @@ A-->W(Rspark)
 * Stackage ustc: https://mirrors.ustc.edu.cn/stackage/
 * GO AliYun: https://mirrors.aliyun.com/goproxy/
 * cargo ustc: git://mirrors.ustc.edu.cn/crates.io-index
-* Homebrew ustc: https://mirrors.ustc.edu.cn/brew.git/
 
 ### 项目上游
 jupyter团队项目 https://github.com/jupyter/docker-stacks
