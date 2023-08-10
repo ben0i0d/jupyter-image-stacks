@@ -5,7 +5,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root
 
-WORKDIR /opt/rakudo-star
+WORKDIR /opt
 
 COPY rakudo-star-2023.06-01.tar.gz ./
 
