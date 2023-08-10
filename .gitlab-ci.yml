@@ -1,10 +1,10 @@
-#Build Docker image with CI/CD and push to the GitLab registry.
-image:
-  name: gcr.io/kaniko-project/executor:debug
-  entrypoint: [""]
-before_script:
-  - wget https://eoelab.org:1024/index.php/s/ac3eQY4byy4mK2g/download/eoelab.org.crt
-  - mv eoelab.org.crt /kaniko/ssl/certs/additional-ca-cert-bundle.crt
+# Build Docker image with CI/CD and push to the GitLab registry.
+# image:
+#   name: gcr.io/kaniko-project/executor:debug
+#   entrypoint: [""]
+# before_script:
+#   - wget https://eoelab.org:1024/index.php/s/ac3eQY4byy4mK2g/download/eoelab.org.crt
+#   - mv eoelab.org.crt /kaniko/ssl/certs/additional-ca-cert-bundle.crt
 # up-c-build:
 #   stage: build
 #   needs: []
@@ -360,20 +360,20 @@ before_script:
 #       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:raku-c"
-lua-c-build:
-  stage: build
-  needs: []
-  script:
-    - cd lua
-    - /kaniko/executor
-      --context ./
-      --dockerfile "Dockerfile"
-      --cache=true
-      --cache-copy-layers=true
-      --cache-run-layers=true
-      --snapshot-mode=redo
-      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:lua-c"
+# lua-c-build:
+#   stage: build
+#   needs: [up-c-build]
+#   script:
+#     - cd lua
+#     - /kaniko/executor
+#       --context ./
+#       --dockerfile "Dockerfile"
+#       --cache=true
+#       --cache-copy-layers=true
+#       --cache-run-layers=true
+#       --snapshot-mode=redo
+#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:lua-c"
 # sage-c-build:
 #   stage: build
 #   needs: [up-c-build]

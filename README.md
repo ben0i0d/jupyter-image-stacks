@@ -46,6 +46,7 @@
 * Kotlin: 对Kotlin的支持
 * Rust: 对Rust的支持
 * Fortran：对Fortran的支持
+* Ansible: 对Ansible的支持
 * Agda: 对Agda的支持
 * APL (Dyalog): 对APL (Dyalog)的支持
 * Chapel: 对Chapel的支持 
@@ -100,6 +101,12 @@ A-->T(Fortran)
 A-->U(Scilab)
 A-->V(JavaSript)
 A-->W(Rspark)
+A-->X(Agda)
+A-->Y(APL:Dyalog)
+A-->Z(Raku:Perl6)
+A-->AA(Lua)
+A-->AB(Ansible)
+A-->AC(Cadabra)
 ```
 
 ### 如何参与
@@ -153,6 +160,11 @@ jupyter团队项目 https://github.com/jupyter/docker-stacks
 * Dotnet(C#,F#,Powershell)： https://github.com/dotnet/interactive
 * Kotlin: https://github.com/Kotlin/kotlin-jupyter
 * Fortran: https://github.com/lfortran/lfortran
+* APL (Dyalog): https://github.com/Dyalog/dyalog-jupyter-kernel
+* Raku(Perl6): https://github.com/bduggan/raku-jupyter-kernel
+* Lua: https://github.com/guysv/ilua
+* Cadabra: https://github.com/kpeeters/cadabra2
+* Chapel: http://github.com/krishnadey30/jupyter_kernel_chapel
 
 ## 必要的版权说明
 对于派生自其他团队的代码，我们在文件头添加了原版版权声明，我们保留并且支持其他开发团队版权
