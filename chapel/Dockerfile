@@ -7,7 +7,7 @@ USER root
 
 WORKDIR /opt
 
-ENV PATH ${PATH}:/home/linuxbrew/.linuxbrew/bin/ \
+ENV PATH="${PATH}:/home/linuxbrew/.linuxbrew/bin/" \
     CHPL_LIB_PIC=shared \
     HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git" \
     HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git" \

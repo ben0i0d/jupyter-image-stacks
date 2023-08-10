@@ -7,7 +7,7 @@ USER root
 
 WORKDIR /opt
 
-RUN mamba install --yes conda-build glibmm && mamba clean --all -f -y && \
+RUN mamba install --yes conda-build tornado==5.1.1 && mamba clean --all -f -y && \
     git clone --depth=1 https://eoelab.org:1031/mirrored-sources/cadabra2.git && cd cadabra2 && cd conda && conda-build . && \
     mamba install --use-local cadabra2 && \
     fix-permissions "/home/${NB_USER}" && \
