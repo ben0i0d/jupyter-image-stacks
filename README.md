@@ -32,25 +32,25 @@
 ### 当前构建镜像清单
 * Upstream: 镜像上游，类似于jupyter官方的minimal-notebook镜像  
 提供软件包：文件压缩/解压(.bz2|.zip|.rar|.7z)，项目管理(git|git lfs),证书管理(ca-certificates)，编辑器（vim）,网络交互（curl|wget）,中文字体（fonts-wqy-zenhei） 
-* Python：对Python语言的基础支持  
-* Scipy：Python的科学计算环境  
-* Scraper: Python的网页采取环境
-* Pyspark: 提供Python对Apache Spark的支持  
-* pyai（With GPU）：提供Python下AI工具链，集成TensorFlow,Pytorch,Transformer支持  
 * Llinux（With Desktop-GUI）：在无特权的情况下学习Linux系统，提供Xfce桌面支持   
-* Julia：对科学计算语言julia的支持    
-* R：对科学计算语言R的支持    
-* Rspark:提供R对Apache Spark的支持
+* Python：对Python语言的基础支持
+* C: 对C的支持(versions ≥ C89)，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）
+* CPP：对CPP（11,14,17）的支持，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）  
+* Julia：对科学计算语言julia的支持
+* R：对科学计算语言R的支持
 * Haskell: 对Haskell的支持  
 * Java: 对Java的支持
 * JavaSript: 对JavaSript的支持
 * Go: 对Go的支持
 * Kotlin: 对Kotlin的支持
 * Rust: 对Rust的支持
-* C: 对C的支持(versions ≥ C89)，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）
-* CPP：对CPP（11,14,17）的支持，并且镜像包括了传统Linux必须的C、Cpp工具链（build-essential）  
 * Fortran：对Fortran的支持
 * Agda: 对Agda的支持
+* Scipy：Python的科学计算环境  
+* Scraper: Python的网页采取环境
+* Pyspark: 提供Python对Apache Spark的支持  
+* pyai（With GPU）：提供Python下AI工具链，集成TensorFlow,Pytorch,Transformer支持  
+* Rspark:提供R对Apache Spark的支持
 * Sagemath：一个遵循GPL的开源数学工具  
 * Dotnet: 提供对.net的支持，内置包括（C#,F#,Powershell）  
 * Scilab（With Desktop-GUI）: 提供对Scilab的支持，默认包含apt可获取的全部插件
