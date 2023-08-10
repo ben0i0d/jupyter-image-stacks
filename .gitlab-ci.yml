@@ -346,11 +346,11 @@ before_script:
 #       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:chapel-c"
-perl-c-build:
+raku-c-build:
   stage: build
   needs: []
   script:
-    - cd perl
+    - cd raku
     - /kaniko/executor
       --context ./
       --dockerfile "Dockerfile"
@@ -359,7 +359,7 @@ perl-c-build:
       --cache-run-layers=true
       --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:perl-c"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:raku-c"
 # sage-c-build:
 #   stage: build
 #   needs: [up-c-build]
