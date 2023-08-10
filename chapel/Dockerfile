@@ -14,34 +14,9 @@ ENV PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}
 USER root
 
 RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends build-essential && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*   && \
-    sed -i -E '/^session optional\s+pam_umask\.so$/ s/$/ umask=0022/' /etc/pam.d/common-session  && \
-    sed -i -E '/^session optional\s+pam_umask\.so$/ s/$/ umask=0022/' /etc/pam.d/common-session-noninteractive  && \
-    localedef -i en_US -f UTF-8 en_US.UTF-8  && \
-    useradd -m -s /bin/bash linuxbrew  && \
-    echo 'linuxbrew ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers  && \
-    su - linuxbrew -c 'mkdir ~/.linuxbrew' && \
-    git clone --depth=1 https://eoelab.org:1031/mirrored-sources/brew.git && \
-    mv brew /home/linuxbrew/.linuxbrew/Homebrew  && \
-    chown  /home/linuxbrew/.linuxbrew/Homebrew linuxbrew
-
-USER linuxbrew
-
-WORKDIR /home/linuxbrew
-
-RUN mkdir -p .linuxbrew/bin .linuxbrew/etc .linuxbrew/include .linuxbrew/lib .linuxbrew/opt .linuxbrew/sbin \
-    .linuxbrew/share .linuxbrew/var/homebrew/linked .linuxbrew/Cellar && \
-    ln -s ../Homebrew/bin/brew .linuxbrew/bin/brew  && \
-    git -C .linuxbrew/Homebrew remote set-url origin https://github.com/Homebrew/brew  && \
-    git -C .linuxbrew/Homebrew fetch origin  && \
-    HOMEBREW_NO_ANALYTICS=1 HOMEBREW_NO_AUTO_UPDATE=1 brew tap --force homebrew/core  && \
-    brew install-bundler-gems  && \
-    brew cleanup  && \
-    { git -C .linuxbrew/Homebrew config --unset gc.auto; true; }  && \
-    { git -C .linuxbrew/Homebrew config --unset homebrew.devcmdrun; true; }  && \
-    rm -rf .cache  && \
-    touch .linuxbrew/.homebrewdocker
+    apt-get install --yes --no-install-recommends gcc g++ m4 perl make mawk pkg-config cmake  \
+    llvm-11-dev llvm-11 llvm-11-tools clang-11 libclang-11-dev libedit-dev && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*   
 
 RUN brew update && brew install chapel  && \
     pip install --no-cache-dir jupyter-kernel-chapel  
