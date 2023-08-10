@@ -21,15 +21,16 @@ RUN apt-get update --yes && \
     localedef -i en_US -f UTF-8 en_US.UTF-8  && \
     useradd -m -s /bin/bash linuxbrew  && \
     echo 'linuxbrew ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers  && \
-    su - linuxbrew -c 'mkdir ~/.linuxbrew'
+    su - linuxbrew -c 'mkdir ~/.linuxbrew' && \
+    git clone --depth=1 https://eoelab.org:1031/mirrored-sources/brew.git && \
+    mv brew /home/linuxbrew/.linuxbrew/Homebrew 
+    chown  /home/linuxbrew/.linuxbrew/Homebrew linuxbrew
 
 USER linuxbrew
 
 WORKDIR /home/linuxbrew
 
-RUN git clone --depth=1 https://eoelab.org:1031/mirrored-sources/brew.git && \
-    mv brew ./.linuxbrew/Homebrew && \
-    mkdir -p .linuxbrew/bin .linuxbrew/etc .linuxbrew/include .linuxbrew/lib .linuxbrew/opt .linuxbrew/sbin \
+RUN mkdir -p .linuxbrew/bin .linuxbrew/etc .linuxbrew/include .linuxbrew/lib .linuxbrew/opt .linuxbrew/sbin \
     .linuxbrew/share .linuxbrew/var/homebrew/linked .linuxbrew/Cellar && \
     ln -s ../Homebrew/bin/brew .linuxbrew/bin/brew  && \
     git -C .linuxbrew/Homebrew remote set-url origin https://github.com/Homebrew/brew  && \
