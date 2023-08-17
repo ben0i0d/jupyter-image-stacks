@@ -1,6 +1,6 @@
 FROM eoelab.org:1032/mirrored-sources/mirror-image-stacks/ubuntu:22.04
 
-LABEL maintainer="eoelab <eoelab@eoelab.org>"
+LABEL maintainer="Pd.ch <cpd233@outlook.com>"
 
 ARG NB_USER="jovyan"
 ARG NB_UID="1000"
