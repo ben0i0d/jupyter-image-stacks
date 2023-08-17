@@ -1,6 +1,6 @@
 FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy-c
 
-LABEL maintainer="eoelab <eoelab@eoelab.org>"
+LABEL maintainer="Pd.ch <cpd23@outlook.com>"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
