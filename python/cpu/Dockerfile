@@ -5,5 +5,5 @@ LABEL maintainer="Pd.ch <cpd233@outlook.com>"
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # IPython notebook support
-RUN mamba install --yes 'ipympl' 'ipywidgets' 'widgetsnbextension'&& \
+RUN mamba install --yes 'ipympl' 'widgetsnbextension'&& \
     mamba clean --all -f -y 

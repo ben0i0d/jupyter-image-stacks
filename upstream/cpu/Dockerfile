@@ -61,14 +61,14 @@ WORKDIR /tmp
 #change sources
 RUN wget -qO /tmp/micromamba.tar.bz2 "https://micromamba.snakepit.net/api/micromamba/linux-64/latest" && \
     tar -xvjf /tmp/micromamba.tar.bz2 --strip-components=1 bin/micromamba && rm /tmp/micromamba.tar.bz2 && \
-    ./micromamba install --root-prefix="${CONDA_DIR}" --prefix="${CONDA_DIR}" --yes 'mamba' "python=3.10" 'jupyter_core' && \
+    ./micromamba install --root-prefix="${CONDA_DIR}" --prefix="${CONDA_DIR}" --yes 'mamba' "python=3.11" 'jupyter_core' && \
     rm micromamba && \
     mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
     mamba install --yes 'notebook' 'jupyterhub' 'jupyterlab' && \
     jupyter notebook --generate-config && \
     pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple && \
     npm config set registry https://registry.npmmirror.com/ && \
-    pip install jupyterlab_widgets jupyterlab-drawio jupyterlab-language-pack-zh-CN jupyterlab_tabnine jupyterlab-git jupyterlab_latex && \
+    pip install ipywidgets jupyterlab-language-pack-zh-CN jupyterlab_tabnine jupyterlab-git jupyterlab_latex && \
     pip cache purge && \
     npm cache clean --force && \
     jupyter lab clean && \

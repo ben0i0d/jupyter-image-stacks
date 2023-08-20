@@ -66,9 +66,7 @@
 ### 插件清单
 
 **全局**
-* jupyterlab-drawio:在Lab中启用drawio绘图工具，drawio是一款非常棒的流程图工具。
 * jupyterlab-language-pack-zh-CN:对中文的支持
-* jupyterlab_widgets:交互式控件
 * jupyterlab-git：图形化操作git仓库
 * jupyterlab_latex：支持在线编辑并预览LaTeX文档
 * jupyterlab_tabnine：用于自动补全、参数建议、函数文档查询、跳转定义
@@ -118,7 +116,7 @@ MATH-->MC(Sagemath)
 **软件包版本**
 * cuda 12.1.0
 * cudnn 8
-* Python 3.10
+* Python 3.11
 * Julia 1.9.2
 * Java zulu17-jdk
 * kotlin(jre) openjdk-17-jre
