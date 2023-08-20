@@ -124,6 +124,7 @@ MATH-->MC(Sagemath)
 * Tensorflow latest
 * pytorch latest
 * spark 3.4.1
+* jupyterlab 4
 
 **镜像源**
 * conda bfsu：https://mirrors.bfsu.edu.cn/help/anaconda/
