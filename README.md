@@ -72,7 +72,7 @@
 * jupyterlab_tabnine：用于自动补全、参数建议、函数文档查询、跳转定义
 
 **局部**
-* lckr-jupyterlab-variableinspector:在Lab中展示代码中的变量及其属性，类似RStudio中的变量检查器:R
+
 
 ### 镜像依赖关系
 ```mermaid
