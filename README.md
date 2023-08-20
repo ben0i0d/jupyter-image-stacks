@@ -52,7 +52,6 @@
 * Chapel: 支持Chapel，用于高性能并行编程的并发编程语言，旨在简化分布式计算和大规模数据处理，具备易用性和可移植性，适用于科学计算、并行算法和并行任务调度。
 * Raku(Perl 6): 支持Raku(Perl 6)，前身为Perl 6，多范式编程语言，融合了面向对象、函数式和响应式编程概念，强调可读性和灵活性，在文本处理、脚本编写和Web开发方面具备强大的能力
 * Lua: 支持Lua，轻量级、嵌入式的脚本语言，具有简洁的语法和快速的执行速度，广泛应用于游戏开发、嵌入式系统和脚本扩展。
-* Q#: SSS
 * Scipy：提供Python的科学计算环境，提供了丰富的数值计算、优化、信号处理、统计分析等功能，用于科学研究和工程应用。
 * Scraper: 提供Python的网页采取环境，用于提取互联网上的数据，实现自动化的信息收集和分析任务，适用于数据挖掘、网络爬虫以及业务情报收集等应用场景。
 * Pyspark: 提供基于Python的Spark编程接口，用于大规模数据处理和分析，提供了强大的并行计算能力和丰富的数据操作函数，适合在分布式环境中进行高效的数据处理和机器学习任务。
@@ -165,7 +164,6 @@ jupyter团队项目 https://github.com/jupyter/docker-stacks
 * Lua: https://github.com/guysv/ilua
 * Cadabra: https://github.com/kpeeters/cadabra2
 * Chapel: http://github.com/krishnadey30/jupyter_kernel_chapel
-* Q#
 
 ## 必要的版权说明
 对于派生自其他团队的代码，我们在文件头添加了原版版权声明，我们保留并且支持其他开发团队版权
