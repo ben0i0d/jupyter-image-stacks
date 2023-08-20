@@ -68,7 +68,7 @@ RUN wget -qO /tmp/micromamba.tar.bz2 "https://micromamba.snakepit.net/api/microm
     jupyter notebook --generate-config && \
     pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple && \
     npm config set registry https://registry.npmmirror.com/ && \
-    pip install ipywidgets jupyterlab-language-pack-zh-CN jupyterlab_tabnine && \
+    pip install jupyterlab-language-pack-zh-CN jupyterlab_tabnine && \
     pip cache purge && \
     npm cache clean --force && \
     jupyter lab clean && \
