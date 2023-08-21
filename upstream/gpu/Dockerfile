@@ -67,7 +67,8 @@ RUN wget -qO /tmp/micromamba.tar.bz2 "https://micromamba.snakepit.net/api/microm
     mamba install --yes 'notebook' 'jupyterhub' 'jupyterlab' && \
     jupyter notebook --generate-config && \
     pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple && \
-    mamba install --yes jupyterlab-language-pack-zh-CN jupyterlab_tabnine && \
+    pip install jupyterlab-language-pack-zh-CN jupyterlab_tabnine && \
+    pip cache purge && \
     jupyter lab clean && \
     rm -rf "/home/${NB_USER}/.cache/yarn" && \
     mamba clean --all -f -y && \
@@ -85,6 +86,7 @@ RUN sed -re "s/c.ServerApp/c.NotebookApp/g" /etc/jupyter/jupyter_server_config.p
     fix-permissions /etc/jupyter/
 # HEALTHCHECK documentation: https://docs.docker.com/engine/reference/builder/#healthcheck
 HEALTHCHECK --interval=5s --timeout=3s --start-period=5s --retries=3 CMD /etc/jupyter/docker_healthcheck.py || exit 1
+
 # Configure container startup
 ENTRYPOINT ["tini", "-g", "--"]
 CMD ["start.sh"]
