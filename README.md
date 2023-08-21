@@ -66,8 +66,6 @@
 
 **全局**
 * jupyterlab-language-pack-zh-CN:对中文的支持
-* jupyterlab-git：图形化操作git仓库
-* jupyterlab_latex：支持在线编辑并预览LaTeX文档
 * jupyterlab_tabnine：用于自动补全、参数建议、函数文档查询、跳转定义
 
 **局部**

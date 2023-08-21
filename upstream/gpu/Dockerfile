@@ -67,10 +67,7 @@ RUN wget -qO /tmp/micromamba.tar.bz2 "https://micromamba.snakepit.net/api/microm
     mamba install --yes 'notebook' 'jupyterhub' 'jupyterlab' && \
     jupyter notebook --generate-config && \
     pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple && \
-    npm config set registry https://registry.npmmirror.com/ && \
-    pip install jupyterlab-language-pack-zh-CN jupyterlab_tabnine && \
-    pip cache purge && \
-    npm cache clean --force && \
+    mamba install --yes jupyterlab-language-pack-zh-CN jupyterlab_tabnine && \
     jupyter lab clean && \
     rm -rf "/home/${NB_USER}/.cache/yarn" && \
     mamba clean --all -f -y && \
