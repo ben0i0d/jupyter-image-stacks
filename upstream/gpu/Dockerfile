@@ -33,15 +33,14 @@ ENV CONDA_DIR=/opt/conda \
     LANGUAGE=en_US.UTF-8
 ENV PATH="${CONDA_DIR}/bin:${PATH}" \
     HOME="/home/${NB_USER}"
+
 # Copy local files
 # Copy a script that we will use to correct permissions after running certain commands
-COPY conf/fix-permissions /usr/local/bin/fix-permissions
-# change conda sources
+COPY conf/fix-permissions start-sh/start.sh /usr/local/bin/
 COPY --chown="${NB_UID}:${NB_GID}" conf/initial-condarc "${CONDA_DIR}/.condarc"
 COPY --chown="${NB_UID}:${NB_GID}" conf/Rprofile.site /opt/conda/lib/R/etc/
-
 COPY conf/jupyter_server_config.py conf/docker_healthcheck.py /etc/jupyter/
-COPY start-sh/start.sh /usr/local/bin/
+
 RUN chmod a+rx /usr/local/bin/fix-permissions && \
     sed -i 's/^#force_color_prompt=yes/force_color_prompt=yes/' /etc/skel/.bashrc && \
     echo 'eval "$(command conda shell.bash hook 2> /dev/null)"' >> /etc/skel/.bashrc && \
@@ -77,17 +76,14 @@ RUN wget -qO /tmp/micromamba.tar.bz2 "https://micromamba.snakepit.net/api/microm
 
 # Fix permissions on /etc/jupyter as root
 USER root
-# Legacy for Jupyter Notebook Server, see: [#1205](https://github.com/jupyter/docker-stacks/issues/1205)
-RUN sed -re "s/c.ServerApp/c.NotebookApp/g" /etc/jupyter/jupyter_server_config.py > /etc/jupyter/jupyter_notebook_config.py && \
-    fix-permissions /etc/jupyter/
-# HEALTHCHECK documentation: https://docs.docker.com/engine/reference/builder/#healthcheck
+# Legacy for Jupyter Notebook Server
+RUN sed -re "s/c.ServerApp/c.NotebookApp/g" /etc/jupyter/jupyter_server_config.py > /etc/jupyter/jupyter_notebook_config.py && fix-permissions /etc/jupyter/
+
 HEALTHCHECK --interval=5s --timeout=3s --start-period=5s --retries=3 CMD /etc/jupyter/docker_healthcheck.py || exit 1
+
 # Configure container startup
 ENTRYPOINT ["tini", "-g", "--"]
 CMD ["start.sh"]
-
-# Copy local files as late as possible to avoid cache busting
-COPY start-sh/start.sh /usr/local/bin/
 
 # Switch back to jovyan to avoid accidental container runs as root
 USER ${NB_UID}
