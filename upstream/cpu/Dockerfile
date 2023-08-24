@@ -51,7 +51,7 @@ RUN chmod a+rx /usr/local/bin/fix-permissions && \
 # Copy local files
 # change conda sources
 COPY --chown="${NB_UID}:${NB_GID}" conf/initial-condarc "${CONDA_DIR}/.condarc"
-COPY --chown=${NB_UID}:${NB_GID} conf/Rprofile.site /opt/conda/lib/R/etc/
+COPY --chown="${NB_UID}:${NB_GID}" conf/Rprofile.site /opt/conda/lib/R/etc/
 #COPY start-sh/start-notebook.sh start-sh/start-singleuser.sh /usr/local/bin/
 COPY conf/jupyter_server_config.py conf/docker_healthcheck.py /etc/jupyter/
 COPY start-sh/start.sh /usr/local/bin/
