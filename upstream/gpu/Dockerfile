@@ -66,7 +66,6 @@ RUN wget -qO /tmp/micromamba.tar.bz2 "https://micromamba.snakepit.net/api/microm
     mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
     mamba install --yes 'notebook' 'jupyterhub' 'jupyterlab' && \
     jupyter notebook --generate-config && \
-    # change pip sources
     pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple && \
     pip install jupyterlab-language-pack-zh-CN jupyterlab_tabnine && \
     pip cache purge && \
@@ -75,6 +74,10 @@ RUN wget -qO /tmp/micromamba.tar.bz2 "https://micromamba.snakepit.net/api/microm
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}" 
+
+COPY --chown=${NB_UID}:${NB_GID} conf/Rprofile.site /opt/conda/lib/R/etc/
+COPY start-sh/start-notebook.sh start-sh/start-singleuser.sh /usr/local/bin/
+COPY conf/jupyter_server_config.py conf/docker_healthcheck.py /etc/jupyter/
 
 # Fix permissions on /etc/jupyter as root
 USER root
@@ -86,6 +89,9 @@ HEALTHCHECK --interval=5s --timeout=3s --start-period=5s --retries=3 CMD /etc/ju
 # Configure container startup
 ENTRYPOINT ["tini", "-g", "--"]
 CMD ["start.sh"]
+
+# Copy local files as late as possible to avoid cache busting
+COPY start-sh/start.sh /usr/local/bin/
 
 # Switch back to jovyan to avoid accidental container runs as root
 USER ${NB_UID}
