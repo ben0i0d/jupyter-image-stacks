@@ -33,8 +33,15 @@ ENV CONDA_DIR=/opt/conda \
     LANGUAGE=en_US.UTF-8
 ENV PATH="${CONDA_DIR}/bin:${PATH}" \
     HOME="/home/${NB_USER}"
+# Copy local files
 # Copy a script that we will use to correct permissions after running certain commands
 COPY conf/fix-permissions /usr/local/bin/fix-permissions
+# change conda sources
+COPY --chown="${NB_UID}:${NB_GID}" conf/initial-condarc "${CONDA_DIR}/.condarc"
+COPY --chown="${NB_UID}:${NB_GID}" conf/Rprofile.site /opt/conda/lib/R/etc/
+
+COPY conf/jupyter_server_config.py conf/docker_healthcheck.py /etc/jupyter/
+COPY start-sh/start.sh /usr/local/bin/
 RUN chmod a+rx /usr/local/bin/fix-permissions && \
     sed -i 's/^#force_color_prompt=yes/force_color_prompt=yes/' /etc/skel/.bashrc && \
     echo 'eval "$(command conda shell.bash hook 2> /dev/null)"' >> /etc/skel/.bashrc && \
@@ -48,22 +55,11 @@ RUN chmod a+rx /usr/local/bin/fix-permissions && \
     fix-permissions "/home/${NB_USER}" && \
     fix-permissions "${CONDA_DIR}"
 
-# Copy local files
-# change conda sources
-COPY --chown="${NB_UID}:${NB_GID}" conf/initial-condarc "${CONDA_DIR}/.condarc"
-COPY --chown=${NB_UID}:${NB_GID} conf/Rprofile.site /opt/conda/lib/R/etc/
-#COPY start-sh/start-notebook.sh start-sh/start-singleuser.sh /usr/local/bin/
-COPY conf/jupyter_server_config.py conf/docker_healthcheck.py /etc/jupyter/
-COPY start-sh/start.sh /usr/local/bin/
-
 USER ${NB_UID}
 
 WORKDIR /tmp
-# Setup work directory for backward-compatibility
-
-RUN mkdir "/home/${NB_USER}/work" && fix-permissions "/home/${NB_USER}" && \
-    # install jupyter python mamba extension
-    wget -qO /tmp/micromamba.tar.bz2 "https://micromamba.snakepit.net/api/micromamba/linux-64/latest" && \
+# install jupyter python mamba extension
+RUN wget -qO /tmp/micromamba.tar.bz2 "https://micromamba.snakepit.net/api/micromamba/linux-64/latest" && \
     tar -xvjf /tmp/micromamba.tar.bz2 --strip-components=1 bin/micromamba && rm /tmp/micromamba.tar.bz2 && \
     ./micromamba install --root-prefix="${CONDA_DIR}" --prefix="${CONDA_DIR}" --yes 'mamba' "python=3.11" 'jupyter_core' && \
     rm micromamba && \
