@@ -61,7 +61,7 @@ USER ${NB_UID}
 WORKDIR /tmp
 # Setup work directory for backward-compatibility
 
-RUN mkdir "/home/${NB_USER}/work" && fix-permissions "/home/${NB_USER}" && \
+RUN mkdir "/home/${NB_USER}/work" && \
     # install jupyter python mamba extension
     wget -qO /tmp/micromamba.tar.bz2 "https://micromamba.snakepit.net/api/micromamba/linux-64/latest" && \
     tar -xvjf /tmp/micromamba.tar.bz2 --strip-components=1 bin/micromamba && rm /tmp/micromamba.tar.bz2 && \
