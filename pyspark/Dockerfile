@@ -25,7 +25,7 @@ ENV SPARK_OPTS="--driver-java-options=-Xms1024M --driver-java-options=-Xmx4096M 
 COPY ipython_kernel_config.py "/etc/ipython/"
 RUN fix-permissions "/etc/ipython/" && \
   apt-get update --yes && \
-  apt-get install --yes --no-install-recommends "openjdk-17-jre-headless" ca-certificates-java sqlite3 && \
+  apt-get install --yes --no-install-recommends "openjdk-17-jre-headless" ca-certificates-java && \
   apt-get clean && rm -rf /var/lib/apt/lists/* && \
 # You need to use https://archive.apache.org/dist/ website if you want to download old Spark versions
 # But it seems to be slower, that's why we use recommended site for download
