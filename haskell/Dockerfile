@@ -8,50 +8,33 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ARG STACK_ARGS=
 ARG STACK_BINDIST="stack-2.11.1-linux-x86_64"
 
-USER root
-# The global snapshot package database will be here in the STACK_ROOT.
-ENV STACK_ROOT=/opt/stack
-RUN mkdir -p /etc/stack && \
-    mkdir -p $STACK_ROOT && \
-    mkdir -p $STACK_ROOT/global-project && \
-    fix-permissions $STACK_ROOT && \
-    fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}" && \
-# Install system dependencies
-    apt-get update && apt-get install -yq --no-install-recommends python3-pip libtinfo-dev libzmq3-dev libcairo2-dev libpango1.0-dev \
-    libmagic-dev libblas-dev liblapack-dev libffi-dev libgmp-dev gnupg netbase graphviz gnuplot-nox \
-    g++ gcc libc6-dev libffi-dev libgmp-dev make xz-utils zlib1g-dev less && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+ENV PATH=${PATH}:/opt/bin:/opt/ghc/bin \
+    STACK_ROOT=/opt/stack
+
 # Stack global non-project-specific config stack.config.yaml
 # Stack global project stack.yaml
 COPY stack.config.yaml /etc/stack/config.yaml
 COPY global-hints.yaml /etc/stack/global-hints-cache.yaml
 COPY stack-2.11.1-linux-x86_64.tar.gz /tmp/stack-2.11.1-linux-x86_64.tar.gz
 COPY global-project.stack.yaml $STACK_ROOT/global-project/stack.yaml
+
+USER root
+RUN fix-permissions $STACK_ROOT && fix-permissions /etc/stack/ \
+# Install system dependencies
+    apt-get update && apt-get install -yq --no-install-recommends python3-pip libtinfo-dev libzmq3-dev libcairo2-dev libpango1.0-dev \
+    libmagic-dev libblas-dev liblapack-dev libffi-dev libgmp-dev gnupg netbase graphviz gnuplot-nox \
+    g++ gcc libc6-dev libffi-dev libgmp-dev make xz-utils zlib1g-dev less && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 # Stack Linux (generic) Manual download
-RUN fix-permissions /etc/stack && \
-    cd /tmp  && \
-    tar zxf ${STACK_BINDIST}.tar.gz  && \
-    cp ${STACK_BINDIST}/stack /usr/bin/stack  && \
+RUN cd /tmp  && tar zxf ${STACK_BINDIST}.tar.gz && cp ${STACK_BINDIST}/stack /usr/bin/stack  && \
     rm -rf ${STACK_BINDIST}.tar.gz ${STACK_BINDIST}  && \
     chown --recursive $NB_UID:users $STACK_ROOT/global-project && \
-    fix-permissions $STACK_ROOT/global-project  && \
-# fix-permissions for /usr/local/share/jupyter so that we can install the IHaskell kernel there.
-    mkdir -p /usr/local/share/jupyter  && \
-    fix-permissions /usr/local/share/jupyter  && \
-    mkdir -p /usr/local/share/jupyter/kernels  && \
-    fix-permissions /usr/local/share/jupyter/kernels && \
-# Now make a bin directory for installing the ihaskell executable on the PATH. This /opt/bin is referenced by the stack non-project-specific config.
-    mkdir -p /opt/bin  && \
-    fix-permissions /opt/bin
-ENV PATH ${PATH}:/opt/bin
+    fix-permissions $STACK_ROOT/global-project
 
 # Clone IHaskell and install ghc from the IHaskell resolver
 RUN cd /opt  && \
-    curl -L "https://eoelab.org:1031/mirrored-sources/IHaskell/-/archive/master/IHaskell-master.tar.gz" | tar xzf -  && \
-    mv *IHaskell* IHaskell  && \
-    curl -L "https://eoelab.org:1031/mirrored-sources/hvega/-/archive/main/hvega-main.tar.gz" | tar xzf -  && \
-    mv *hvega* hvega  && \
+    curl -L "https://eoelab.org:1031/mirrored-sources/IHaskell/-/archive/master/IHaskell-master.tar.gz" | tar xzf -  && mv *IHaskell* IHaskell  && \
+    curl -L "https://eoelab.org:1031/mirrored-sources/hvega/-/archive/main/hvega-main.tar.gz" | tar xzf -  && mv *hvega* hvega  && \
     fix-permissions /opt/IHaskell  && \
     fix-permissions $STACK_ROOT  && \
     fix-permissions /opt/hvega  && \
@@ -80,22 +63,14 @@ RUN cd /opt  && \
 # Fix for https://github.com/IHaskell/ihaskell-notebook/issues/14#issuecomment-636334824
     fix-permissions /opt/IHaskell  && \
     fix-permissions /opt/hvega && \
-# Bug workaround for https://github.com/IHaskell/ihaskell-notebook/issues/9
-    mkdir -p /home/jovyan/.local/share/jupyter/runtime  && \
-    fix-permissions /home/jovyan/.local  && \
-    fix-permissions /home/jovyan/.local/share  && \
-    fix-permissions /home/jovyan/.local/share/jupyter  && \
-    fix-permissions /home/jovyan/.local/share/jupyter/runtime && \
 # Install system-level ghc using the ghc which was installed by stack.using the IHaskell resolver.
     mkdir -p /opt/ghc && ln -s `stack path --compiler-bin` /opt/ghc/bin  && \
     fix-permissions /opt/ghc
-ENV PATH ${PATH}:/opt/ghc/bin
+
 # Switch back to jovyan user
 USER $NB_UID
 
-RUN stack exec ihaskell -- install --stack --prefix=/usr/local && \
-    mamba install --quiet --yes 'ipywidgets=7.7.1' && \
-    mamba clean --all -f -y && \
+RUN stack exec ihaskell -- install --stack --prefix=/opt/conda/share/jupyter/kernels && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
