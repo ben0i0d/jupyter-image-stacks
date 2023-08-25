@@ -8,7 +8,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ARG STACK_ARGS=
 ARG STACK_BINDIST="stack-2.11.1-linux-x86_64"
 
-ENV PATH=${PATH}:/opt/bin:/opt/ghc/bin \
+ENV PATH=/opt/bin:/opt/ghc/bin:$PATH \
     STACK_ROOT=/opt/stack
 
 # Stack global non-project-specific config stack.config.yaml
