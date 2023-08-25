@@ -60,12 +60,12 @@ RUN fix-permissions $STACK_ROOT && fix-permissions /etc/stack/ && \
     fix-permissions /opt/hvega && \
 # Install system-level ghc using the ghc which was installed by stack.using the IHaskell resolver.
     mkdir -p /opt/ghc && ln -s `stack path --compiler-bin` /opt/ghc/bin  && \
-    fix-permissions /opt/ghc
+    fix-permissions /opt/ghc && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
 
 # Switch back to jovyan user
 USER $NB_UID
+RUN stack exec ihaskell -- install --stack --prefix=/opt/conda/share/jupyter/kernels 
 
-RUN stack exec ihaskell -- install --stack --prefix=/opt/conda/share/jupyter/kernels && \
-    fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}"
 
