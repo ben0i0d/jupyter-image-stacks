@@ -106,18 +106,18 @@ before_script:
 #       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:c-c"
-cpp-c-build:
-  stage: build
-  needs: [] # up-c-build
-  script:
-    - cd cpp
-    - /kaniko/executor
-      --context ./
-      --dockerfile "Dockerfile"
-      --cache=false
-      --snapshot-mode=redo
-      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:cpp-c"
+# cpp-c-build:
+#   stage: build
+#   needs: [up-c-build] # 
+#   script:
+#     - cd cpp
+#     - /kaniko/executor
+#       --context ./
+#       --dockerfile "Dockerfile"
+#       --cache=false
+#       --snapshot-mode=redo
+#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:cpp-c"
 # fortran-c-build:
 #   stage: build
 #   needs: [up-c-build]
@@ -166,18 +166,18 @@ cpp-c-build:
 #       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:kotlin-c"
-# haskell-c-build:
-#   stage: build
-#   needs: [up-c-build] # 
-#   script:
-#     - cd haskell
-#     - /kaniko/executor
-#       --context ./
-#       --dockerfile "Dockerfile"
-#       --cache=false
-#       --snapshot-mode=redo
-#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:haskell-c"
+haskell-c-build:
+  stage: build
+  needs: [] # up-c-build
+  script:
+    - cd haskell
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=false
+      --snapshot-mode=redo
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:haskell-c"
 # go-c-build:
 #   stage: build
 #   needs: [up-c-build]

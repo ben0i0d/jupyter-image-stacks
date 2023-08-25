@@ -35,11 +35,14 @@ RUN cd /tmp  && tar zxf ${STACK_BINDIST}.tar.gz && cp ${STACK_BINDIST}/stack /us
 
 # Clone IHaskell and install ghc from the IHaskell resolver
 RUN cd /opt  && \
-    curl -L "https://eoelab.org:1031/mirrored-sources/IHaskell/-/archive/master/IHaskell-master.tar.gz" | tar xzf -  && mv *IHaskell* IHaskell  && \
+    curl -L "https://eoelab.org:1031/mirrored-sources/IHaskell/-/archive/master/IHaskell-master.tar.gz" | tar xzf - && mv *IHaskell* IHaskell && \
     curl -L "https://eoelab.org:1031/mirrored-sources/hvega/-/archive/main/hvega-main.tar.gz" | tar xzf -  && mv *hvega* hvega  && \
     fix-permissions /opt/IHaskell  && \
     fix-permissions $STACK_ROOT  && \
     fix-permissions /opt/hvega  && \
+    mkdir -p $HOME/.cabal && \
+    echo "repository mirrors.ustc.edu.cn\n  url: https://mirrors.ustc.edu.cn/hackage/\n  secure: True" > $HOME/.cabal/config && \
+    cabal update && \
     stack setup  && \
     fix-permissions $STACK_ROOT  && \
     rm /opt/stack/programs/x86_64-linux/ghc*.tar.xz && \
@@ -49,15 +52,7 @@ RUN cd /opt  && \
     fix-permissions /opt/IHaskell  && \
     fix-permissions $STACK_ROOT  && \
 # Install IHaskell.Display libraries
-    stack build $STACK_ARGS ihaskell-aeson  && \
-    stack build $STACK_ARGS ihaskell-blaze  && \
     stack build $STACK_ARGS ihaskell-charts  && \
-    stack build $STACK_ARGS ihaskell-diagrams  && \
-    stack build $STACK_ARGS ihaskell-gnuplot  && \
-    stack build $STACK_ARGS ihaskell-graphviz  && \
-    stack build $STACK_ARGS ihaskell-hatex  && \
-    stack build $STACK_ARGS ihaskell-juicypixels  && \
-    stack build $STACK_ARGS ihaskell-plot  && \ 
     stack build $STACK_ARGS ihaskell-widgets  && \
     stack build $STACK_ARGS hvega  && \
     stack build $STACK_ARGS ihaskell-hvega  && \
