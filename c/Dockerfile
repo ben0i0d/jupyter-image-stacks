@@ -11,8 +11,11 @@ RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends gcc && \
     apt-get clean && rm -rf /var/lib/apt/lists/*  && \
     git clone --depth=1 https://eoelab.org:1031/mirrored-sources/jupyter-c-kernel.git && cd jupyter-c-kernel && \
-    sudo install .  && \ # pip install --no-cache-dir -e .
-    cd jupyter_c_kernel && sudo install_c_kernel # install_c_kernel --user
+    sudo install .  && \ 
+    cd jupyter_c_kernel && sudo install_c_kernel 
+
+# pip install --no-cache-dir -e .
+# install_c_kernel --user
 
 USER ${NB_UID}
 WORKDIR "${HOME}"
