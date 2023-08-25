@@ -2,13 +2,15 @@ FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-c
 
 LABEL maintainer="Pd.ch <cpd233@outlook.com>"
 
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
 # Extra arguments to `stack build`. Used to build --fast, see Makefile.
 ARG STACK_ARGS=
 ARG STACK_BINDIST="stack-2.11.1-linux-x86_64"
 
-ENV PATH=/opt/bin:/opt/ghc/bin:$PATH \
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+USER root
+
+ENV PATH="/opt/bin:/opt/ghc/bin:${PATH}"
     STACK_ROOT=/opt/stack
 
 # Stack global non-project-specific config stack.config.yaml
@@ -18,7 +20,7 @@ COPY global-hints.yaml /etc/stack/global-hints-cache.yaml
 COPY stack-2.11.1-linux-x86_64.tar.gz /tmp/stack-2.11.1-linux-x86_64.tar.gz
 COPY global-project.stack.yaml $STACK_ROOT/global-project/stack.yaml
 
-USER root
+
 RUN fix-permissions $STACK_ROOT && fix-permissions /etc/stack/ \
 # Install system dependencies
     apt-get update && apt-get install -yq --no-install-recommends python3-pip libtinfo-dev libzmq3-dev libcairo2-dev libpango1.0-dev \
