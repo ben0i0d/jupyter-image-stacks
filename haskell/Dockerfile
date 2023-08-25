@@ -26,15 +26,14 @@ RUN fix-permissions $STACK_ROOT && fix-permissions /etc/stack/ && \
     apt-get update && apt-get install -yq --no-install-recommends python3-pip libtinfo-dev libzmq3-dev libcairo2-dev libpango1.0-dev \
     libmagic-dev libblas-dev liblapack-dev libffi-dev libgmp-dev gnupg netbase graphviz gnuplot-nox \
     g++ gcc libc6-dev libffi-dev libgmp-dev make xz-utils zlib1g-dev less && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
 # Stack Linux (generic) Manual download
-RUN cd /tmp  && tar zxf ${STACK_BINDIST}.tar.gz && cp ${STACK_BINDIST}/stack /usr/bin/stack  && \
+    cd /tmp  && tar zxf ${STACK_BINDIST}.tar.gz && cp ${STACK_BINDIST}/stack /usr/bin/stack  && \
     rm -rf ${STACK_BINDIST}.tar.gz ${STACK_BINDIST}  && \
     chown --recursive $NB_UID:users $STACK_ROOT/global-project && \
-    fix-permissions $STACK_ROOT/global-project
-
+    fix-permissions $STACK_ROOT/global-project && \
 # Clone IHaskell and install ghc from the IHaskell resolver
-RUN cd /opt  && \
+    cd /opt  && \
     curl -L "https://eoelab.org:1031/mirrored-sources/IHaskell/-/archive/master/IHaskell-master.tar.gz" | tar xzf - && mv *IHaskell* IHaskell && \
     curl -L "https://eoelab.org:1031/mirrored-sources/hvega/-/archive/main/hvega-main.tar.gz" | tar xzf -  && mv *hvega* hvega  && \
     fix-permissions /opt/IHaskell  && \
@@ -42,7 +41,6 @@ RUN cd /opt  && \
     fix-permissions /opt/hvega  && \
     mkdir -p $HOME/.cabal && \
     echo "repository mirrors.ustc.edu.cn\n  url: https://mirrors.ustc.edu.cn/hackage/\n  secure: True" > $HOME/.cabal/config && \
-    cabal update && \
     stack setup  && \
     fix-permissions $STACK_ROOT  && \
     rm /opt/stack/programs/x86_64-linux/ghc*.tar.xz && \
