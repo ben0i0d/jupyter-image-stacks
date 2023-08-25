@@ -66,6 +66,6 @@ RUN fix-permissions $STACK_ROOT && fix-permissions /etc/stack/ && \
 
 # Switch back to jovyan user
 USER $NB_UID
-RUN stack exec ihaskell -- install --stack --prefix=/opt/conda/share/jupyter/kernels 
+RUN stack exec ihaskell -- install --stack --prefix=/opt/conda/
 
 
