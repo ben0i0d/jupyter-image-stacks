@@ -10,8 +10,8 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root
 
-ENV PATH="/opt/bin:/opt/ghc/bin:${PATH}" \
-    STACK_ROOT=/opt/stack
+#ENV PATH="/opt/bin:/opt/ghc/bin:${PATH}" \
+#    STACK_ROOT=/opt/stack
 
 # Stack global non-project-specific config stack.config.yaml
 # Stack global project stack.yaml
