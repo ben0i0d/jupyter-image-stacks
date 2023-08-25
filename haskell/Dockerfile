@@ -21,7 +21,7 @@ COPY stack-2.11.1-linux-x86_64.tar.gz /tmp/stack-2.11.1-linux-x86_64.tar.gz
 COPY global-project.stack.yaml $STACK_ROOT/global-project/stack.yaml
 
 
-RUN fix-permissions $STACK_ROOT && fix-permissions /etc/stack/ \
+RUN fix-permissions $STACK_ROOT && fix-permissions /etc/stack/ && \
 # Install system dependencies
     apt-get update && apt-get install -yq --no-install-recommends python3-pip libtinfo-dev libzmq3-dev libcairo2-dev libpango1.0-dev \
     libmagic-dev libblas-dev liblapack-dev libffi-dev libgmp-dev gnupg netbase graphviz gnuplot-nox \
