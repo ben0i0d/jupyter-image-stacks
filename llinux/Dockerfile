@@ -4,7 +4,7 @@ LABEL maintainer="Pd.ch <cpd233@outlook.com>"
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 COPY --chown=$NB_USER:$NB_USER jupyter_remote_desktop_proxy /opt/novnc/jupyter_remote_desktop_proxy
-COPY --chown=$NB_USER:$NB_USER setup.py MANIFEST.in /opt/novnc/
+COPY --chown=$NB_USER:$NB_USER setup.py MANIFEST.in README.md LICENSE /opt/novnc/
 
 USER root
 
