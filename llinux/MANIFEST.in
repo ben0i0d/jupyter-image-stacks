@@ -1,4 +1,0 @@
-#BSD 3-Clause License
-#Copyright (c) 2019, University of Dundee
-
-graft jupyter_remote_desktop_proxy/share
