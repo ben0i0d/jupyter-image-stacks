@@ -9,7 +9,7 @@ ENV SCILAB_EXECUTABLE='scilab-adv-cli'
 
 #install desktop+scilab+extension
 RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends \
+    apt-get install --yes \
         dbus-x11 xfce4 xfce4-panel xfce4-session xfce4-settings xorg xubuntu-icon-theme tigervnc-standalone-server tigervnc-xorg-extension \
         scilab scilab-* && \
     apt-get clean && rm -rf /var/lib/apt/lists/*  && \
