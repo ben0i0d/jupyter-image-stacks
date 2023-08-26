@@ -5,7 +5,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root
 
-ENV SCILAB_EXECUTABLE='scilab-cli'
+ENV SCILAB_EXECUTABLE='scilab-adv-cli'
 
 #install desktop+scilab+extension
 RUN apt-get update --yes && \
@@ -19,6 +19,6 @@ RUN apt-get update --yes && \
 USER $NB_USER
 
 RUN mamba install -y websockify && \
-    pip install jupyter-remote-desktop-proxy  && \
+    pip install jupyter-remote-desktop-proxy scilab_kernel && \
     pip cache purge && mamba clean --all -f -y 
     
