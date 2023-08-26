@@ -3,22 +3,22 @@ LABEL maintainer="Pd.ch <cpd233@outlook.com>"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-USER root
+COPY --chown=$NB_USER:$NB_USER jupyter_remote_desktop_proxy /opt/novnc/jupyter_remote_desktop_proxy
+COPY --chown=$NB_USER:$NB_USER setup.py MANIFEST.in /opt/novnc/
 
-COPY turbovnc_2.2.6_amd64.deb /tmp/turbovnc_2.2.6_amd64.deb
+USER root
 
 RUN apt-get -y -q update && \ 
     apt-get -y -q upgrade && \ 
-    apt-get -y -q install dbus-x11 firefox xfce4 xfce4-panel xfce4-session xfce4-settings xorg xubuntu-icon-theme && \ 
-    fix-permissions "/home/${NB_USER}" && \ 
-# Install TurboVNC (https://github.com/TurboVNC/turbovnc)
-    apt-get install -y -q /tmp/turbovnc_2.2.6_amd64.deb  && \
-    apt-get remove -y -q light-locker  && \
-    rm /tmp/turbovnc_2.2.6_amd64.deb  && \
-    ln -s /opt/TurboVNC/bin/* /usr/local/bin/ && \
+    apt-get -y -q install dbus-x11 xfce4 xfce4-panel xfce4-session xfce4-settings xorg xubuntu-icon-theme tigervnc-standalone-server tigervnc-xorg-extension \ && \ 
+    chown -R $NB_UID:$NB_GID $HOME && fix-permissions "/home/${NB_USER}" && \ 
     apt-get clean && rm -rf /var/lib/apt/lists/* 
+
 USER $NB_USER
+
 RUN mamba install -y websockify && \
-    pip install jupyter-remote-desktop-proxy && \
-    mamba clean --all -f -y && \
-    pip cache purge
+    cd /opt/novnc  && \
+    pip install -e .
+
+
+
