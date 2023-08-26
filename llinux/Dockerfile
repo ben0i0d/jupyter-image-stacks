@@ -8,9 +8,9 @@ COPY --chown=$NB_USER:$NB_USER setup.py MANIFEST.in /opt/novnc/
 
 USER root
 
-RUN apt-get -y -q update && \ 
-    apt-get -y -q upgrade && \ 
-    apt-get -y -q install dbus-x11 xfce4 xfce4-panel xfce4-session xfce4-settings xorg xubuntu-icon-theme tigervnc-standalone-server tigervnc-xorg-extension \ && \ 
+RUN apt-get update --yes && \
+    apt-get --yes --no-install-recommends install \
+        dbus-x11 xfce4 xfce4-panel xfce4-session xfce4-settings xorg xubuntu-icon-theme tigervnc-standalone-server tigervnc-xorg-extension && \ 
     chown -R $NB_UID:$NB_GID $HOME && fix-permissions "/home/${NB_USER}" && \ 
     apt-get clean && rm -rf /var/lib/apt/lists/* 
 
@@ -19,6 +19,3 @@ USER $NB_USER
 RUN mamba install -y websockify && \
     cd /opt/novnc  && \
     pip install -e .
-
-
-
