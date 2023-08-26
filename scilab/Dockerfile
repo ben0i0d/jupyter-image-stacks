@@ -5,7 +5,10 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root
 
-ENV SCILAB_EXECUTABLE='scilab-adv-cli'
+
+ENV SCREEN_RESOLUTION=1280x768 \
+    SCILAB_EXECUTABLE='scilab-adv-cli' \
+    DISPLAY=:0
 
 #install desktop+scilab+extension
 RUN apt-get update --yes && \
