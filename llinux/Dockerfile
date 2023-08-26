@@ -11,7 +11,7 @@ USER root
 RUN apt-get update --yes && \
     apt-get --yes --no-install-recommends install \
         dbus-x11 xfce4 xfce4-panel xfce4-session xfce4-settings xorg xubuntu-icon-theme tigervnc-standalone-server tigervnc-xorg-extension && \ 
-    apt-get clean && rm -rf /var/lib/apt/lists/* 
+    apt-get clean && rm -rf /var/lib/apt/lists/*  && \
     mamba install -y websockify && \
     cd /opt/novnc  && \
     pip install -e .  && \
