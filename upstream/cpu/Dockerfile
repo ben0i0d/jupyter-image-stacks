@@ -14,9 +14,7 @@ COPY cert/eoelab.org.crt /usr/local/share/ca-certificates/eoelab.org.crt
 
 USER root
 ENV DEBIAN_FRONTEND noninteractive 
-RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
-    sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debian.sources && \
-    sed -i 's|security.debian.org/debian-security|mirrors.ustc.edu.cn/debian-security|g' /etc/apt/sources.list && \   
+RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debian.sources && \ 
     apt-get update --yes && apt-get upgrade --yes && \
     apt-get install --yes --no-install-recommends sudo ca-certificates locales tini wget curl git git-lfs vim bzip2 zip unzip xclip p7zip-full unrar fonts-wqy-zenhei && \
     update-ca-certificates && \
