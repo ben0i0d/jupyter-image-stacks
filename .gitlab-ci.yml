@@ -144,7 +144,7 @@ llinux-c-build:
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:java-c"
 js-c-build:
   stage: build
-  needs: [up-c-build]
+  needs: [] # up-c-build
   script:
     - cd js
     - /kaniko/executor
