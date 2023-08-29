@@ -4,6 +4,9 @@
 2. 我们的源仓库是 https://eoelab.org:1031/build-image-stacks/jupyter-image-stacks  
 3. 我们的docker镜像仓库是 https://hub.docker.com/r/ben0i0d/jupyter   
 4. 对于issue/PR，我们推荐在源仓库上提，这对于我们工作更方便，但是如果您在github上提，我们也会跟进处理  
+
+**我们的CPU分支上游已经切换到debian:bookworm,请特别注意这一点**
+
 ## 项目梗概
 ### 用途
 用于支撑我们基础计算设施与公开IDE-Jupyterhub的镜像构建项目，测试与工作场景是Rancher管理的基于RKE2的私有K8S集群，并完成汉化，扩展等工作  
@@ -31,7 +34,7 @@
 ```
 ### 当前构建镜像清单
 * Upstream: 镜像上游，类似于jupyter官方的minimal-notebook镜像  
-提供软件包：文件压缩/解压(.bz2|.zip|.rar|.7z)，项目管理(git|git lfs),证书管理(ca-certificates)，编辑器（vim）,网络交互（curl|wget）,中文字体（fonts-wqy-zenhei） 
+提供软件包：文件压缩/解压(.bz2|.zip|.7z)，项目管理(git|git lfs),证书管理(ca-certificates)，编辑器（vim）,网络交互（curl|wget）,中文字体（fonts-wqy-zenhei）
 * Llinux（With Desktop-GUI）：在无特权的情况下学习Linux系统，提供Xfce桌面支持   
 * Python：支持Python，简洁、易读、多用途的高级编程语言，强调代码可读性和生产力。
 * C: 支持C(versions ≥ C89)，通用的编程语言，底层和高效，广泛应用于系统级开发和嵌入式设备。
@@ -128,7 +131,7 @@ MATH-->MC(Sagemath)
 **镜像源**
 * conda bfsu：https://mirrors.bfsu.edu.cn/help/anaconda/
 * pip bfsu：https://mirrors.bfsu.edu.cn/help/pypi/
-* apt ustc：https://mirrors.ustc.edu.cn/help/ubuntu.html
+* apt ustc：https://mirrors.ustc.edu.cn/help/debian.html
 * npm npmmirror(AliYun): https://registry.npmmirror.com/
 * apache tuna: https://mirrors.tuna.tsinghua.edu.cn/apache/
 * julia-pkg ustc: https://mirrors.ustc.edu.cn/julia/

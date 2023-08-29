@@ -1,4 +1,4 @@
-FROM eoelab.org:1032/mirrored-sources/mirror-image-stacks/ubuntu:22.04
+FROM eoelab.org:1032/mirrored-sources/mirror-image-stacks/debian:bookworm
 
 LABEL maintainer="Pd.ch <cpd233@outlook.com>"
 
@@ -14,10 +14,9 @@ COPY cert/eoelab.org.crt /usr/local/share/ca-certificates/eoelab.org.crt
 
 USER root
 ENV DEBIAN_FRONTEND noninteractive 
-RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list && \
-    sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \   
+RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debian.sources && \ 
     apt-get update --yes && apt-get upgrade --yes && \
-    apt-get install --yes --no-install-recommends sudo ca-certificates locales tini wget curl git git-lfs vim bzip2 zip unzip xclip p7zip-full unrar fonts-wqy-zenhei && \
+    apt-get install --yes --no-install-recommends sudo ca-certificates locales tini wget curl git git-lfs vim bzip2 zip unzip xclip p7zip-full fonts-wqy-zenhei && \
     update-ca-certificates && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && locale-gen
