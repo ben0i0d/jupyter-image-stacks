@@ -82,18 +82,18 @@ before_script:
 #       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:pyai-c"
-llinux-c-build:
-  stage: build
-  needs: [] # up-c-build
-  script:
-    - cd llinux
-    - /kaniko/executor
-      --context ./
-      --dockerfile "Dockerfile"
-      --cache=false
-      --snapshot-mode=redo
-      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:llinux-c"
+# llinux-c-build:
+#   stage: build
+#   needs: [up-c-build] # 
+#   script:
+#     - cd llinux
+#     - /kaniko/executor
+#       --context ./
+#       --dockerfile "Dockerfile"
+#       --cache=false
+#       --snapshot-mode=redo
+#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:llinux-c"
 # c-c-build:
 #   stage: build
 #   needs: [up-c-build] # 
@@ -190,24 +190,24 @@ js-c-build:
 #       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:go-c"
-rust-c-build:
-  stage: build
-  needs: [] # up-c-build
-  script:
-    - cd rust
-    - /kaniko/executor
-      --context ./
-      --dockerfile "Dockerfile"
-      --build-arg "http_proxy=http://192.168.2.175:7890"
-      --build-arg "HTTP_PROXY=http://192.168.2.175:7890"
-      --build-arg "https_proxy=http://192.168.2.175:7890"
-      --build-arg "HTTPS_PROXY=http://192.168.2.175:7890"
-      --build-arg "no_proxy=127.0.0.1,localhost,172.0.0.0/8,192.0.0.0/8"
-      --build-arg "NO_PROXY=127.0.0.1,localhost,172.0.0.0/8,192.0.0.0/8"
-      --cache=false
-      --snapshot-mode=redo
-      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:rust-c"
+# rust-c-build:
+#   stage: build
+#   needs: [] # up-c-build
+#   script:
+#     - cd rust
+#     - /kaniko/executor
+#       --context ./
+#       --dockerfile "Dockerfile"
+#       --build-arg "http_proxy=http://192.168.2.175:7890"
+#       --build-arg "HTTP_PROXY=http://192.168.2.175:7890"
+#       --build-arg "https_proxy=http://192.168.2.175:7890"
+#       --build-arg "HTTPS_PROXY=http://192.168.2.175:7890"
+#       --build-arg "no_proxy=127.0.0.1,localhost,172.0.0.0/8,192.0.0.0/8"
+#       --build-arg "NO_PROXY=127.0.0.1,localhost,172.0.0.0/8,192.0.0.0/8"
+#       --cache=false
+#       --snapshot-mode=redo
+#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:rust-c"
 # julia-c-build:
 #   stage: build
 #   needs: [up-c-build]
@@ -386,19 +386,19 @@ rust-c-build:
 #       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:octave-c"
-scilab-c-build:
-  stage: build
-  needs: [] # up-c-build
-  script:
-    - cd scilab
-    - /kaniko/executor
-      --context ./
-      --dockerfile "Dockerfile"
-      --cache=false
-      --compressed-caching=false
-      --snapshot-mode=redo
-      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scilab-c"
+# scilab-c-build:
+#   stage: build
+#   needs: [up-c-build] # 
+#   script:
+#     - cd scilab
+#     - /kaniko/executor
+#       --context ./
+#       --dockerfile "Dockerfile"
+#       --cache=false
+#       --compressed-caching=false
+#       --snapshot-mode=redo
+#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scilab-c"
 
 # up-g-build:
 #   stage: build
