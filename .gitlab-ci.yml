@@ -336,18 +336,18 @@ before_script:
 #       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:lua-c"
-# sql-c-build:
-#   stage: build
-#   needs: [up-c-build] # 
-#   script:
-#     - cd sql
-#     - /kaniko/executor
-#       --context ./
-#       --dockerfile "Dockerfile"
-#       --cache=false
-#       --snapshot-mode=redo
-#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:sql-c"
+sql-c-build:
+  stage: build
+  needs: [] # up-c-build
+  script:
+    - cd sql
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=false
+      --snapshot-mode=redo
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:sql-c"
 # sage-c-build:
 #   stage: build
 #   needs: [up-c-build]
@@ -437,17 +437,17 @@ before_script:
 #       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy-g"
-pyai-g-build:
-  stage: build
-  needs: [] # scipy-g-build
-  script:
-    - cd pyai/gpu
-    - /kaniko/executor
-      --context ./
-      --dockerfile "Dockerfile"
-      --cache=false
-      --compressed-caching=false
-      --snapshot-mode=redo
-      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:pyai-g"
+# pyai-g-build:
+#   stage: build
+#   needs: [scipy-g-build] # 
+#   script:
+#     - cd pyai/gpu
+#     - /kaniko/executor
+#       --context ./
+#       --dockerfile "Dockerfile"
+#       --cache=false
+#       --compressed-caching=false
+#       --snapshot-mode=redo
+#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:pyai-g"
 

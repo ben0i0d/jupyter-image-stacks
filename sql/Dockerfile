@@ -3,7 +3,7 @@ LABEL maintainer="Pd.ch <cpd233@outlook.com>"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-RUN pip install duckdb_kernel && \
+RUN pip install duckdb duckdb_kernel && \
     pip cache purge && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
