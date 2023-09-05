@@ -13,7 +13,11 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 COPY cert/eoelab.org.crt /usr/local/share/ca-certificates/eoelab.org.crt
 
 USER root
-ENV DEBIAN_FRONTEND noninteractive 
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    PATH=$PATH:/opt/conda/bin
+
+
 RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debian.sources && \ 
     apt-get update --yes && apt-get upgrade --yes && \
     apt-get install --yes --no-install-recommends sudo ca-certificates locales tini wget curl git git-lfs vim bzip2 zip unzip xclip p7zip-full fonts-wqy-zenhei && \

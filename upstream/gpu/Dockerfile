@@ -13,7 +13,10 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 COPY cert/eoelab.org.crt /usr/local/share/ca-certificates/eoelab.org.crt
 
 USER root
-ENV DEBIAN_FRONTEND noninteractive 
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    PATH=$PATH:/opt/conda/bin
+
 RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list && \
     sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \   
     apt-get update --yes && apt-get upgrade --yes && \
