@@ -26,9 +26,8 @@ ENV DEBIAN_FRONTEND=noninteractive \
     LANGUAGE=en_US.UTF-8 \
     PATH="/opt/conda/bin:${PATH}" \
     HOME="/home/jovyan"
-
-RUN # sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debian.sources && \ 
-    apt-get update --yes && apt-get upgrade --yes && \
+# sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debian.sources && \ 
+RUN apt-get update --yes && apt-get upgrade --yes && \
     apt-get install --yes --no-install-recommends sudo ca-certificates locales tini wget curl git git-lfs vim bzip2 zip unzip xclip p7zip-full fonts-wqy-zenhei && \
     update-ca-certificates && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
