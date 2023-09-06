@@ -30,7 +30,8 @@ COPY conf/initial-condarc "${CONDA_DIR}/.condarc"
 COPY conf/Rprofile.site /opt/conda/lib/R/etc/
 COPY conf/jupyter_server_config.py conf/docker_healthcheck.py /etc/jupyter/
 
-RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debian.sources && \ 
+RUN rm /etc/profile && \
+    sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debian.sources && \ 
     apt-get update --yes && apt-get upgrade --yes && \
     apt-get install --yes --no-install-recommends sudo ca-certificates locales tini wget curl git git-lfs vim bzip2 zip unzip xclip p7zip-full fonts-wqy-zenhei && \
     update-ca-certificates && \
@@ -53,7 +54,7 @@ WORKDIR /tmp
 # install jupyter python mamba extension
 RUN wget -qO /tmp/micromamba.tar.bz2 "https://micromamba.snakepit.net/api/micromamba/linux-64/latest" && \
     tar -xvjf /tmp/micromamba.tar.bz2 --strip-components=1 bin/micromamba && rm /tmp/micromamba.tar.bz2 && \
-    ./micromamba install --root-prefix="${CONDA_DIR}" --prefix="${CONDA_DIR}" --yes 'mamba' "python=3.11" 'jupyter_core' 'jupyterhub' 'jupyterlab' 'notebook' && \
+    ./micromamba install --root-prefix="${CONDA_DIR}" --prefix="${CONDA_DIR}" --yes 'mamba' "python=3.11" 'jupyter_core' 'jupyterlab' 'notebook' && \
     rm micromamba && \
     mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
     mamba clean --all -f -y && \
@@ -66,5 +67,5 @@ RUN wget -qO /tmp/micromamba.tar.bz2 "https://micromamba.snakepit.net/api/microm
 WORKDIR "${HOME}"
 
 # Configure container startup
-# ENTRYPOINT ["tini", "-g", "--"]
-# CMD ["start.sh"]
+ENTRYPOINT ["tini", "-g", "--"]
+CMD ["start.sh"]
