@@ -14,8 +14,8 @@ USER ${NB_UID}
 # base
 RUN mamba install --yes 'r-base' 'r-irkernel' && mamba clean --all -f -y && \
     # Interactivity and visualization
-    R -e "install.packages(c('r-shiny','r-htmlwidgets','r-htmltools','r-crayon'))" && \
+    R -e "install.packages('r-shiny','r-htmlwidgets','r-htmltools','r-crayon')" && \
     # Machine learning and data mining
-    R -e "install.packages(c('r-caret','r-e1071','r-forecast','r-randomforest','r-tidymodels'))" && \
+    R -e "install.packages('r-caret','r-e1071','r-forecast','r-randomforest','r-tidymodels')" && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
