@@ -2,10 +2,6 @@ FROM eoelab.org:1032/mirrored-sources/mirror-image-stacks/debian:bookworm
 
 LABEL maintainer="Pd.ch <cpd233@outlook.com>"
 
-ARG NB_USER="jovyan"
-ARG NB_UID="1000"
-ARG NB_GID="100"
-
 EXPOSE 8888
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -18,30 +14,29 @@ USER root
 ENV DEBIAN_FRONTEND=noninteractive \
     CONDA_DIR=/opt/conda \
     SHELL=/bin/bash \
-    NB_USER="${NB_USER}" \
-    NB_UID=${NB_UID} \
-    NB_GID=${NB_GID} \
+    NB_USER=jovyan \
+    NB_UID=1000 \
+    NB_GID=100 \
     LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8 \
     PATH="/opt/conda/bin:${PATH}" \
     HOME="/home/jovyan"
+
+# Copy local files
+# Copy a script that we will use to correct permissions after running certain commands
+COPY conf/fix-permissions start-sh/* /usr/local/bin/
+COPY conf/initial-condarc "${CONDA_DIR}/.condarc"
+COPY conf/Rprofile.site /opt/conda/lib/R/etc/
+COPY conf/jupyter_server_config.py conf/docker_healthcheck.py /etc/jupyter/
+
 # sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debian.sources && \ 
 RUN apt-get update --yes && apt-get upgrade --yes && \
     apt-get install --yes --no-install-recommends sudo ca-certificates locales tini wget curl git git-lfs vim bzip2 zip unzip xclip p7zip-full fonts-wqy-zenhei && \
     update-ca-certificates && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && locale-gen
-
-
-# Copy local files
-# Copy a script that we will use to correct permissions after running certain commands
-COPY conf/fix-permissions start-sh/* /usr/local/bin/
-COPY --chown="${NB_UID}:${NB_GID}" conf/initial-condarc "${CONDA_DIR}/.condarc"
-COPY --chown="${NB_UID}:${NB_GID}" conf/Rprofile.site /opt/conda/lib/R/etc/
-COPY conf/jupyter_server_config.py conf/docker_healthcheck.py /etc/jupyter/
-
-RUN chmod a+rx /usr/local/bin/fix-permissions && \
+    echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && locale-gen && \
+    chmod a+rx /usr/local/bin/fix-permissions && \
     echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
     sed -i.bak -e 's/^%admin/#%admin/' /etc/sudoers && \
     sed -i.bak -e 's/^%sudo/#%sudo/' /etc/sudoers && \
