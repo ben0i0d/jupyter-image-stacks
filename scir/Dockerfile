@@ -12,7 +12,7 @@ RUN apt-get update --yes && \
 USER ${NB_UID}
 # R packages including IRKernel which gets installed globally.
 # base
-RUN RUN mamba install --yes \
+RUN mamba install --yes \
     # base
     'r-base' 'r-irkernel' \
     # Interactivity and visualization
