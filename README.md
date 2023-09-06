@@ -121,7 +121,7 @@ MATH-->MC(Sagemath)
 * cuda 12.1.0
 * cudnn 8
 * Python 3.11
-* Julia 1.9.2
+* Julia 1.9.3
 * Java openjdk-17
 * kotlin(jre) openjdk-17-jre
 * Dotnet 7.0
