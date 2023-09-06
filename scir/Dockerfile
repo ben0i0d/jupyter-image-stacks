@@ -7,7 +7,9 @@ USER root
 # R pre-requisites
 RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends gfortran gcc fonts-dejavu && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    fix-permissions "/home/${NB_USER}" && \
+    fix-permissions "${CONDA_DIR}"
 
 USER ${NB_UID}
 # R packages including IRKernel which gets installed globally.
