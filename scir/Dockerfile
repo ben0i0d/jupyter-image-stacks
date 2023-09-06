@@ -6,18 +6,19 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 USER root
 # R pre-requisites
 RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends gfortran gcc fonts-dejavu  && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    fix-permissions "/home/${NB_USER}" && \
-    fix-permissions "${CONDA_DIR}"
+    apt-get install --yes --no-install-recommends gfortran gcc fonts-dejavu && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* 
 
 USER ${NB_UID}
 # R packages including IRKernel which gets installed globally.
 # base
-RUN mamba install --yes 'r-base' 'r-irkernel' && \
+RUN RUN mamba install --yes \
+    # base
+    'r-base' 'r-irkernel' \
     # Interactivity and visualization
-    R -e "install.packages('shiny','htmlwidgets','htmltools','crayon')" && \
+    'r-shiny' 'r-htmlwidgets' 'r-htmltools' 'r-crayon' \
     # Machine learning and data mining
-    R -e "install.packages('caret','e1071','forecast','randomforest','tidymodels')" && \
+    'r-caret' 'r-e1071' 'r-forecast' 'r-randomforest' 'r-tidymodels' && \
+    mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
