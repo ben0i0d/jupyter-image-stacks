@@ -36,7 +36,7 @@ RUN apt-get update --yes && apt-get upgrade --yes && \
 
 # Copy local files
 # Copy a script that we will use to correct permissions after running certain commands
-COPY conf/fix-permissions start-sh/start.sh /usr/local/bin/
+COPY conf/fix-permissions start-sh/* /usr/local/bin/
 COPY --chown="${NB_UID}:${NB_GID}" conf/initial-condarc "${CONDA_DIR}/.condarc"
 COPY --chown="${NB_UID}:${NB_GID}" conf/Rprofile.site /opt/conda/lib/R/etc/
 COPY conf/jupyter_server_config.py conf/docker_healthcheck.py /etc/jupyter/
@@ -58,7 +58,7 @@ WORKDIR /tmp
 # install jupyter python mamba extension
 RUN wget -qO /tmp/micromamba.tar.bz2 "https://micromamba.snakepit.net/api/micromamba/linux-64/latest" && \
     tar -xvjf /tmp/micromamba.tar.bz2 --strip-components=1 bin/micromamba && rm /tmp/micromamba.tar.bz2 && \
-    ./micromamba install --root-prefix="${CONDA_DIR}" --prefix="${CONDA_DIR}" --yes 'mamba' "python=3.11" 'jupyterlab' && \
+    ./micromamba install --root-prefix="${CONDA_DIR}" --prefix="${CONDA_DIR}" --yes 'mamba' "python=3.11" 'jupyter_core' && \
     rm micromamba && \
     mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
     mamba clean --all -f -y && \
