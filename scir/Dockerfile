@@ -7,13 +7,11 @@ USER root
 # R pre-requisites
 RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends gfortran gcc fonts-dejavu && \
-    fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}" && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    apt-get clean && rm -rf /var/lib/apt/lists/* 
 
 USER ${NB_UID}
 # R packages including IRKernel which gets installed globally.
-
+# base
 RUN mamba install --yes \
     # base
     'r-base' 'r-irkernel' \

@@ -4,34 +4,36 @@
 2. 我们的源仓库是 https://eoelab.org:1031/build-image-stacks/jupyter-image-stacks  
 3. 我们的docker镜像仓库是 https://hub.docker.com/r/ben0i0d/jupyter   
 4. 对于issue/PR，我们推荐在源仓库上提，这对于我们工作更方便，但是如果您在github上提，我们也会跟进处理  
-
-**我们的CPU分支上游已经切换到debian:bookworm,请特别注意这一点**
-
 ## 项目梗概
-### 用途
-用于支撑我们基础计算设施与公开IDE-Jupyterhub的镜像构建项目，测试与工作场景是Rancher管理的基于RKE2的私有K8S集群，并完成汉化，扩展等工作  
+### 目标预期
+1. 完整：从基础系统开始，项目内部完成依赖，并实现一个CI文件用于自动化构建。
+2. 安全：源代码与镜像构建公开化，测试与工作场景是Rancher管理的私有K8S集群下的Jupyterhub
+3. 多样：从现有的仓库代码开始，从现有的kernel开始，集成进入项目统一构建，并完成汉化，扩展，配置镜像源等工作  
 ### 如何使用
 
 **Docker**
 
 镜像可以像jupyternotebook一样使用，容器端口为8888  
 对于用后即抛地使用，可以用如下指令,注意这没有数据持久化，意味着你需要使用诸如Git等工具同步您的工作进度  
-`docker run -p 8888:8888 ben0i0d/jupyter:<tag>`  
+`docker run -d -p 8888:8888 ben0i0d/jupyter:<tag>`  
 对于需要长期使用，可以用如下指令，这将挂载一个目录到容器内,以提供数据持久化  
-`docker run -it --rm -p 8888:8888 -v "${PWD}":/home/jovyan ben0i0d/jupyter:<tag>`
+`docker run -d -p 8888:8888 -v "${PWD}":/home/jovyan ben0i0d/jupyter:<tag>`
 
 **Jupyterhub**
 
 在singleuser内的profile指定镜像即可  
 例如：
 ```
-    - description: DL environment with GPU
-      display_name: DL_GPU environment
+    - description: 提供Python的科学计算环境，提供了丰富的数值计算、优化、信号处理、统计分析等功能，用于科学研究和工程应用。
+      display_name: Scipy
       kubespawner_override:
-        extra_resource_limits:
-          nvidia.com/gpu: '1'
-        image: ben0i0d/jupyter:dl-g
+        image: eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy-c
 ```
+### 用前须知
+1. CPU分支上游已经切换到debian:bookworm
+2. Julia镜像中的环境变量`JULIA_NUM_THREADS`，请在启动时根据理想的并发线程数进行配置
+3. pip包管理器的配置文件在用户目录下，使用时手动运行`pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple`完成换源
+4. 默认情况下我们信任了eoelab.org的域名证书，这不会带来安全问题
 ### 当前构建镜像清单
 * Upstream: 镜像上游，类似于jupyter官方的minimal-notebook镜像  
 提供软件包：文件压缩/解压(.bz2|.zip|.7z)，项目管理(git|git lfs),证书管理(ca-certificates)，编辑器（vim）,网络交互（curl|wget）,中文字体（fonts-wqy-zenhei）
@@ -120,11 +122,9 @@ MATH-->MC(Sagemath)
 * cudnn 8
 * Python 3.11
 * Julia 1.9.2
-* Java zulu17-jdk
+* Java openjdk-17
 * kotlin(jre) openjdk-17-jre
 * Dotnet 7.0
-* Tensorflow latest
-* pytorch latest
 * spark 3.4.1
 * jupyterlab 4
 
