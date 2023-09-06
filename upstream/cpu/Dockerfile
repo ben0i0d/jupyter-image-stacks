@@ -42,8 +42,6 @@ COPY --chown="${NB_UID}:${NB_GID}" conf/Rprofile.site /opt/conda/lib/R/etc/
 COPY conf/jupyter_server_config.py conf/docker_healthcheck.py /etc/jupyter/
 
 RUN chmod a+rx /usr/local/bin/fix-permissions && \
-    sed -i 's/^#force_color_prompt=yes/force_color_prompt=yes/' /etc/skel/.bashrc && \
-    echo 'eval "$(command conda shell.bash hook 2> /dev/null)"' >> /etc/skel/.bashrc && \
     echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
     sed -i.bak -e 's/^%admin/#%admin/' /etc/sudoers && \
     sed -i.bak -e 's/^%sudo/#%sudo/' /etc/sudoers && \
@@ -63,29 +61,15 @@ RUN wget -qO /tmp/micromamba.tar.bz2 "https://micromamba.snakepit.net/api/microm
     ./micromamba install --root-prefix="${CONDA_DIR}" --prefix="${CONDA_DIR}" --yes 'mamba' "python=3.11" 'jupyter_core' && \
     rm micromamba && \
     mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
-    mamba install --yes 'notebook' 'jupyterhub' 'jupyterlab' && \
-    jupyter notebook --generate-config && \
+    mamba clean --all -f -y && \
     pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple && \
     pip install jupyterlab-language-pack-zh-CN jupyterlab_tabnine && \
     pip cache purge && \
-    jupyter lab clean && \
-    rm -rf "/home/${NB_USER}/.cache/yarn" && \
-    mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}" 
 
-# Fix permissions on /etc/jupyter as root
-USER root
-# Legacy for Jupyter Notebook Server
-RUN sed -re "s/c.ServerApp/c.NotebookApp/g" /etc/jupyter/jupyter_server_config.py > /etc/jupyter/jupyter_notebook_config.py && fix-permissions /etc/jupyter/
-
-HEALTHCHECK --interval=5s --timeout=3s --start-period=5s --retries=3 CMD /etc/jupyter/docker_healthcheck.py || exit 1
+WORKDIR "${HOME}"
 
 # Configure container startup
 ENTRYPOINT ["tini", "-g", "--"]
 CMD ["start.sh"]
-
-# Switch back to jovyan to avoid accidental container runs as root
-USER ${NB_UID}
-
-WORKDIR "${HOME}"
