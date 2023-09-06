@@ -6,8 +6,6 @@ EXPOSE 8888
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-COPY cert/eoelab.org.crt /usr/local/share/ca-certificates/eoelab.org.crt
-
 USER root
 
 # Configure environment
@@ -23,14 +21,15 @@ ENV DEBIAN_FRONTEND=noninteractive \
     PATH="/opt/conda/bin:${PATH}" \
     HOME="/home/jovyan"
 
-# Copy local files
-# Copy a script that we will use to correct permissions after running certain commands
+# Copy files
+COPY cert/eoelab.org.crt /usr/local/share/ca-certificates/eoelab.org.crt
 COPY conf/fix-permissions start-sh/* /usr/local/bin/
 COPY conf/initial-condarc "${CONDA_DIR}/.condarc"
 COPY conf/Rprofile.site /opt/conda/lib/R/etc/
 COPY conf/jupyter_server_config.py conf/docker_healthcheck.py /etc/jupyter/
 
-RUN rm /etc/profile && \
+# Prevent the PATH variable from being overwritten
+RUN sed -i '/if \[ "$(id -u)" -eq 0 \]; then/,/fi/d' /etc/profile && \ 
     sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debian.sources && \ 
     apt-get update --yes && apt-get upgrade --yes && \
     apt-get install --yes --no-install-recommends sudo ca-certificates locales tini wget curl git git-lfs vim bzip2 zip unzip xclip p7zip-full fonts-wqy-zenhei && \

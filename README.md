@@ -33,6 +33,7 @@
 1. CPU分支上游已经切换到debian:bookworm
 2. Julia镜像中的环境变量`JULIA_NUM_THREADS`，请在启动时根据理想的并发线程数进行配置
 3. pip包管理器的配置文件在用户目录下，使用时手动运行`pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple`完成换源
+4. 默认情况下我们信任了eoelab.org的域名证书，这不会带来安全问题
 ### 当前构建镜像清单
 * Upstream: 镜像上游，类似于jupyter官方的minimal-notebook镜像  
 提供软件包：文件压缩/解压(.bz2|.zip|.7z)，项目管理(git|git lfs),证书管理(ca-certificates)，编辑器（vim）,网络交互（curl|wget）,中文字体（fonts-wqy-zenhei）
