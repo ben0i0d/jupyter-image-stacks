@@ -6,7 +6,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 USER root
 # R pre-requisites
 RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends r-base && \
+    apt-get install --yes --no-install-recommends gfortran gcc fonts-dejavu  && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     fix-permissions "/home/${NB_USER}" && \
     fix-permissions "${CONDA_DIR}"
@@ -14,8 +14,7 @@ RUN apt-get update --yes && \
 USER ${NB_UID}
 # R packages including IRKernel which gets installed globally.
 # base
-RUN R -e "install.packages('IRkernel')" && \
-    R -e "IRkernel::installspec(user = FALSE)" && \
+RUN mamba install --yes 'r-base' 'r-irkernel' && \
     # Interactivity and visualization
     R -e "install.packages('shiny','htmlwidgets','htmltools','crayon')" && \
     # Machine learning and data mining
