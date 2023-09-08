@@ -25,5 +25,4 @@ RUN apt-get update  && \
 USER ${NB_UID}
 
 RUN modular auth mut_631a7d7cd03d4185b786385c42384278 && \
-    modular install mojo && \
-    mv /home/jovyan/.modular /opt/modular 
+    modular install mojo 
