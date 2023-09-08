@@ -39,6 +39,7 @@
 提供软件包：文件压缩/解压(.bz2|.zip|.7z)，项目管理(git|git lfs),证书管理(ca-certificates)，编辑器（vim）,网络交互（curl|wget）,中文字体（fonts-wqy-zenhei）
 * Llinux（With Desktop-GUI）：在无特权的情况下学习Linux系统，提供Xfce桌面支持   
 * Python：支持Python，简洁、易读、多用途的高级编程语言，强调代码可读性和生产力。
+* Mojo: Mojo是一种新的编程语言，通过将Python语法与生态系统相结合进行生产与研究，具备元编程特性。Mojo还很年轻，但它是经过设计的Python高性能超集。
 * C: 支持C(versions ≥ C89)，通用的编程语言，底层和高效，广泛应用于系统级开发和嵌入式设备。
 * CPP：支持CPP（11,14,17），多范式的编程语言，是C语言的扩展，具备面向对象和泛型编程能力，广泛应用于系统级开发和大规模软件项目。
 * Cadabra: 支持Cadabra（Cadabra2），一种基于符号计算的软件系统，专门用于进行复杂代数计算和张量分析，适合在理论物理学和相对论研究中使用。
@@ -103,6 +104,7 @@ PROGRAM-->PQ(Haskell)
 PROGRAM-->PR(Python)
 PROGRAM-->PS(Q#)
 PROGRAM-->PT(SQL)
+PROGRAM-->PU(Mojo)
 PR-->PRA(Scipy)
 PR-->PRB(scraper)
 PRA-->PRAA(Pyai)  
