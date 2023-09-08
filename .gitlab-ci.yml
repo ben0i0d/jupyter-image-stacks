@@ -19,18 +19,18 @@ before_script:
 #       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-c"
-mojo-c-build:
-  stage: build
-  needs: [] # up-c-build
-  script:
-    - cd mojo
-    - /kaniko/executor
-      --context ./
-      --dockerfile "Dockerfile"
-      --cache=false
-      --snapshot-mode=redo
-      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:mojo-c"
+# mojo-c-build:
+#   stage: build
+#   needs: [up-c-build] # 
+#   script:
+#     - cd mojo
+#     - /kaniko/executor
+#       --context ./
+#       --dockerfile "Dockerfile"
+#       --cache=false
+#       --snapshot-mode=redo
+#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:mojo-c"
 # python-c-build:
 #   stage: build
 #   needs: [up-c-build]
@@ -318,24 +318,24 @@ mojo-c-build:
 #       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:chapel-c"
-# raku-c-build:
-#   stage: build
-#   needs: [up-c-build]
-#   script:
-#     - cd raku
-#     - /kaniko/executor
-#       --context ./
-#       --dockerfile "Dockerfile"
-#       --build-arg "http_proxy=http://192.168.2.175:7890"
-#       --build-arg "HTTP_PROXY=http://192.168.2.175:7890"
-#       --build-arg "https_proxy=http://192.168.2.175:7890"
-#       --build-arg "HTTPS_PROXY=http://192.168.2.175:7890"
-#       --build-arg "no_proxy=127.0.0.1,localhost,172.0.0.0/8,192.0.0.0/8"
-#       --build-arg "NO_PROXY=127.0.0.1,localhost,172.0.0.0/8,192.0.0.0/8"
-#       --cache=false
-#       --snapshot-mode=redo
-#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:raku-c"
+raku-c-build:
+  stage: build
+  needs: [] # up-c-build
+  script:
+    - cd raku
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --build-arg "http_proxy=http://192.168.2.175:7890"
+      --build-arg "HTTP_PROXY=http://192.168.2.175:7890"
+      --build-arg "https_proxy=http://192.168.2.175:7890"
+      --build-arg "HTTPS_PROXY=http://192.168.2.175:7890"
+      --build-arg "no_proxy=127.0.0.1,localhost,172.0.0.0/8,192.0.0.0/8"
+      --build-arg "NO_PROXY=127.0.0.1,localhost,172.0.0.0/8,192.0.0.0/8"
+      --cache=false
+      --snapshot-mode=redo
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:raku-c"
 # lua-c-build:
 #   stage: build
 #   needs: [up-c-build]
