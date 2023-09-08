@@ -18,7 +18,7 @@ COPY deb_conf/modular-installer.list  /etc/apt/sources.list.d/modular-installer.
 
 RUN apt-get update  && \
     apt-get install -y modular && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    rm /etc/apt/apt.conf.d/proxy.conf && apt-get clean && rm -rf /var/lib/apt/lists/* && \
     modular auth mut_631a7d7cd03d4185b786385c42384278 && \
     modular install mojo && \
     fix-permissions /root 
