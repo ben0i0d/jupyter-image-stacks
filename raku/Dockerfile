@@ -7,14 +7,16 @@ USER root
 
 WORKDIR /opt
 
-# COPY rakudo-star-2023.06-01.tar.gz ./
+COPY rakudo-star-2023.06-01.tar.gz ./
 
 ENV PATH="/opt/rakudo-star/bin/:/opt/rakudo-star/share/perl6/site/bin:/opt/rakudo-star/share/perl6/vendor/bin:/opt/rakudo-star/share/perl6/core/bin:${PATH}" 
 
 RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends libzmq3-dev && \
+    apt-get install --yes --no-install-recommends libzmq3-dev gcc make && \
     apt-get clean && rm -rf /var/lib/apt/lists/*  && \
     mkdir -p /opt/conda/share/jupyter/kernels/raku && \
+    tar -xzf rakudo-star-*.tar.gz && mkdir rakudo-star &&  mv rakudo-star-*/* rakudo-star && rm -rf rakudo-star-* && \
+    ./rakudo-star/bin/rstar install && \
     zef install Jupyter::Kernel && \
     jupyter-kernel.raku --generate-config --location=/opt/conda/share/jupyter/kernels/raku && \
     fix-permissions "/home/${NB_USER}" && \
