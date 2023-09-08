@@ -5,8 +5,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root
 
-ENV MODULAR_HOME="/root/.modular" \
-    PATH="$PATH:$MODULAR_HOME/pkg/packages.modular.com_mojo/bin"
+ENV PATH="$PATH:/root/.modular/pkg/packages.modular.com_mojo/bin"
 
 COPY deb_conf/gpg.0E4925737A3895AD.key  /tmp/gpg.0E4925737A3895AD.key
 COPY deb_conf/proxy.conf /etc/apt/apt.conf.d/proxy.conf
@@ -21,6 +20,6 @@ RUN apt-get update  && \
     rm /etc/apt/apt.conf.d/proxy.conf && apt-get clean && rm -rf /var/lib/apt/lists/* && \
     modular auth mut_631a7d7cd03d4185b786385c42384278 && \
     modular install mojo && \
-    fix-permissions /root 
+    fix-permissions /root
 
 USER ${NB_UID}
