@@ -1,16 +1,15 @@
-FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-ubuntu-c
+FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-c
 LABEL maintainer="Pd.ch <cpd233@outlook.com>"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root
 
-COPY deb_conf/gpg.0E4925737A3895AD.key  ./gpg.0E4925737A3895AD.key
+COPY deb_conf/gpg.0E4925737A3895AD.key  /tmp/gpg.0E4925737A3895AD.key
 
-ENV keyring_location=/usr/share/keyrings/modular-installer-archive-keyring.gpg 
 # Install depency
-RUN  apt-get update  && apt-get install -y apt-transport-https gnupg2 g++ && \
-    cat gpg.0E4925737A3895AD.key |  gpg --dearmor >> ${keyring_location}  
+RUN apt-get update  && apt-get install -y apt-transport-https gnupg2 g++ && \
+    cat /tmp/gpg.0E4925737A3895AD.key |  gpg --dearmor >> /usr/share/keyrings/modular-installer-archive-keyring.gpg 
 
 COPY deb_conf/modular-installer.list  /etc/apt/sources.list.d/modular-installer.list
 
