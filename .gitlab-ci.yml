@@ -18,7 +18,7 @@ up-c-build:
       --cache-run-layers=true
       --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-ubuntu-c"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-c"
 mojo-c-build:
   stage: build
   needs: [up-c-build] # 
