@@ -19,7 +19,7 @@ before_script:
 #       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-c"
-python-c-build:
+mojo-c-build:
   stage: build
   needs: [] # up-c-build
   script:
