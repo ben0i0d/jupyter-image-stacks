@@ -7,7 +7,7 @@ USER root
 
 ENV keyring_location=/usr/share/keyrings/modular-installer-archive-keyring.gpg 
 # Install depency
-RUN  apt-get update  && apt-get install -y apt-transport-https g++  && \
+RUN  apt-get update  && apt-get install -y gnupg2 g++  && \
     curl -1sLf 'https://dl.modular.com/bBNWiLZX5igwHXeu/installer/gpg.0E4925737A3895AD.key' |  gpg --dearmor >> ${keyring_location}  && \
     curl -1sLf 'https://dl.modular.com/bBNWiLZX5igwHXeu/installer/config.deb.txt?distro=debian&codename=wheezy' > /etc/apt/sources.list.d/modular-installer.list  && \
     apt-get update  && \
