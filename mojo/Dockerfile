@@ -9,7 +9,7 @@ ENV MODULAR_HOME="/root/.modular" \
     PATH="$PATH:$MODULAR_HOME/pkg/packages.modular.com_mojo/bin"
 
 COPY deb_conf/gpg.0E4925737A3895AD.key  /tmp/gpg.0E4925737A3895AD.key
-
+COPY deb_conf/proxy.conf /etc/apt/apt.conf.d/proxy.conf
 # Install depency
 RUN apt-get update  && apt-get install -y gnupg2 && \
     cat /tmp/gpg.0E4925737A3895AD.key |  gpg --dearmor >> /usr/share/keyrings/modular-installer-archive-keyring.gpg
@@ -24,4 +24,3 @@ RUN apt-get update  && \
     fix-permissions /root 
 
 USER ${NB_UID}
-
