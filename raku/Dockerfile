@@ -12,7 +12,7 @@ WORKDIR /opt
 ENV PATH="/opt/rakudo-star/bin/:/opt/rakudo-star/share/perl6/site/bin:/opt/rakudo-star/share/perl6/vendor/bin:/opt/rakudo-star/share/perl6/core/bin:${PATH}" 
 
 RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends libzmq-dev && \
+    apt-get install --yes --no-install-recommends libzmq3-dev && \
     apt-get clean && rm -rf /var/lib/apt/lists/*  && \
     mkdir -p /opt/conda/share/jupyter/kernels/raku && \
     zef install Jupyter::Kernel && \
