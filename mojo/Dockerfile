@@ -17,12 +17,10 @@ RUN apt-get update  && apt-get install -y gnupg2 && \
 
 COPY deb_conf/modular-installer.list  /etc/apt/sources.list.d/modular-installer.list
 
-RUN apt-get update  && \
-    apt-get install -y modular && \
-    rm /etc/apt/apt.conf.d/proxy.conf && apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    mkdir /opt/modular && \
-    modular auth mut_631a7d7cd03d4185b786385c42384278 && modular install mojo && \
-    python /opt/modular/pkg/packages.modular.com_mojo/jupyter/manage_kernel.py install --no-user 
+RUN apt-get update  && apt-get install -y modular && rm /etc/apt/apt.conf.d/proxy.conf && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    mkdir /opt/modular && modular auth mut_631a7d7cd03d4185b786385c42384278 && modular install mojo && \
+    python /opt/modular/pkg/packages.modular.com_mojo/jupyter/manage_kernel.py install --no-user  && \
     fix-permissions /opt/modular
     
 USER ${NB_UID}
