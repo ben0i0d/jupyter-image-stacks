@@ -5,23 +5,23 @@ image:
 before_script:
   - wget https://eoelab.org:1024/index.php/s/ac3eQY4byy4mK2g/download/eoelab.org.crt
   - mv eoelab.org.crt /kaniko/ssl/certs/additional-ca-cert-bundle.crt
-# up-c-build:
-#   stage: build
-#   needs: []
-#   script:
-#     - cd upstream/cpu
-#     - /kaniko/executor
-#       --context ./
-#       --dockerfile "Dockerfile"
-#       --cache=true
-#       --cache-copy-layers=true
-#       --cache-run-layers=true
-#       --snapshot-mode=redo
-#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-c"
+up-c-build:
+  stage: build
+  needs: []
+  script:
+    - cd upstream/cpu
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
+      --snapshot-mode=redo
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-ubuntu-c"
 mojo-c-build:
   stage: build
-  needs: [] # up-c-build
+  needs: [up-c-build] # 
   script:
     - cd mojo
     - /kaniko/executor
