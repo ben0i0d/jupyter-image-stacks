@@ -24,5 +24,6 @@ RUN apt-get update  && \
 
 USER ${NB_UID}
 
-RUN modular auth mut_631a7d7cd03d4185b786385c42384278 && \
-    modular install mojo 
+RUN modular auth mut_631a7d7cd03d4185b786385c42384278 && modular install mojo && \
+    mkdir -p /opt/conda/share/jupyter/kernels/mojo && \
+    cp /opt/modular/pkg/packages.modular.com_mojo/jupyter/kernel/* /opt/conda/share/jupyter/kernels/mojo/
