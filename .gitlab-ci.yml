@@ -318,24 +318,24 @@ before_script:
 #       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:chapel-c"
-raku-c-build:
-  stage: build
-  needs: [] # up-c-build
-  script:
-    - cd raku
-    - /kaniko/executor
-      --context ./
-      --dockerfile "Dockerfile"
-      --build-arg "http_proxy=http://192.168.2.175:7890"
-      --build-arg "HTTP_PROXY=http://192.168.2.175:7890"
-      --build-arg "https_proxy=http://192.168.2.175:7890"
-      --build-arg "HTTPS_PROXY=http://192.168.2.175:7890"
-      --build-arg "no_proxy=127.0.0.1,localhost,172.0.0.0/8,192.0.0.0/8"
-      --build-arg "NO_PROXY=127.0.0.1,localhost,172.0.0.0/8,192.0.0.0/8"
-      --cache=false
-      --snapshot-mode=redo
-      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:raku-c"
+# raku-c-build:
+#   stage: build
+#   needs: [up-c-build] # 
+#   script:
+#     - cd raku
+#     - /kaniko/executor
+#       --context ./
+#       --dockerfile "Dockerfile"
+#       --build-arg "http_proxy=http://192.168.2.175:7890"
+#       --build-arg "HTTP_PROXY=http://192.168.2.175:7890"
+#       --build-arg "https_proxy=http://192.168.2.175:7890"
+#       --build-arg "HTTPS_PROXY=http://192.168.2.175:7890"
+#       --build-arg "no_proxy=127.0.0.1,localhost,172.0.0.0/8,192.0.0.0/8"
+#       --build-arg "NO_PROXY=127.0.0.1,localhost,172.0.0.0/8,192.0.0.0/8"
+#       --cache=false
+#       --snapshot-mode=redo
+#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:raku-c"
 # lua-c-build:
 #   stage: build
 #   needs: [up-c-build]
@@ -412,54 +412,54 @@ raku-c-build:
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scilab-c"
 
-# up-g-build:
-#   stage: build
-#   needs: []
-#   script:
-#     - cd upstream/gpu
-#     - /kaniko/executor
-#       --context ./
-#       --dockerfile "Dockerfile"
-#       --cache=false
-#       --snapshot-mode=redo
-#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-g"
-# python-g-build:
-#   stage: build
-#   needs: [up-g-build]
-#   script:
-#     - cd python/gpu
-#     - /kaniko/executor
-#       --context ./
-#       --dockerfile "Dockerfile"
-#       --cache=false
-#       --snapshot-mode=redo
-#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:python-g"
-# scipy-g-build:
-#   stage: build
-#   needs: [python-g-build]
-#   script:
-#     - cd scipy/gpu
-#     - /kaniko/executor
-#       --context ./
-#       --dockerfile "Dockerfile"
-#       --cache=false
-#       --compressed-caching=false
-#       --snapshot-mode=redo
-#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy-g"
-# pyai-g-build:
-#   stage: build
-#   needs: [scipy-g-build] # 
-#   script:
-#     - cd pyai/gpu
-#     - /kaniko/executor
-#       --context ./
-#       --dockerfile "Dockerfile"
-#       --cache=false
-#       --compressed-caching=false
-#       --snapshot-mode=redo
-#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:pyai-g"
+up-g-build:
+  stage: build
+  needs: []
+  script:
+    - cd upstream/gpu
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=false
+      --snapshot-mode=redo
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-g"
+python-g-build:
+  stage: build
+  needs: [up-g-build]
+  script:
+    - cd python/gpu
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=false
+      --snapshot-mode=redo
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:python-g"
+scipy-g-build:
+  stage: build
+  needs: [python-g-build]
+  script:
+    - cd scipy/gpu
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=false
+      --compressed-caching=false
+      --snapshot-mode=redo
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy-g"
+pyai-g-build:
+  stage: build
+  needs: [scipy-g-build] # 
+  script:
+    - cd pyai/gpu
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=false
+      --compressed-caching=false
+      --snapshot-mode=redo
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:pyai-g"
 

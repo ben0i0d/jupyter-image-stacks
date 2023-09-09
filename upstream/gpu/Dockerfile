@@ -1,4 +1,4 @@
-FROM eoelab.org:1032/mirrored-sources/mirror-image-stacks/cuda:12.1.0-cudnn8-runtime-ubuntu22.04
+FROM eoelab.org:1032/mirrored-sources/mirror-image-stacks/cuda:12.2.0-devel-ubuntu22.04
 
 LABEL maintainer="Pd.ch <cpd233@outlook.com>"
 

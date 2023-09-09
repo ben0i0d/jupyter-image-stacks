@@ -120,8 +120,7 @@ MATH-->MC(Sagemath)
 ## 上游
 
 **软件包版本**
-* cuda 12.1.0
-* cudnn 8
+* cuda 12.2.0
 * Python 3.11
 * Julia 1.9.3
 * Java openjdk-17
