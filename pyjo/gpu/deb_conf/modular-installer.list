@@ -1,0 +1,9 @@
+# Source: Modular
+# Site: https://cloudsmith.io
+# Repository: Modular / Installer
+# Description: A certifiably-awesome public package repository curated by Modular, hosted by Cloudsmith.
+
+
+deb [signed-by=/usr/share/keyrings/modular-installer-archive-keyring.gpg] https://dl.modular.com/public/installer/deb/debian wheezy main
+
+deb-src [signed-by=/usr/share/keyrings/modular-installer-archive-keyring.gpg] https://dl.modular.com/public/installer/deb/debian wheezy main
