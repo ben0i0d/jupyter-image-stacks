@@ -424,7 +424,7 @@ pyjo-g-build:
       --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:pyjo-g"
-pyjo-g-build:
+scipyjo-g-build:
   stage: build
   needs: [pyjo-g-build]
   script:
