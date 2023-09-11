@@ -61,7 +61,7 @@ scrpyjo-c-build:
       --cache=false
       --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scraper-c"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scrpyjo-c"
 pyjospark-c-build:
   stage: build
   needs: [scipyjo-c-build] # 
