@@ -37,19 +37,19 @@ pyjo-c-build:
       --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:pyjo-c"
-# scipyjo-c-build:
-#   stage: build
-#   needs: [pyjo-c-build] # 
-#   script:
-#     - cd scipyjo/cpu
-#     - /kaniko/executor
-#       --context ./
-#       --dockerfile "Dockerfile"
-#       --cache=false
-#       --compressed-caching=false
-#       --snapshot-mode=redo
-#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipyjo-c"
+scipyjo-c-build:
+  stage: build
+  needs: [pyjo-c-build] # 
+  script:
+    - cd scipyjo/cpu
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=false
+      --compressed-caching=false
+      --snapshot-mode=redo
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipyjo-c"
 scrpyjo-c-build:
   stage: build
   needs: [pyjo-c-build]
@@ -62,32 +62,32 @@ scrpyjo-c-build:
       --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scrpyjo-c"
-# pyjospark-c-build:
-#   stage: build
-#   needs: [scipyjo-c-build] # 
-#   script:
-#     - cd pyjospark
-#     - /kaniko/executor
-#       --context ./
-#       --dockerfile "Dockerfile"
-#       --cache=false
-#       --compressed-caching=false
-#       --snapshot-mode=redo
-#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:pyjospark-c"
-# pyjoai-c-build:
-#   stage: build
-#   needs: [scipyjo-c-build] # 
-#   script:
-#     - cd pyjoai/cpu
-#     - /kaniko/executor
-#       --context ./
-#       --dockerfile "Dockerfile"
-#       --cache=false
-#       --compressed-caching=false
-#       --snapshot-mode=redo
-#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:pyjoai-c"
+pyjospark-c-build:
+  stage: build
+  needs: [scipyjo-c-build] # 
+  script:
+    - cd pyjospark
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=false
+      --compressed-caching=false
+      --snapshot-mode=redo
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:pyjospark-c"
+pyjoai-c-build:
+  stage: build
+  needs: [scipyjo-c-build] # 
+  script:
+    - cd pyjoai/cpu
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=false
+      --compressed-caching=false
+      --snapshot-mode=redo
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:pyjoai-c"
 # llinux-c-build:
 #   stage: build
 #   needs: [up-c-build] # 
