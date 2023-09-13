@@ -41,7 +41,7 @@
 
 ### 当前构建镜像清单
 * Upstream: 镜像上游，类似于jupyter官方的minimal-notebook镜像  
-提供软件包：文件压缩/解压(.bz2|.zip|.7z)，项目管理(git|git lfs),证书管理(ca-certificates)，编辑器（vim）,网络交互（curl|wget）,中文字体（fonts-wqy-zenhei）
+提供软件包：SHELL(zsh及其插件)，文件压缩/解压(.bz2|.zip|.7z)，项目管理(git|git lfs),证书管理(ca-certificates)，编辑器（vim）,网络交互（curl|wget）,中文字体（fonts-wqy-zenhei）
 * Llinux（With Desktop-GUI）：在无特权的情况下学习Linux系统，提供Xfce桌面支持   
 * Pyjo：支持Python与Mojo，通过将python语法与生态系统相结合进行生产与研究，mojo具备元编程特性。我们期待这一环境带来的改进
 * C: 支持C(versions ≥ C89)，通用的编程语言，底层和高效，广泛应用于系统级开发和嵌入式设备。
