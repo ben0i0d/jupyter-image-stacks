@@ -16,8 +16,8 @@ RUN apt-get update  && apt-get install -y gnupg2 && \
     cat /tmp/gpg.0E4925737A3895AD.key |  gpg --dearmor >> /usr/share/keyrings/modular-installer-archive-keyring.gpg
 
 COPY deb_conf/modular-installer.list  /etc/apt/sources.list.d/modular-installer.list
-
-RUN apt-get update  && apt-get install -y modular && \ # rm /etc/apt/apt.conf.d/proxy.conf && \
+# rm /etc/apt/apt.conf.d/proxy.conf && \
+RUN apt-get update  && apt-get install -y modular && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     mkdir /opt/modular && modular auth mut_631a7d7cd03d4185b786385c42384278 && modular install mojo && \
     python /opt/modular/pkg/packages.modular.com_mojo/jupyter/manage_kernel.py install --no-user  && \
