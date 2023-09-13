@@ -238,7 +238,6 @@ else
     _log "Executing the command:" "${cmd[@]}"
     exec "${cmd[@]}"
 fi
-
 # switch shell to zsh
 # 检查 .oh-my-zsh 目录是否存在
 if [ -d "/home/jovyan/.oh-my-zsh" ]; then
@@ -246,6 +245,6 @@ if [ -d "/home/jovyan/.oh-my-zsh" ]; then
 else
     # 复制 opt 下的 oh-my-zsh 到用户家目录
     cp -R /opt/oh-my-zsh "/home/jovyan/.oh-my-zsh"
-    cp /home/jovyan/.oh-my-zsh/templates/zshrc.zsh-template /home/jovyan/.zshrc && chsh -s zsh
+    cp /home/jovyan/.oh-my-zsh/templates/zshrc.zsh-template /home/jovyan/.zshrc
     echo ".oh-my-zsh copied successfully!"
 fi
