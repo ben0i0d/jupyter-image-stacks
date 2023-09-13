@@ -1,4 +1,4 @@
-FROM eoelab.org:1032/mirrored-sources/mirror-image-stacks/ubuntu:22.04
+FROM eoelab.org:1032/mirrored-sources/mirror-image-stacks/debian:bookworm
 
 LABEL maintainer="Pd.ch <cpd233@outlook.com>"
 

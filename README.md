@@ -3,11 +3,11 @@
 1. github上的仓库是由源仓库推送的镜像仓库，是一个镜像仓库
 2. 我们的源仓库是 https://eoelab.org:1031/build-image-stacks/jupyter-image-stacks  
 3. 我们的docker镜像仓库是 https://hub.docker.com/r/ben0i0d/jupyter   
-4. 对于issue/PR，我们推荐在源仓库上提，这对于我们工作更方便，但是如果您在github上提，我们也会跟进处理  
+4. 对于issue/PR，我们推荐在源仓库上提，这对于我们工作更方便，并且源仓库具有pipeline支持
 ## 项目梗概
 ### 目标预期
 1. 完整：从基础系统开始，项目内部完成依赖，并实现一个CI文件用于自动化构建。
-2. 安全：源代码与镜像构建公开化，测试与工作场景是Rancher管理的私有K8S集群下的Jupyterhub
+2. 安全：源代码与镜像构建公开化，测试与工作场景是Rancher管理的私有K8S集群下的Jupyterhub,main分支Dockerfile均是经过测试而发布的
 3. 多样：从现有的仓库代码开始，从现有的kernel开始，集成进入项目统一构建，并完成汉化，扩展，配置镜像源等工作  
 ### 如何使用
 
@@ -35,6 +35,10 @@
 3. pip包管理器的配置文件在用户目录下，使用时手动运行`pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple`完成换源
 4. 默认情况下我们信任了eoelab.org的域名证书，这不会带来安全问题
 5. Mojo被合并进入Python系
+6. 如果您有测试或者新需求，请构建一个新分支
+  1. 如果您在源仓库工作，为了不覆盖tag，建议您改动ci文件中tag字段
+  2. 如果您自行构建，或者派生，请注意替换dockerfile中的基础镜像
+
 ### 当前构建镜像清单
 * Upstream: 镜像上游，类似于jupyter官方的minimal-notebook镜像  
 提供软件包：文件压缩/解压(.bz2|.zip|.7z)，项目管理(git|git lfs),证书管理(ca-certificates)，编辑器（vim）,网络交互（curl|wget）,中文字体（fonts-wqy-zenhei）
@@ -113,9 +117,6 @@ BASE-->MATH{MATH-TOOL}-->MA(Octave)
 MATH-->MB(Scilab)
 MATH-->MC(Sagemath)
 ```
-
-### 如何参与
-项目内main分支Dockerfile是经过测试而发布的，如果您有测试或者新需求，请构建一个新分支，注意修改新分支内的CI配置文件，并且在提交合并请求时还原CI配置
 
 ## 上游
 
