@@ -68,5 +68,4 @@ RUN wget -qO /tmp/micromamba.tar.bz2 "https://micromamba.snakepit.net/api/microm
 WORKDIR "${HOME}"
 
 # Configure container startup
-ENTRYPOINT ["tini", "-g", "--"]
-CMD ["start.sh"]
+ENTRYPOINT ["tini", "-g", "--","start.sh"]
