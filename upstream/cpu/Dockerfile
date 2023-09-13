@@ -35,7 +35,7 @@ RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debi
     update-ca-certificates && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
 # install oh-my-zsh zsh-plugin
-    git clone --depth=1 https://eoelab.org:1031/mirrored-sources/oh-my-zsh.git /opt/oh-my-zsh
+    git clone --depth=1 https://eoelab.org:1031/mirrored-sources/oh-my-zsh.git /opt/oh-my-zsh && \
     echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && locale-gen && \
     chmod a+rx /usr/local/bin/fix-permissions && \
     echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
