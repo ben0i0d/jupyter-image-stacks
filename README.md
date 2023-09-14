@@ -36,15 +36,14 @@
 4. 默认情况下我们信任了eoelab.org的域名证书，这不会带来安全问题
 5. Mojo被合并进入Python系
 6. 如果您有测试或者新需求，请构建一个新分支,在源仓库工作时，为了不覆盖tag，建议您改动ci文件中tag字段，如果您自行构建，或者派生，可以替换dockerfile中的基础镜像
-7. 由于用户目录是挂载点，并且由于权限我们无法通过修改start.sh达到这一步，因此以下是一个手动解决方案，同时在terminal内部自行选择shell，
+7. 由于用户目录是挂载点，并且由于权限我们无法通过修改start.sh达到持久化，因此以下是一个手动解决方案，同时在terminal内部自行选择shell，以下代码只需执行一次即可
 ```
 cp -R /opt/oh-my-zsh ~/.oh-my-zsh
-cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/aassszshrc
+cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 ```
-
 ### 当前构建镜像清单
 * Upstream: 镜像上游，类似于jupyter官方的minimal-notebook镜像  
-提供软件包：SHELL(zsh及其插件)，文件压缩/解压(.bz2|.zip|.7z)，项目管理(git|git lfs),证书管理(ca-certificates)，编辑器（vim）,网络交互（curl|wget）,中文字体（fonts-wqy-zenhei）
+提供软件包：SHELL(zsh|oh-my-zsh)，文件压缩/解压(.bz2|.zip|.7z)，项目管理(git|git lfs),证书管理(ca-certificates)，编辑器（vim）,网络交互（curl|wget）,中文字体（fonts-wqy-zenhei）
 * Llinux（With Desktop-GUI）：在无特权的情况下学习Linux系统，提供Xfce桌面支持   
 * Pyjo：支持Python与Mojo，通过将python语法与生态系统相结合进行生产与研究，mojo具备元编程特性。我们期待这一环境带来的改进
 * C: 支持C(versions ≥ C89)，通用的编程语言，底层和高效，广泛应用于系统级开发和嵌入式设备。

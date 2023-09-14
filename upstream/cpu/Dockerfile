@@ -34,8 +34,6 @@ RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debi
     apt-get install --yes --no-install-recommends zsh sudo ca-certificates locales tini wget curl git git-lfs vim bzip2 zip unzip xclip p7zip-full fonts-wqy-zenhei && \
     update-ca-certificates && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-# install oh-my-zsh zsh-plugin
-    git clone --depth=1 https://eoelab.org:1031/mirrored-sources/oh-my-zsh.git /opt/oh-my-zsh && \
     echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && locale-gen && \
     chmod a+rx /usr/local/bin/fix-permissions && \
     echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
@@ -45,6 +43,8 @@ RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debi
     mkdir -p "${CONDA_DIR}" && \
     chown "${NB_USER}:${NB_GID}" "${CONDA_DIR}" && \
     chmod g+w /etc/passwd && \
+# install oh-my-zsh
+    git clone --depth=1 https://eoelab.org:1031/mirrored-sources/oh-my-zsh.git /opt/oh-my-zsh && \
     fix-permissions "/opt/oh-my-zsh" && \
     fix-permissions "/home/${NB_USER}" && \
     fix-permissions "${CONDA_DIR}"
@@ -66,3 +66,7 @@ RUN wget -qO /tmp/micromamba.tar.bz2 "https://micromamba.snakepit.net/api/microm
     fix-permissions "/home/${NB_USER}" 
 
 WORKDIR "${HOME}"
+
+# Configure container startup
+ENTRYPOINT ["tini", "-g", "--"]
+CMD ["start.sh"]
