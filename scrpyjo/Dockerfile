@@ -1,4 +1,4 @@
-FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:python-c
+FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:pyjo-c
 
 LABEL maintainer="Pd.ch <cpd233@outlook.com>"
 
