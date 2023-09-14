@@ -35,9 +35,12 @@
 3. pip包管理器的配置文件在用户目录下，使用时手动运行`pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple`完成换源
 4. 默认情况下我们信任了eoelab.org的域名证书，这不会带来安全问题
 5. Mojo被合并进入Python系
-6. 如果您有测试或者新需求，请构建一个新分支
-  1. 如果您在源仓库工作，为了不覆盖tag，建议您改动ci文件中tag字段
-  2. 如果您自行构建，或者派生，请注意替换dockerfile中的基础镜像
+6. 如果您有测试或者新需求，请构建一个新分支,在源仓库工作时，为了不覆盖tag，建议您改动ci文件中tag字段，如果您自行构建，或者派生，可以替换dockerfile中的基础镜像
+7. 由于用户目录是挂载点，并且由于权限我们无法通过修改start.sh达到这一步，因此以下是一个手动解决方案，同时在terminal内部自行选择shell，
+```
+cp -R /opt/oh-my-zsh ~/.oh-my-zsh
+cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/aassszshrc
+```
 
 ### 当前构建镜像清单
 * Upstream: 镜像上游，类似于jupyter官方的minimal-notebook镜像  

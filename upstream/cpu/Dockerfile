@@ -66,6 +66,3 @@ RUN wget -qO /tmp/micromamba.tar.bz2 "https://micromamba.snakepit.net/api/microm
     fix-permissions "/home/${NB_USER}" 
 
 WORKDIR "${HOME}"
-
-# Configure container startup
-ENTRYPOINT ["tini", "-g", "--","start.sh"]
