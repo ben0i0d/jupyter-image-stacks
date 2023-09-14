@@ -29,7 +29,7 @@ COPY conf/Rprofile.site /opt/conda/lib/R/etc/
 # Prevent the PATH variable from being overwritten
 COPY conf/profile /etc/profile
 
-RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list && \ 
+RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debian.sources && \
     apt-get update --yes && apt-get upgrade --yes && \
     apt-get install --yes --no-install-recommends zsh sudo ca-certificates locales tini wget curl git git-lfs vim bzip2 zip unzip xclip p7zip-full fonts-wqy-zenhei && \
     update-ca-certificates && \
@@ -40,8 +40,8 @@ RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.l
     sed -i.bak -e 's/^%admin/#%admin/' /etc/sudoers && \
     sed -i.bak -e 's/^%sudo/#%sudo/' /etc/sudoers && \
     useradd -l -m -s /bin/bash -N -u "${NB_UID}" "${NB_USER}" && \
-    mkdir -p "${CONDA_DIR}" && \
-    chown "${NB_USER}:${NB_GID}" "${CONDA_DIR}" && \
+    usermod -aG sudo "${NB_USER}" && echo "${NB_USER} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers  && \
+    mkdir -p "${CONDA_DIR}" && chown "${NB_USER}:${NB_GID}" "${CONDA_DIR}" && \
     chmod g+w /etc/passwd && \
 # install oh-my-zsh
     git clone --depth=1 https://eoelab.org:1031/mirrored-sources/oh-my-zsh.git /opt/oh-my-zsh && \

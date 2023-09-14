@@ -40,8 +40,8 @@ RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debi
     sed -i.bak -e 's/^%admin/#%admin/' /etc/sudoers && \
     sed -i.bak -e 's/^%sudo/#%sudo/' /etc/sudoers && \
     useradd -l -m -s /bin/bash -N -u "${NB_UID}" "${NB_USER}" && \
-    mkdir -p "${CONDA_DIR}" && \
-    chown "${NB_USER}:${NB_GID}" "${CONDA_DIR}" && \
+    usermod -aG sudo "${NB_USER}" && echo "${NB_USER} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers  && \
+    mkdir -p "${CONDA_DIR}" && chown "${NB_USER}:${NB_GID}" "${CONDA_DIR}" && \
     chmod g+w /etc/passwd && \
 # install oh-my-zsh
     git clone --depth=1 https://eoelab.org:1031/mirrored-sources/oh-my-zsh.git /opt/oh-my-zsh && \
