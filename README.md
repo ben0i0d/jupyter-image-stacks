@@ -30,7 +30,7 @@
         image: eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipy-c
 ```
 ### 用前须知
-1. CPU分支上游已经切换到debian:trixie
+1. 上游已经切换到debian:trixie，GPU分支我们也基于官方二次构建了镜像
 2. Julia镜像中的环境变量`JULIA_NUM_THREADS`，请在启动时根据理想的并发线程数进行配置
 3. pip包管理器的配置文件在用户目录下，使用时手动运行`pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple`完成换源
 4. 默认情况下我们信任了eoelab.org的域名证书，这不会带来安全问题
