@@ -6,7 +6,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root
 # install system dependencies
-RUN apt-get update && apt-get -y install gcc make gnupg2 
+RUN apt-get update && apt-get -y install gcc make
 #add chrome source
 COPY linux_signing_key.pub ./linux_signing_key.pub
 RUN apt-key add linux_signing_key.pub && \

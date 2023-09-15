@@ -18,15 +18,15 @@ USER ${NB_UID}
 # Install Python 3 packages
 RUN mamba install --yes \
     # Data analysis and visualization
-    'altair' 'pandas' 'matplotlib' 'seaborn' 'bokeh' \
+    'altair' 'pandas' 'matplotlib' \
     # Performance optimization
     'bottleneck' 'numba' 'numexpr' \
     # Data storage and processing
-    'dask' 'dill' 'h5py' 'openpyxl' 'pytables' 'xlrd'  \
+    'dask' 'dill' 'openpyxl' 'pytables' 'xlrd'  \
     # Programming and extension
     'cython' 'protobuf' 'sympy' \
     # Machine learning and data mining
-    'scikit-image' 'scikit-learn' 'statsmodels' 'jax' \
+    'scikit-learn' 'statsmodels' 'jax' \
     # Scientific calculations and statistical analysis
     'scipy' 'patsy' 'numpy' 'mkl' &&\
     mamba clean --all -f -y  && \

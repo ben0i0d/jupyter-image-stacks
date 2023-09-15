@@ -31,7 +31,7 @@ COPY conf/profile /etc/profile
 
 RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debian.sources && \
     apt-get update --yes && apt-get upgrade --yes && \
-    apt-get install --yes --no-install-recommends zsh sudo ca-certificates locales tini wget curl git git-lfs vim bzip2 zip unzip xclip p7zip-full fonts-wqy-zenhei && \
+    apt-get install --yes --no-install-recommends zsh sudo ca-certificates gnupg2 locales tini wget curl git git-lfs vim bzip2 zip unzip xclip p7zip-full fonts-wqy-zenhei && \
     update-ca-certificates && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && locale-gen && \
