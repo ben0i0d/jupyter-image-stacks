@@ -6,6 +6,9 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root
 
+# Import matplotlib the first time to build the font cache.
+ENV XDG_CACHE_HOME="/home/${NB_USER}/.cache/"
+
 RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends build-essential cm-super dvipng ffmpeg && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -26,10 +29,6 @@ RUN mamba install --yes \
     'scikit-image' 'scikit-learn' 'statsmodels' 'jax' \
     # Scientific calculations and statistical analysis
     'scipy' 'patsy' 'numpy' 'mkl' &&\
-    mamba clean --all -f -y 
-
-# Import matplotlib the first time to build the font cache.
-ENV XDG_CACHE_HOME="/home/${NB_USER}/.cache/"
-
-RUN MPLBACKEND=Agg python -c "import matplotlib.pyplot" && \
+    mamba clean --all -f -y  && \
+    MPLBACKEND=Agg python -c "import matplotlib.pyplot" && \
     fix-permissions "/home/${NB_USER}"

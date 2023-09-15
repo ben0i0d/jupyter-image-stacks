@@ -39,7 +39,7 @@
 7. 我们允许了sudo的无密码使用，因此在安全要求较高的场景中，请不要允许特权提升
 8. 由于用户目录是挂载点，并且由于权限我们无法通过修改start.sh达到持久化，因此以下是一个手动解决方案，同时在terminal内部自行选择shell，以下代码只需执行一次即可
 ```
-cp -R /opt/oh-my-zsh ~/.oh-my-zsh
+git clone --depth=1 https://eoelab.org:1031/mirrored-sources/oh-my-zsh.git ~/.oh-my-zsh
 cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 ```
 ### 当前构建镜像清单

@@ -44,9 +44,6 @@ RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.l
     usermod -aG sudo "${NB_USER}" && echo "${NB_USER} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers  && \
     mkdir -p "${CONDA_DIR}" && chown "${NB_USER}:${NB_GID}" "${CONDA_DIR}" && \
     chmod g+w /etc/passwd && \
-# install oh-my-zsh
-    git clone --depth=1 https://eoelab.org:1031/mirrored-sources/oh-my-zsh.git /opt/oh-my-zsh && \
-    fix-permissions "/opt/oh-my-zsh" && \
     fix-permissions "/home/${NB_USER}" && \
     fix-permissions "${CONDA_DIR}"
 

@@ -21,6 +21,8 @@ RUN apt-get update  && apt-get install -y modular && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     mkdir /opt/modular && modular auth mut_631a7d7cd03d4185b786385c42384278 && modular install mojo && \
     python /opt/modular/pkg/packages.modular.com_mojo/jupyter/manage_kernel.py install --no-user  && \
-    fix-permissions /opt/modular
+    fix-permissions /opt/modular && \
+    fix-permissions "/home/${NB_USER}" && \
+    fix-permissions "${CONDA_DIR}"
     
 USER ${NB_UID}
