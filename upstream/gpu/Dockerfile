@@ -1,4 +1,4 @@
-FROM eoelab.org:1032/mirrored-sources/mirror-image-stacks/cuda:12.2.0-devel-ubuntu22.04
+FROM eoelab.org:1032/build-image-stacks/nvidia-cuda-image/cuda:12.2.0-devel-debain13
 
 LABEL maintainer="Pd.ch <cpd233@outlook.com>"
 
@@ -29,8 +29,7 @@ COPY conf/Rprofile.site /opt/conda/lib/R/etc/
 # Prevent the PATH variable from being overwritten
 COPY conf/profile /etc/profile
 
-RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list && \
-    sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
+RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debian.sources && \
     apt-get update --yes && apt-get upgrade --yes && \
     apt-get install --yes --no-install-recommends zsh sudo ca-certificates gnupg2 locales tini wget curl git git-lfs vim bzip2 zip unzip xclip p7zip-full fonts-wqy-zenhei && \
     update-ca-certificates && \
