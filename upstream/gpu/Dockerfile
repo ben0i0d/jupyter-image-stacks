@@ -1,4 +1,4 @@
-FROM eoelab.org:1032/build-image-stacks/nvidia-cuda-image/cuda:12.2.0-devel-debain13
+FROM eoelab.org:1032/build-image-stacks/nvidia-cuda-image/cuda:12.2.0-devel-debian13
 
 LABEL maintainer="Pd.ch <cpd233@outlook.com>"
 
