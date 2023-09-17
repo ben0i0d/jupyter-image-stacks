@@ -67,4 +67,4 @@ WORKDIR "${HOME}"
 
 # Configure container startup
 ENTRYPOINT ["tini", "-g", "--"]
-CMD ["start.sh"]
+CMD ["start-notebook.sh"]
