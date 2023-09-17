@@ -1,6 +1,6 @@
 # Conda configuration see https://conda.io/projects/conda/en/latest/configuration.html
 channels:
-  - defaults
+  - conda-forge
 show_channel_urls: true
 default_channels:
   - https://mirrors.bfsu.edu.cn/anaconda/pkgs/main
