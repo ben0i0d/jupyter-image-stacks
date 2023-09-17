@@ -24,6 +24,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
 # Copy files
 COPY cert/eoelab.org.crt /usr/local/share/ca-certificates/eoelab.org.crt
 COPY conf/fix-permissions start-sh/* /usr/local/bin/
+COPY conf/jupyter_server_config.py /etc/jupyter/
 COPY conf/initial-condarc "${CONDA_DIR}/.condarc"
 COPY conf/Rprofile.site /opt/conda/lib/R/etc/
 # Prevent the PATH variable from being overwritten
@@ -50,7 +51,7 @@ RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debi
 USER ${NB_UID}
 
 WORKDIR /tmp
-# install jupyter python mamba extension jupyterlab_tabnine
+# install jupyter python mamba extension
 RUN wget -qO /tmp/micromamba.tar.bz2 "https://micromamba.snakepit.net/api/micromamba/linux-64/latest" && \
     tar -xvjf /tmp/micromamba.tar.bz2 --strip-components=1 bin/micromamba && rm /tmp/micromamba.tar.bz2 && \
     ./micromamba install --root-prefix="${CONDA_DIR}" --prefix="${CONDA_DIR}" --yes 'mamba' "python=3.11" 'jupyter_core' 'jupyterlab' 'jupyterhub' 'notebook' && \
@@ -58,7 +59,7 @@ RUN wget -qO /tmp/micromamba.tar.bz2 "https://micromamba.snakepit.net/api/microm
     mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
     mamba clean --all -f -y && \
     pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple && \
-    pip install jupyterlab-language-pack-zh-CN && \
+    pip install jupyterlab-language-pack-zh-CN jupyterlab_tabnine && \
     pip cache purge && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}" 
