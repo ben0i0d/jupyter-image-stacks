@@ -24,6 +24,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
 # Copy files
 COPY cert/eoelab.org.crt /usr/local/share/ca-certificates/eoelab.org.crt
 COPY conf/fix-permissions start-sh/* /usr/local/bin/
+COPY conf/jupyter_server_config.py /etc/jupyter/
 COPY conf/initial-condarc "${CONDA_DIR}/.condarc"
 COPY conf/Rprofile.site /opt/conda/lib/R/etc/
 # Prevent the PATH variable from being overwritten
@@ -67,4 +68,4 @@ WORKDIR "${HOME}"
 
 # Configure container startup
 ENTRYPOINT ["tini", "-g", "--"]
-CMD ["start.sh"]
+CMD ["start-notebook.sh"]

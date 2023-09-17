@@ -39,11 +39,11 @@
 7. 我们允许了sudo的无密码使用，因此在安全要求较高的场景中，请不要允许特权提升
 8. 由于用户目录是挂载点，并且由于权限我们无法通过修改start.sh达到持久化，因此以下是一个手动解决方案，同时在terminal内部自行选择shell，以下代码只需执行一次即可
 ```
-git clone --depth=1 https://eoelab.org:1031/mirrored-sources/oh-my-zsh.git ~/.oh-my-zsh
+git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
 cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 ```
 ### 当前构建镜像清单
-* Upstream: 镜像上游，类似于jupyter官方的minimal-notebook镜像  
+* Upstream: 镜像上游，对标jupyter官方的minimal-notebook镜像  
 提供软件包：SHELL(zsh|oh-my-zsh)，文件压缩/解压(.bz2|.zip|.7z)，项目管理(git|git lfs),证书管理(ca-certificates)，编辑器（vim）,网络交互（curl|wget）,中文字体（fonts-wqy-zenhei）
 * Llinux（With Desktop-GUI）：在无特权的情况下学习Linux系统，提供Xfce桌面支持   
 * Pyjo：支持Python与Mojo，通过将python语法与生态系统相结合进行生产与研究，mojo具备元编程特性。我们期待这一环境带来的改进
