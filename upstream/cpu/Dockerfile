@@ -16,8 +16,6 @@ ENV DEBIAN_FRONTEND=noninteractive \
     NB_UID=1000 \
     NB_GID=100 \
     LANG=zh_CN.UTF-8 \
-    LANGUAGE=zh_CN.UTF-8 \
-    LC_ALL=zh_CN.UTF-8 \
     PATH="/opt/conda/bin:${PATH}" \
     HOME="/home/jovyan"
 
