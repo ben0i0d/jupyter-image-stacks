@@ -15,9 +15,9 @@ ENV DEBIAN_FRONTEND=noninteractive \
     NB_USER=jovyan \
     NB_UID=1000 \
     NB_GID=100 \
-    LC_ALL=en_US.UTF-8 \
-    LANG=en_US.UTF-8 \
-    LANGUAGE=en_US.UTF-8 \
+    LANG=zh_CN.UTF-8 \
+    LANGUAGE=zh_CN.UTF-8 \
+    LC_ALL=zh_CN.UTF-8 \
     PATH="/opt/conda/bin:${PATH}" \
     HOME="/home/jovyan"
 
@@ -35,7 +35,7 @@ RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debi
     apt-get install --yes --no-install-recommends zsh sudo ca-certificates gnupg2 locales tini wget curl git git-lfs vim bzip2 zip unzip xclip p7zip-full fonts-wqy-zenhei && \
     update-ca-certificates && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && locale-gen && \
+    echo "zh_CN.UTF-8 UTF-8">/etc/locale.gen && locale-gen && \
     chmod a+rx /usr/local/bin/* && \
     echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
     sed -i.bak -e 's/^%admin/#%admin/' /etc/sudoers && \

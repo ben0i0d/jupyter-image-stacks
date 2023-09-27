@@ -9,14 +9,10 @@ USER root
 ENV MODULAR_HOME="/opt/modular" \
     PATH="$PATH:/opt/modular/pkg/packages.modular.com_mojo/bin"
 
-COPY deb_conf/gpg.0E4925737A3895AD.key  /tmp/gpg.0E4925737A3895AD.key
-COPY deb_conf/modular-installer.list  /etc/apt/sources.list.d/modular-installer.list
-
-RUN cat /tmp/gpg.0E4925737A3895AD.key |  gpg --dearmor >> /usr/share/keyrings/modular-installer-archive-keyring.gpg && \
-    apt-get update  && apt-get install -y modular && \
+RUN mkdir /opt/modular && \
+    curl https://get.modular.com | MODULAR_AUTH=mut_631a7d7cd03d4185b786385c42384278 sh - && \
+    modular install mojo && python /opt/modular/pkg/packages.modular.com_mojo/jupyter/manage_kernel.py install --no-user || echo "install mojo failed" && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    mkdir /opt/modular && modular auth mut_631a7d7cd03d4185b786385c42384278 && modular install mojo && \
-    python /opt/modular/pkg/packages.modular.com_mojo/jupyter/manage_kernel.py install --no-user  && \
     fix-permissions /opt/modular && \
     fix-permissions "/home/${NB_USER}" && \
     fix-permissions "${CONDA_DIR}"

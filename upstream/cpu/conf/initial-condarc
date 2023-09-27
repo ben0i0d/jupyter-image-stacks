@@ -2,6 +2,7 @@
 channels:
   - conda-forge
 show_channel_urls: true
+auto_activate_base: false
 default_channels:
   - https://mirrors.bfsu.edu.cn/anaconda/pkgs/main
   - https://mirrors.bfsu.edu.cn/anaconda/pkgs/r
