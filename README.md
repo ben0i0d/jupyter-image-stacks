@@ -37,10 +37,18 @@
 5. Mojo被合并进入Python系
 6. 如果您有测试或者新需求，请构建一个新分支,在源仓库工作时，为了不覆盖tag，建议您改动ci文件中tag字段，如果您自行构建，或者派生，可以替换dockerfile中的基础镜像
 7. 我们允许了sudo的无密码使用，因此在安全要求较高的场景中，请不要允许特权提升
-8. 由于用户目录是挂载点，并且由于权限我们无法通过修改start.sh达到持久化，因此以下是一个手动解决方案，同时在terminal内部自行选择shell，以下代码只需执行一次即可
+8. 由于用户目录是挂载点，我们无法修改，因此以下是一个手动解决方案，同时在terminal内部自行选择shell，以下代码只需执行一次即可
 ```
 git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
 cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+```
+9. 以下代码适用于解决matplotlib绘图时缺失中文字体问题
+```
+from matplotlib.font_manager import FontProperties
+# 设置中文字体路径
+zh_font = FontProperties(fname="/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc")
+# 将中文字体设置为默认字体
+plt.rcParams["font.family"] = zh_font.get_name()
 ```
 ### 当前构建镜像清单
 * Upstream: 镜像上游，对标jupyter官方的minimal-notebook镜像  
