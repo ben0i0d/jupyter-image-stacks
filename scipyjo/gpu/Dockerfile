@@ -26,9 +26,11 @@ RUN mamba install --yes \
     # Programming and extension
     'cython' 'protobuf' 'sympy' \
     # Machine learning and data mining
-    'scikit-learn' 'statsmodels' 'jax' \
+    'scikit-learn' 'statsmodels' \
     # Scientific calculations and statistical analysis
     'scipy' 'patsy' 'numpy' 'mkl' &&\
+    pip install --upgrade "jax[cuda12_pip]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html && \
     mamba clean --all -f -y  && \
+    pip cache purge && \
     MPLBACKEND=Agg python -c "import matplotlib.pyplot" && \
     fix-permissions "/home/${NB_USER}"
