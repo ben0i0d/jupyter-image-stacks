@@ -437,17 +437,17 @@ scipyjo-g-build:
       --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipyjo-g"
-# pyjoai-g-build:
-#   stage: build
-#   needs: [scipyjo-g-build] # 
-#   script:
-#     - cd pyjoai/gpu
-#     - /kaniko/executor
-#       --context ./
-#       --dockerfile "Dockerfile"
-#       --cache=false
-#       --compressed-caching=false
-#       --snapshot-mode=redo
-#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:pyjoai-g"
+pyjoai-g-build:
+  stage: build
+  needs: [scipyjo-g-build] # 
+  script:
+    - cd pyjoai/gpu
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=false
+      --compressed-caching=false
+      --snapshot-mode=redo
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:pyjoai-g"
 
