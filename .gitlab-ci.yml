@@ -3,7 +3,7 @@ image:
   name: gcr.io/kaniko-project/executor:debug
   entrypoint: [""]
 before_script:
-    - echo $EOELAB_DOMAIN_CERT >> /kaniko/ssl/certs/additional-ca-cert-bundle.crt
+    - echo $EOELAB_DOMAIN_CERT > /kaniko/ssl/certs/additional-ca-cert-bundle.crt
 up-c-build:
   stage: build
   needs: []
