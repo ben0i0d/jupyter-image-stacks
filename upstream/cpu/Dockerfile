@@ -22,7 +22,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
     HOME="/home/jovyan"
 
 # Copy files
-COPY cert/eoelab.org.crt /usr/local/share/ca-certificates/eoelab.org.crt
+COPY cert/cert.pem /usr/local/share/ca-certificates/eoelab.org.crt
 COPY conf/fix-permissions start-sh/* /usr/local/bin/
 COPY conf/jupyter_server_config.py /etc/jupyter/
 COPY conf/initial-condarc "${CONDA_DIR}/.condarc"
