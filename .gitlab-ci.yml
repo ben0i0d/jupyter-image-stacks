@@ -12,9 +12,7 @@ up-c-build:
     - /kaniko/executor
       --context ./
       --dockerfile "Dockerfile"
-      --cache=true
-      --cache-copy-layers=true
-      --cache-run-layers=true
+      --cache=false
       --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-c"
