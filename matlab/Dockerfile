@@ -16,6 +16,7 @@ USER root
 WORKDIR /tmp
 
 COPY dep.txt /tmp/dep.txt
+COPY mpm_input_r2023b.txt /opt/mpm_input_r2023b.txt
 
 # base deps,copy by mathworks-ref-arch/container-images
 RUN apt-get update && apt-get install --no-install-recommends -y `cat /tmp/dep.txt` && rm /tmp/dep.txt && \
@@ -32,12 +33,9 @@ RUN apt-get update && apt-get install --no-install-recommends -y `cat /tmp/dep.t
 
 # Run mpm to install MATLAB in the target location and delete the mpm installation afterwards.
 # If mpm fails to install successfully, then print the logfile in the terminal, otherwise clean up.
-RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm && chmod +x mpm && \
-    ./mpm install \
-    --release=r2023b \
-    --destination=/opt/matlab/r2023b \
-    --products MATLAB && \
-    rm -f mpm && ln -s /opt/matlab/r2023b/bin/matlab /usr/local/bin/matlab
+RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm && chmod +x mpm && mv mpm /usr/local/bin/ && \
+    mpm install --inputfile /opt/mpm_input_r2023b.txt && \
+    ln -s /opt/matlab/r2023b/bin/matlab /usr/local/bin/matlab
 
 # Alternatively, you can put a license file into the container. Enter the details of the license server in this file and uncomment the following line.
 COPY license.lic /opt/matlab/r2023b/licenses/
@@ -48,10 +46,12 @@ COPY libmwlmgrimpl.dll /opt/matlab/r2023b/bin/matlab_startup_plugins/lmgrimpl/
 
 ENV MATLAB_EXECUTABLE=/opt/matlab/r2023b/bin/matlab
 
-RUN pip install pymatbridge && \
-    pip install matlab_kernel && \
+RUN pip install numpy && pip install pymatbridge && pip install matlab_kernel && pip cache purge && \
     python -m matlab_kernel install && \
-    cd /opt/matlab/r2023b/extern/engines/python && python setup.py install
+#    cd /opt/matlab/r2023b/extern/engines/python && python setup.py install && \
+    fix-permissions /opt/matlab && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
 
 # The following environment variables allow MathWorks to understand how this MathWorks 
 # product (MATLAB Dockerfile) is being used. This information helps us make MATLAB even better. 
