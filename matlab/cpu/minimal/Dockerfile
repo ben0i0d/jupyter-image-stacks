@@ -4,9 +4,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root
 
-# Alternatively, you can put a license file into the container. Enter the details of the license server in this file and uncomment the following line.
-COPY licenses/license.lic /tmp/license.lic
-COPY licenses/libmwlmgrimpl.so /tmp/libmwlmgrimpl.so
+
 COPY conf/dep.txt /tmp/dep.txt
 COPY conf/mpm_input_r2023b.txt /opt/mpm_input_r2023b.txt
 
@@ -27,11 +25,14 @@ RUN apt-get update && apt-get install --no-install-recommends -y `cat /tmp/dep.t
 # Run mpm to install MATLAB in the target location and delete the mpm installation afterwards.
     wget -q https://www.mathworks.com/mpm/glnxa64/mpm && chmod +x mpm && mv mpm /usr/local/bin/ && \
     mpm install --inputfile /opt/mpm_input_r2023b.txt && \
-    ln -s /opt/matlab/r2023b/bin/matlab /usr/local/bin/matlab && \
-# get lincense
-    mv /tmp/license.lic /opt/matlab/r2023b/licenses/license.lic && mv /tmp/libmwlmgrimpl.so /opt/matlab/r2023b/bin/glnxa64/matlab_startup_plugins/lmgrimpl/libmwlmgrimpl.so && \
+    ln -s /opt/matlab/r2023b/bin/matlab /usr/local/bin/matlab 
+
+# put a license file into the container. 
+COPY licenses/license.lic /opt/matlab/r2023b/licenses/
+COPY licenses/libmwlmgrimpl.so /opt/matlab/r2023b/bin/glnxa64/matlab_startup_plugins/lmgrimpl/
+
 # install matlab kernel
-    pip install jupyter-matlab-proxy && \
+RUN pip install jupyter-matlab-proxy && \
     fix-permissions /opt/matlab && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
