@@ -1,5 +1,4 @@
 FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-c
-LABEL maintainer="Pd.ch <cpd233@outlook.com>"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -9,9 +8,9 @@ USER root
 # install Julia packages in /opt/julia instead of ${HOME}
 ENV JULIA_DEPOT_PATH=/opt/julia \
     JULIA_PKGDIR=/opt/julia \
-    JULIA_VERSION=1.9.3 \
+    JULIA_VERSION=1.9.4 \
     JULIA_PKG_SERVER=https://mirrors.ustc.edu.cn/julia \
-    JULIA_NUM_THREADS=26
+    JULIA_NUM_THREADS=24
 WORKDIR /tmp
 
 # hadolint ignore=SC2046

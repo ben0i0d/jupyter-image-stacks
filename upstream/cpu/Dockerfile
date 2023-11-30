@@ -1,7 +1,5 @@
 FROM eoelab.org:1032/mirrored-sources/mirrored-sources/debian:trixie
 
-LABEL maintainer="Pd.ch <cpd233@outlook.com>"
-
 EXPOSE 8888
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]

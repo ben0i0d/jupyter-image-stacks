@@ -1,7 +1,5 @@
 FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-c
 
-LABEL maintainer="Pd.ch <cpd233@outlook.com>"
-
 # Extra arguments to `stack build`. Used to build --fast, see Makefile.
 ARG STACK_ARGS=
 ARG STACK_BINDIST="stack-2.11.1-linux-x86_64"

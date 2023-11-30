@@ -1,7 +1,5 @@
 FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipyjo-c
 
-LABEL maintainer="Pd.ch <cpd23@outlook.com>"
-
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # install tf torch transformers

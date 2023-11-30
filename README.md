@@ -34,10 +34,10 @@
 2. Julia镜像中的环境变量`JULIA_NUM_THREADS`，请在启动时根据理想的并发线程数进行配置
 3. pip包管理器的配置文件在用户目录下，使用时手动运行`pip config set global.index-url https://mirrors.bfsu.edu.cn/pypi/web/simple`完成换源
 4. 默认情况下我们信任了eoelab.org的域名证书，这不会带来安全问题
-5. Mojo被合并进入Python系
+5. Mojo被合并进入Python系,由于网络原因可能需要手动执行`modular install mojo && python /opt/modular/pkg/packages.modular.com_mojo/jupyter/manage_kernel.py install `
 6. 如果您有测试或者新需求，请构建一个新分支,在源仓库工作时，为了不覆盖tag，建议您改动ci文件中tag字段，如果您自行构建，或者派生，可以替换dockerfile中的基础镜像
 7. 我们允许了sudo的无密码使用，因此在安全要求较高的场景中，请不要允许特权提升
-8. 由于用户目录是挂载点，我们无法修改，因此以下是一个手动解决方案，同时在terminal内部自行选择shell，以下代码只需执行一次即可
+8. 对于zsh的支持，无法持久修改是挂载点的目录，因此以下是一个手动解决方案，请在terminal内自行选择shell，以下代码只需执行一次即可
 ```
 git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
 cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
@@ -50,16 +50,11 @@ zh_font = FontProperties(fname="/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc")
 # 将中文字体设置为默认字体
 plt.rcParams["font.family"] = zh_font.get_name()
 ```
-10. 以下代码适用于增加对conda虚拟目录的支持。有两点需要注意：数据持久化与在虚拟环境内安装内核
-
-数据持久化:
-
-docker启动时添加`-v "DATA-VOLUME":/opt/conda/envs/`
-
-Jupyterhub添加额外挂载点到`/opt/conda/envs/`
-
-虚拟环境：
-
+10. 以下代码适用于增加对conda虚拟目录的支持。有两点需要注意：数据持久化与在虚拟环境内安装内核  
+数据持久化:  
+* docker启动时添加`-v "DATA-VOLUME":/opt/conda/envs/`
+* Jupyterhub添加额外挂载点到`/opt/conda/envs/`
+虚拟环境：  
 使用`conda create -n NAME *** ipykernel` 创建这个虚拟环境。使用`source activate NAME`切换到这个虚拟环境，并且添加一个kernel到本地的`.jupyter`目录，使用`python -m ipykernel install --user --name NAME --display-name "DISPLAY-NAME"`完成
 
 ### 当前构建镜像清单
@@ -95,6 +90,7 @@ Jupyterhub添加额外挂载点到`/opt/conda/envs/`
 * Scilab（With Desktop-GUI）: 开源的数值计算软件，适用于科学和工程领域中的数值分析、数据可视化、模拟和建模。它提供了丰富的数学函数和工具箱，支持矩阵计算、符号计算和绘图功能，是一个强大的数学工具，尤其适用于教育和研究领域，提供Xfce桌面支持，包含APT可获取的全部插件。
 * Octave: 开源的数值计算软件，类似于Matlab，用于科学计算、数据分析和数值模拟。它提供了强大的矩阵运算、绘图功能以及丰富的数值分析函数，是一个免费且便捷的工具，适合进行数学建模、算法开发和教学任务，包含APT可获取的全部插件。
 * MATLAB：一种支持数据分析、算法开发和建模的编程和数值计算平台,当前版本为R2023b
+  * minimal:仅仅包含`Product:MATLAB`
 
 ### 插件清单
 
@@ -103,7 +99,6 @@ Jupyterhub添加额外挂载点到`/opt/conda/envs/`
 * jupyterlab_tabnine：用于自动补全、参数建议、函数文档查询、跳转定义
 
 **局部**
-
 
 ### 镜像依赖关系
 ```mermaid
@@ -138,6 +133,7 @@ PRA-->PRAB(Pyjospark)
 BASE-->MATH{MATH-TOOL}-->MA(Octave)
 MATH-->MB(Scilab)
 MATH-->MC(Sagemath)
+MATH-->MD(MATLAB)
 ```
 
 ## 上游

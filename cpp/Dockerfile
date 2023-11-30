@@ -1,5 +1,4 @@
 FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-c
-LABEL maintainer="Pd.cd <cpd233@outlook.com>"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
