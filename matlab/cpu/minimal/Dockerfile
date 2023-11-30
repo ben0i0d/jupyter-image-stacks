@@ -27,7 +27,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y `cat /tmp/dep.t
 # Run mpm to install MATLAB in the target location and delete the mpm installation afterwards.
     wget -q https://www.mathworks.com/mpm/glnxa64/mpm && chmod +x mpm && mv mpm /usr/local/bin/ && \
     mpm install --inputfile /opt/mpm_input_r2023b.txt && \
-    ln -s /opt/matlab/r2023b/bin/matlab /usr/local/bin/matlab
+    ln -s /opt/matlab/r2023b/bin/matlab /usr/local/bin/matlab && \
 # get lincense
     mv /tmp/license.lic /opt/matlab/r2023b/licenses/ && mv /tmp/libmwlmgrimpl.so /opt/matlab/r2023b/bin/glnxa64/matlab_startup_plugins/lmgrimpl && \
 # install matlab kernel

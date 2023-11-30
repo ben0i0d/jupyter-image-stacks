@@ -10,8 +10,7 @@ COPY linux_64_18.2.45405_unicode.x86_64.deb ./
 
 RUN dpkg -i linux_64_18.2.45405_unicode.x86_64.deb && \
     rm linux_64_18.2.45405_unicode.x86_64.deb && \
-    git clone --depth=1 https://eoelab.org:1031/mirrored-sources/dyalog-jupyter-kernel.git && cd dyalog-jupyter-kernel && \
-    bash install.sh
+    pip install dyalog-jupyter-kernel && pip cache purge
 
 USER ${NB_UID}
 WORKDIR "${HOME}"
