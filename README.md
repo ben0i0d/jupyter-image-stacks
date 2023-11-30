@@ -123,7 +123,7 @@ PROGRAM-->PN(Agda)
 PROGRAM-->PO(APL:Dyalog)
 PROGRAM-->PP(Cadabra)
 PROGRAM-->PQ(Haskell)
-PROGRAM-->PR(Python)
+PROGRAM-->PR(Pyjo)
 PROGRAM-->PS(Q#)
 PROGRAM-->PT(SQL)
 PR-->PRA(Scipyjo)
@@ -133,7 +133,7 @@ PRA-->PRAB(Pyjospark)
 BASE-->MATH{MATH-TOOL}-->MA(Octave)
 MATH-->MB(Scilab)
 MATH-->MC(Sagemath)
-MATH-->MD(MATLAB)-->MDM(minimal)
+MATH-->MD(MATLAB)-->MDA(minimal)
 ```
 
 ## 上游
