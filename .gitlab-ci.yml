@@ -47,24 +47,24 @@ before_script:
 #       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scipyjo-c"
-scrpyjo-c-build:
-  stage: build
-  needs: [] # pyjo-c-build
-  script:
-    - cd scrpyjo
-    - /kaniko/executor
-      --context ./
-      --dockerfile "Dockerfile"
-      --build-arg "http_proxy=http://192.168.2.175:7890"
-      --build-arg "HTTP_PROXY=http://192.168.2.175:7890"
-      --build-arg "https_proxy=http://192.168.2.175:7890"
-      --build-arg "HTTPS_PROXY=http://192.168.2.175:7890"
-      --build-arg "no_proxy=127.0.0.1,localhost,172.0.0.0/8,192.0.0.0/8"
-      --build-arg "NO_PROXY=127.0.0.1,localhost,172.0.0.0/8,192.0.0.0/8"
-      --cache=false
-      --snapshot-mode=redo
-      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scrpyjo-c"
+# scrpyjo-c-build:
+#   stage: build
+#   needs: [pyjo-c-build] # 
+#   script:
+#     - cd scrpyjo
+#     - /kaniko/executor
+#       --context ./
+#       --dockerfile "Dockerfile"
+#       --build-arg "http_proxy=http://192.168.2.175:7890"
+#       --build-arg "HTTP_PROXY=http://192.168.2.175:7890"
+#       --build-arg "https_proxy=http://192.168.2.175:7890"
+#       --build-arg "HTTPS_PROXY=http://192.168.2.175:7890"
+#       --build-arg "no_proxy=127.0.0.1,localhost,172.0.0.0/8,192.0.0.0/8"
+#       --build-arg "NO_PROXY=127.0.0.1,localhost,172.0.0.0/8,192.0.0.0/8"
+#       --cache=false
+#       --snapshot-mode=redo
+#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scrpyjo-c"
 # pyjospark-c-build:
 #   stage: build
 #   needs: [scipyjo-c-build] # 
@@ -187,24 +187,24 @@ scrpyjo-c-build:
 #       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:haskell-c"
-go-c-build:
-  stage: build
-  needs: [] # up-c-build
-  script:
-    - cd go
-    - /kaniko/executor
-      --context ./
-      --dockerfile "Dockerfile"
-      --build-arg "http_proxy=http://192.168.2.175:7890"
-      --build-arg "HTTP_PROXY=http://192.168.2.175:7890"
-      --build-arg "https_proxy=http://192.168.2.175:7890"
-      --build-arg "HTTPS_PROXY=http://192.168.2.175:7890"
-      --build-arg "no_proxy=127.0.0.1,localhost,172.0.0.0/8,192.0.0.0/8"
-      --build-arg "NO_PROXY=127.0.0.1,localhost,172.0.0.0/8,192.0.0.0/8"
-      --cache=false
-      --snapshot-mode=redo
-      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:go-c"
+# go-c-build:
+#   stage: build
+#   needs: [up-c-build] # 
+#   script:
+#     - cd go
+#     - /kaniko/executor
+#       --context ./
+#       --dockerfile "Dockerfile"
+#       --build-arg "http_proxy=http://192.168.2.175:7890"
+#       --build-arg "HTTP_PROXY=http://192.168.2.175:7890"
+#       --build-arg "https_proxy=http://192.168.2.175:7890"
+#       --build-arg "HTTPS_PROXY=http://192.168.2.175:7890"
+#       --build-arg "no_proxy=127.0.0.1,localhost,172.0.0.0/8,192.0.0.0/8"
+#       --build-arg "NO_PROXY=127.0.0.1,localhost,172.0.0.0/8,192.0.0.0/8"
+#       --cache=false
+#       --snapshot-mode=redo
+#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:go-c"
 # rust-c-build:
 #   stage: build
 #   needs: [up-c-build] # 
@@ -396,6 +396,20 @@ go-c-build:
 #       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scilab-c"
+matlab-c-build:
+  stage: build
+  needs: [] # up-c-build
+  script:
+    - cd matlab
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=false
+      --compressed-caching=false
+      --snapshot-mode=redo
+      --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:matlab-c"
+
 
 # up-g-build:
 #   stage: build
