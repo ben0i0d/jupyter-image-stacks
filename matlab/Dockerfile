@@ -19,7 +19,7 @@ COPY dep.txt /tmp/dep.txt
 COPY mpm_input_r2023b.txt /opt/mpm_input_r2023b.txt
 
 # base deps,copy by mathworks-ref-arch/container-images
-RUN apt-get update && apt-get install --no-install-recommends -y `cat /tmp/dep.txt` && rm /tmp/dep.txt && \
+RUN apt-get update && apt-get install --no-install-recommends -y `cat /tmp/dep.txt` xvfb && rm /tmp/dep.txt && \
 # using Simulink code generation capabilities, compile mex files with gcc, g++, or gfortran.
     apt-get install -y gcc g++ gfortran && \
 # enable running a program that makes use of MATLAB's Engine API for C and Fortran
@@ -40,15 +40,13 @@ RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm && chmod +x mpm && mv mpm 
 # Alternatively, you can put a license file into the container. Enter the details of the license server in this file and uncomment the following line.
 COPY license.lic /opt/matlab/r2023b/licenses/
 
-COPY libmwlmgrimpl.dll /opt/matlab/r2023b/bin/matlab_startup_plugins/lmgrimpl/
+COPY libmwlmgrimpl.dll /opt/matlab/r2023b/bin/glnxa64/matlab_startup_plugins/lmgrimpl
 
 # install matlab kernel
 
 ENV MATLAB_EXECUTABLE=/opt/matlab/r2023b/bin/matlab
 
-RUN pip install numpy && pip install pymatbridge && pip install matlab_kernel && \
-    python -m matlab_kernel install && \
-#    cd /opt/matlab/r2023b/extern/engines/python && python setup.py install && \
+RUN pip install jupyter-matlab-proxy && \
     fix-permissions /opt/matlab && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
