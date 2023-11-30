@@ -36,9 +36,8 @@ RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm && chmod +x mpm && \
     ./mpm install \
     --release=r2023b \
     --destination=/opt/matlab/r2023b \
-    --products MATLAB || (echo "MPM Installation Failure. See below for more information:" && cat /tmp/mathworks_root.log && false) && \
-    rm -f mpm /tmp/mathworks_root.log && \
-    && ln -s /opt/matlab/r2023b/bin/matlab /usr/local/bin/matlab
+    --products MATLAB && \
+    rm -f mpm && ln -s /opt/matlab/r2023b/bin/matlab /usr/local/bin/matlab
 
 # Alternatively, you can put a license file into the container. Enter the details of the license server in this file and uncomment the following line.
 COPY license.lic /opt/matlab/r2023b/licenses/
