@@ -46,7 +46,7 @@ COPY libmwlmgrimpl.dll /opt/matlab/r2023b/bin/matlab_startup_plugins/lmgrimpl/
 
 ENV MATLAB_EXECUTABLE=/opt/matlab/r2023b/bin/matlab
 
-RUN pip install numpy && pip install pymatbridge && pip install matlab_kernel && pip cache purge && \
+RUN pip install numpy && pip install pymatbridge && pip install matlab_kernel && \
     python -m matlab_kernel install && \
 #    cd /opt/matlab/r2023b/extern/engines/python && python setup.py install && \
     fix-permissions /opt/matlab && \
