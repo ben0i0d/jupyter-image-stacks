@@ -193,7 +193,7 @@ jupyter团队项目 https://github.com/jupyter/docker-stacks
 * Chapel: http://github.com/krishnadey30/jupyter_kernel_chapel
 * SQL: https://github.com/suyin1203/duckdb_kernel
 * NoVNC: https://github.com/jupyterhub/jupyter-remote-desktop-proxy
-
+* MATLAB: https://github.com/mathworks/jupyter-matlab-proxy
 ## 必要的版权说明
 对于派生自其他团队的代码，我们在文件头添加了原版版权声明，我们保留并且支持其他开发团队版权
 

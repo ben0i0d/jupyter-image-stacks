@@ -40,7 +40,7 @@ RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm && chmod +x mpm && mv mpm 
 # Alternatively, you can put a license file into the container. Enter the details of the license server in this file and uncomment the following line.
 COPY license.lic /opt/matlab/r2023b/licenses/
 
-COPY libmwlmgrimpl.dll /opt/matlab/r2023b/bin/glnxa64/matlab_startup_plugins/lmgrimpl
+COPY libmwlmgrimpl.so /opt/matlab/r2023b/bin/glnxa64/matlab_startup_plugins/lmgrimpl
 
 # install matlab kernel
 
