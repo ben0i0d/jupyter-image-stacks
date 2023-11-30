@@ -29,9 +29,9 @@ RUN apt-get update && apt-get install --no-install-recommends -y `cat /tmp/dep.t
     mpm install --inputfile /opt/mpm_input_r2023b.txt && \
     ln -s /opt/matlab/r2023b/bin/matlab /usr/local/bin/matlab && \
 # get lincense
-    mv /tmp/license.lic /opt/matlab/r2023b/licenses/ && mv /tmp/libmwlmgrimpl.so /opt/matlab/r2023b/bin/glnxa64/matlab_startup_plugins/lmgrimpl && \
+    mv /tmp/license.lic /opt/matlab/r2023b/licenses/license.lic && mv /tmp/libmwlmgrimpl.so /opt/matlab/r2023b/bin/glnxa64/matlab_startup_plugins/lmgrimpl/libmwlmgrimpl.so && \
 # install matlab kernel
-    pip install jupyter-matlab-proxy && pip cache purge && \
+    pip install jupyter-matlab-proxy && \
     fix-permissions /opt/matlab && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"

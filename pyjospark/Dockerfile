@@ -10,7 +10,7 @@ USER root
 
 # Spark dependencies
 # Default values can be overridden at build time
-ARG spark_version="3.4.1"
+ARG spark_version="3.5.0"
 ARG hadoop_version="3"
 
 # Configure Spark
