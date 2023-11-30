@@ -6,14 +6,6 @@
 # Specify license server information using the format: port@hostname 
 ARG LICENSE_SERVER
 
-# The following environment variables allow MathWorks to understand how this MathWorks 
-# product (MATLAB Dockerfile) is being used. This information helps us make MATLAB even better. 
-# Your content, and information about the content within your files, is not shared with MathWorks. 
-# To opt out of this service, delete the environment variables defined in the following line. 
-# To learn more, see the Help Make MATLAB Even Better section in the accompanying README: 
-# https://github.com/mathworks-ref-arch/matlab-dockerfile#help-make-matlab-even-better
-ENV MW_DDUX_FORCE_ENABLE=true MW_CONTEXT_TAGS=MATLAB:DOCKERFILE:V1
-
 FROM eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:up-c
 LABEL maintainer="Pd.ch <cpd233@outlook.com>"
 
@@ -24,7 +16,6 @@ USER root
 WORKDIR /tmp
 
 COPY dep.txt /tmp/dep.txt
-
 
 # base deps,copy by mathworks-ref-arch/container-images
 RUN apt-get update && apt-get install --no-install-recommends -y `cat /tmp/dep.txt` && rm /tmp/dep.txt && \
@@ -62,6 +53,14 @@ RUN pip install pymatbridge && \
     pip install matlab_kernel && \
     python -m matlab_kernel install && \
     cd /opt/matlab/r2023b/extern/engines/python && python setup.py install
+
+# The following environment variables allow MathWorks to understand how this MathWorks 
+# product (MATLAB Dockerfile) is being used. This information helps us make MATLAB even better. 
+# Your content, and information about the content within your files, is not shared with MathWorks. 
+# To opt out of this service, delete the environment variables defined in the following line. 
+# To learn more, see the Help Make MATLAB Even Better section in the accompanying README: 
+# https://github.com/mathworks-ref-arch/matlab-dockerfile#help-make-matlab-even-better
+ENV MW_DDUX_FORCE_ENABLE=true MW_CONTEXT_TAGS=MATLAB:DOCKERFILE:V1
 
 USER ${NB_UID}
 WORKDIR "${HOME}"
