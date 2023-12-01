@@ -37,4 +37,3 @@ RUN apt-get update && apt-get install --no-install-recommends -y `cat /tmp/dep.t
     fix-permissions "/home/${NB_USER}"
 
 USER ${NB_UID}
-WORKDIR "${HOME}"

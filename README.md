@@ -91,6 +91,7 @@ plt.rcParams["font.family"] = zh_font.get_name()
 * Octave: 开源的数值计算软件，类似于Matlab，用于科学计算、数据分析和数值模拟。它提供了强大的矩阵运算、绘图功能以及丰富的数值分析函数，是一个免费且便捷的工具，适合进行数学建模、算法开发和教学任务，包含APT可获取的全部插件。
 * MATLAB：一种支持数据分析、算法开发和建模的编程和数值计算平台,当前版本为R2023b
   * minimal:仅仅包含`Product:MATLAB`
+  * mcm:包含数学建模所需要的工具箱
 
 ### 插件清单
 
@@ -133,7 +134,7 @@ PRA-->PRAB(Pyjospark)
 BASE-->MATH{MATH-TOOL}-->MA(Octave)
 MATH-->MB(Scilab)
 MATH-->MC(Sagemath)
-MATH-->MD(MATLAB)-->MDA(minimal)
+MATH-->MD(MATLAB)-->MDA(minimal)-->MDAA(mcm)
 ```
 
 ## 上游
