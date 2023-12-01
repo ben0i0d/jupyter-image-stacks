@@ -411,7 +411,7 @@ before_script:
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:matlab-c-minimal"
 matlab-c-MCMsupport-build:
   stage: build
-  needs: [matlab-c-minimal-build] # up-c-build
+  needs: [] #matlab-c-minimal-build
   script:
     - cd matlab/cpu/MCMsupport
     - /kaniko/executor
