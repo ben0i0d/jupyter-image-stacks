@@ -396,11 +396,24 @@ before_script:
 #       --snapshot-mode=redo
 #       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
 #       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:scilab-c"
-matlab-c-minimal-build:
+# matlab-c-minimal-build:
+#   stage: build
+#   needs: [] # up-c-build
+#   script:
+#     - cd matlab/cpu/minimal
+#     - /kaniko/executor
+#       --context ./
+#       --dockerfile "Dockerfile"
+#       --cache=false
+#       --compressed-caching=false
+#       --snapshot-mode=redo
+#       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
+#       --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:matlab-c-minimal"
+matlab-c-MCMsupport-build:
   stage: build
-  needs: [] # up-c-build
+  needs: [matlab-c-minimal-build] # up-c-build
   script:
-    - cd matlab/cpu/minimal
+    - cd matlab/cpu/MCMsupport
     - /kaniko/executor
       --context ./
       --dockerfile "Dockerfile"
@@ -408,9 +421,7 @@ matlab-c-minimal-build:
       --compressed-caching=false
       --snapshot-mode=redo
       --cache-repo "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/cache"
-      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:matlab-c-minimal"
-
-
+      --destination "eoelab.org:1032/build-image-stacks/jupyter-image-stacks/jupyter:matlab-c-MCMsupport"
 # up-g-build:
 #   stage: build
 #   needs: []
